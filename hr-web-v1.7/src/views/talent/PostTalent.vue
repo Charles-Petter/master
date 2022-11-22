@@ -2,7 +2,6 @@
   <div>
     <div>
       <span v-if="is_director">您是{{ this.emp.department_name }}部门的主管</span>
-      <span v-else>您是公司总裁</span>
       <el-descriptions class="margin-top" :title="title" :column="3" :size="size" border>
         <!--        <template slot="extra">-->
         <!--          <el-button type="primary" size="small">操作</el-button>-->

@@ -162,21 +162,6 @@ func EmployeeBasicDelete(context *gin.Context) {
 }
 
 func EmployeeBasicMultiDelete(context *gin.Context) {
-	//requestMulti := make(map[string]interface{})
-	//context.ShouldBind(&requestMulti)
-	//fmt.Println(requestMulti)
-	////requestPolitical := requestMulti["id"].(string)
-	//count := 0
-	//
-	//for key,val := range requestMulti {
-	//	fmt.Println(key)
-	//	fmt.Println(val)
-	//	//temp1 := val.(map[string]interface{})
-	//	//fmt.Println(temp1["x"])
-	//	//fmt.Println(temp1["y"])
-	//	count++
-	//}
-
 	var request []string
 	count := 0
 	context.ShouldBindJSON(&request)
