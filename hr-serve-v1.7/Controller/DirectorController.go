@@ -12,16 +12,18 @@ import (
 	"time"
 )
 
-func DirectorDepartment(context *gin.Context)  {
+func DirectorDepartment(context *gin.Context) {
 	var requestDirector Model.Employee
 	json.NewDecoder(context.Request.Body).Decode(&requestDirector)
 	var director Model.Employee
+	//db.Where(query interface{}, args ...interface{})
+	//这里问号(?), 在执行的时候会被requestDirector.Id替代  First查询一条记录
 	err := Global.Db.Where("id = ?", requestDirector.Id).First(&director).Error
 	if err != nil {
 		fmt.Println("查询主管的部门出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查询主管的部门出错",
+			"code": 200,
+			"msg":  "查询主管的部门出错",
 		})
 		return
 	}
@@ -29,19 +31,19 @@ func DirectorDepartment(context *gin.Context)  {
 	context.JSON(http.StatusOK, director)
 }
 
-func DirectorInitExamine(context *gin.Context)  {
+//主管信息
+func DirectorInitExamine(context *gin.Context) {
 	var requestDirector Model.Employee
 	json.NewDecoder(context.Request.Body).Decode(&requestDirector)
 	fmt.Println("请求到的主管：", requestDirector)
-
 	var application []Model.PostApplications
 	var err error
 	err = Global.Db.Where("new_department_name = ? and is_agree = ?", requestDirector.Department_name, 0).Find(&application).Error
 	if err != nil {
 		fmt.Println("寻找初始审核信息出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "初始化审核信息出错",
+			"code": 200,
+			"msg":  "初始化审核信息出错",
 		})
 		return
 	}
@@ -49,19 +51,22 @@ func DirectorInitExamine(context *gin.Context)  {
 	context.JSON(http.StatusOK, application)
 }
 
-func DirectorAgreeApply(context *gin.Context)  {
+//同意申请
+func DirectorAgreeApply(context *gin.Context) {
 	var requestApplication Model.PostApplications
 	json.NewDecoder(context.Request.Body).Decode(&requestApplication)
 	fmt.Println("收到的同意申请：", requestApplication)
 	var err error
 	//把申请表的是否同意置为1
 	//var application Model.PostApplications
+	//设置Where条件，Model参数绑定一个空的模型变量
+	//等价于: UPDATE `post_applications`   //把申请表的是否同意置为1
 	err = Global.Db.Table("post_applications").Where("id = ?", requestApplication.Id).Update("is_agree", 1).Error
 	if err != nil {
 		fmt.Println("修改申请表出错")
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "修改申请表出错",
+			"code": 200,
+			"msg":  "修改申请表出错",
 		})
 		return
 	}
@@ -71,17 +76,17 @@ func DirectorAgreeApply(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找员工出错")
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找员工出错",
+			"code": 200,
+			"msg":  "查找员工出错",
 		})
 		return
 	}
 	fmt.Println("即将修改的员工信息：", employee)
+	//原始                               新的
 	original_department_number := employee.Department_number
 	original_post_number := employee.Post_number
 	original_department_name := requestApplication.Original_department_name
 	original_post_name := requestApplication.Original_post_name
-
 
 	// 查找正确的部门和岗位编号
 	var department Model.Department
@@ -90,8 +95,8 @@ func DirectorAgreeApply(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找部门编号出错")
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找部门编号出错",
+			"code": 200,
+			"msg":  "查找部门编号出错",
 		})
 		return
 	}
@@ -99,8 +104,8 @@ func DirectorAgreeApply(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找岗位编号出错")
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找岗位编号出错",
+			"code": 200,
+			"msg":  "查找岗位编号出错",
 		})
 		return
 	}
@@ -112,28 +117,27 @@ func DirectorAgreeApply(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("修改员工出错")
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "修改员工出错",
+			"code": 200,
+			"msg":  "修改员工出错",
 		})
 		return
 	}
 	fmt.Println("修改之后的员工信息：", employee)
 	context.JSON(http.StatusOK, gin.H{
-		"code" : 200,
-		"msg" : "已同意" + requestApplication.Name + "的申请",
-		"data" : employee,
+		"code": 200,
+		"msg":  "已同意" + requestApplication.Name + "的申请",
+		"data": employee,
 	})
 	//把岗位变动写入数据库
-
-	if employee.Department_name != original_department_name {
+	if employee.Department_name != original_department_name { //如果更改的数据与原数据不相同
 		//跨部门调动
 		var tempCount int64
 		err = Global.Db.Table("department_transfer_employee_tables").Count(&tempCount).Error
 		if err != nil {
 			fmt.Println("计算记录数量出错！", err)
 			context.JSON(http.StatusOK, gin.H{
-				"code" : 200,
-				"msg" : "计算记录数量出错",
+				"code": 200,
+				"msg":  "计算记录数量出错",
 			})
 			return
 		}
@@ -156,12 +160,12 @@ func DirectorAgreeApply(context *gin.Context)  {
 		Global.Db.Create(&departmentTransfer)
 
 		var tempCountPost int64
-		err = Global.Db.Table("post_transfer_employee_tables").Count(&tempCountPost).Error
+		err = Global.Db.Table("post_transfer_employee_tables").Count(&tempCountPost).Error //Count直接返回查询匹配的行数
 		if err != nil {
 			fmt.Println("计算记录数量出错！", err)
 			context.JSON(http.StatusOK, gin.H{
-				"code" : 200,
-				"msg" : "计算记录数量出错",
+				"code": 200,
+				"msg":  "计算记录数量出错",
 			})
 			return
 		}
@@ -189,8 +193,8 @@ func DirectorAgreeApply(context *gin.Context)  {
 		if err != nil {
 			fmt.Println("计算记录数量出错！", err)
 			context.JSON(http.StatusOK, gin.H{
-				"code" : 200,
-				"msg" : "计算记录数量出错",
+				"code": 200,
+				"msg":  "计算记录数量出错",
 			})
 			return
 		}
@@ -215,7 +219,7 @@ func DirectorAgreeApply(context *gin.Context)  {
 
 }
 
-func DirectorRefuseApply(context *gin.Context)  {
+func DirectorRefuseApply(context *gin.Context) {
 	var requestApplication Model.PostApplications
 	json.NewDecoder(context.Request.Body).Decode(&requestApplication)
 	fmt.Println("收到的拒绝申请：", requestApplication)
@@ -224,19 +228,19 @@ func DirectorRefuseApply(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("修改申请表出错")
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "修改申请表出错",
+			"code": 200,
+			"msg":  "修改申请表出错",
 		})
 		return
 	}
 	context.JSON(http.StatusOK, gin.H{
-		"code" : 200,
-		"msg" : "已拒绝" + requestApplication.Name + "的申请",
-		"data" : requestApplication,
+		"code": 200,
+		"msg":  "已拒绝" + requestApplication.Name + "的申请",
+		"data": requestApplication,
 	})
 }
 
-func EmployeeBasicByDirector(context *gin.Context)  {
+func EmployeeBasicByDirector(context *gin.Context) {
 	request := make(map[string]interface{})
 	context.ShouldBind(&request)
 	requestId := request["id"].(string)
@@ -249,8 +253,8 @@ func EmployeeBasicByDirector(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找主管ID出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找主管ID出错",
+			"code": 200,
+			"msg":  "查找主管ID出错",
 		})
 		return
 	}
@@ -258,20 +262,19 @@ func EmployeeBasicByDirector(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找主管部门的员工出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找主管部门的员工出错",
+			"code": 200,
+			"msg":  "查找主管部门的员工出错",
 		})
 		return
 	}
 	context.JSON(http.StatusOK, employee)
 }
 
-func EmployeeQuitByDirector(context *gin.Context)  {
+func EmployeeQuitByDirector(context *gin.Context) {
 	request := make(map[string]interface{})
 	context.ShouldBind(&request)
 	requestId := request["id"].(string)
 	fmt.Println("登录的主管ID：", requestId)
-
 
 	var director Model.Employee
 	var err error
@@ -279,8 +282,8 @@ func EmployeeQuitByDirector(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找主管ID出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找主管ID出错",
+			"code": 200,
+			"msg":  "查找主管ID出错",
 		})
 		return
 	}
@@ -290,8 +293,8 @@ func EmployeeQuitByDirector(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找离职员工表出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找离职员工表出错",
+			"code": 200,
+			"msg":  "查找离职员工表出错",
 		})
 		return
 	}
@@ -299,7 +302,7 @@ func EmployeeQuitByDirector(context *gin.Context)  {
 	context.JSON(http.StatusOK, quit)
 }
 
-func EmployeeBasicByDirectorBySearchByDate(context *gin.Context)  {
+func EmployeeBasicByDirectorBySearchByDate(context *gin.Context) {
 	requestDate := make(map[string]interface{})
 	context.ShouldBind(&requestDate)
 	requestId := requestDate["id"].(string)
@@ -322,8 +325,8 @@ func EmployeeBasicByDirectorBySearchByDate(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找主管ID出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找主管ID出错",
+			"code": 200,
+			"msg":  "查找主管ID出错",
 		})
 		return
 	}
@@ -333,20 +336,20 @@ func EmployeeBasicByDirectorBySearchByDate(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找离职员工表出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找离职员工表出错",
+			"code": 200,
+			"msg":  "查找离职员工表出错",
 		})
 		return
 	}
 	fmt.Println("即将返回的离职员工表：", quit)
 	context.JSON(http.StatusOK, gin.H{
-		"code" : 200,
-		"data" : quit,
+		"code": 200,
+		"data": quit,
 	})
 
 }
 
-func GetDepartmentName(context *gin.Context)  {
+func GetDepartmentName(context *gin.Context) {
 	request := make(map[string]interface{})
 	context.ShouldBind(&request)
 	requestId := request["id"].(string)
@@ -358,14 +361,14 @@ func GetDepartmentName(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找主管信息出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找主管信息出错",
+			"code": 200,
+			"msg":  "查找主管信息出错",
 		})
 		return
 	}
 	context.JSON(http.StatusOK, gin.H{
-		"code" : 200,
-		"data" : employee.Department_name,
+		"code": 200,
+		"data": employee.Department_name,
 	})
 }
 func TalentApplyPart(ctx *gin.Context) {
@@ -375,12 +378,12 @@ func TalentApplyPart(ctx *gin.Context) {
 
 	var application []Model.TalentPool
 	var err error
-	err = Global.Db.Where("is_agree = ? and department_name = ?", 0,requestDirector.Department_name).Find(&application).Error
+	err = Global.Db.Where("is_agree = ? and department_name = ?", 0, requestDirector.Department_name).Find(&application).Error
 	if err != nil {
 		fmt.Println("寻找初始审核信息出错", err)
 		ctx.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "初始化审核信息出错",
+			"code": 200,
+			"msg":  "初始化审核信息出错",
 		})
 		return
 	}
@@ -388,11 +391,11 @@ func TalentApplyPart(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, application)
 }
 
-func EmployeeBasicSearchByDirector(context *gin.Context)  {
+func EmployeeBasicSearchByDirector(context *gin.Context) {
 	request := make(map[string]interface{})
 	context.ShouldBind(&request)
-	requestId := request["id"].(string)//部门主管的id
-	requestName := request["name"].(string)//要查找的姓名
+	requestId := request["id"].(string)     //部门主管的id
+	requestName := request["name"].(string) //要查找的姓名
 	fmt.Println("id = ", requestId, ";name = ", requestName)
 	var tempDepartment Model.Employee
 	var err error
@@ -406,20 +409,21 @@ func EmployeeBasicSearchByDirector(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("未找到此员工")
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "未找到此员工",
+			"code": 200,
+			"msg":  "未找到此员工",
 		})
 		return
 	}
 	fmt.Println("查询结果：", employee)
 	context.JSON(http.StatusOK, gin.H{
-		"code" : 200,
-		"msg" : "查询成功",
-		"data" : employee,
+		"code": 200,
+		"msg":  "查询成功",
+		"data": employee,
 	})
 }
 
-func EmployeeBasicSearchDateByDirector(context *gin.Context)  {
+//根据入职日期查询按钮
+func EmployeeBasicSearchDateByDirector(context *gin.Context) {
 	requestDate := make(map[string]interface{})
 	context.ShouldBind(&requestDate)
 	fmt.Println(requestDate)
@@ -443,17 +447,15 @@ func EmployeeBasicSearchDateByDirector(context *gin.Context)  {
 	if err != nil {
 		fmt.Println("查找指定日期区间的员工出错", err)
 		context.JSON(http.StatusOK, gin.H{
-			"code" : 200,
-			"msg" : "查找指定日期区间的员工出错",
+			"code": 200,
+			"msg":  "查找指定日期区间的员工出错",
 		})
 		return
 	}
 	fmt.Println("查找结果：", employee)
 	context.JSON(http.StatusOK, gin.H{
-		"code" : 200,
-		"msg" : "查找成功",
-		"data" : employee,
+		"code": 200,
+		"msg":  "查找成功",
+		"data": employee,
 	})
 }
-
-

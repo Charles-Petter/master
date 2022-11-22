@@ -12,11 +12,13 @@
       <el-col :span="12">
         <div>
           <el-tabs type="border-card" class="tabs">
-            <el-tab-pane label="加入我们">
-              <p class="font">区块链人才计划</p><br/>
-              <p class="font2">点击下方按钮，加入本公司人才库</p>
-              <el-button class="joinUs" size="normal" type="success" @click="joinUs" style="width: 100%">加入我们</el-button>
-            </el-tab-pane>
+
+
+<!--            <el-tab-pane label="加入我们">-->
+<!--              <p class="font">区块链人才计划</p><br/>-->
+<!--              <p class="font2">点击下方按钮，加入本公司人才库</p>-->
+<!--              <el-button class="joinUs" size="normal" type="success" @click="joinUs" style="width: 100%">加入我们</el-button>-->
+<!--            </el-tab-pane>-->
             <el-tab-pane label="登录">
               <el-form
                   :rules="rules"
@@ -28,6 +30,7 @@
                   :model="loginForm"
                   class="loginContainer">
                 <h3 class="loginTitle">系统登录</h3>
+
                 <el-form-item prop="id">
                   <el-input size="normal" type="text" v-model="loginForm.id"
                             placeholder="请输入用户名"></el-input>
@@ -73,6 +76,7 @@
           :visible.sync="dialogAddVisible"
           width="80%">
         <div>
+<!--          录入信息表单-->
           <el-form :model="emp" :rules="talentRules" ref="talentForm">
             <el-row>
               <el-col :span="6">

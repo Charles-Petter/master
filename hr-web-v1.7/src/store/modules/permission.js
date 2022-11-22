@@ -52,17 +52,9 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes
-      // if (roles.includes('admin')) {
-      //   accessedRoutes = asyncRoutes || []
-      // } else {
-      //   accessedRoutes = filterAsyncRoutes(adminLogin, roles)
-      // }
+
       const type = localStorage.getItem('type');
-      // alert("aaaa"+type);
-      // type:1是老板 2是主管 3是员工
-      if(type == '总裁'){
-        accessedRoutes = filterAsyncRoutes(bossLogin, roles)
-      } else if (type == '主管'){
+     if (type == '主管'){
         accessedRoutes = filterAsyncRoutes(directorLogin, roles)
       } else {
         accessedRoutes = filterAsyncRoutes(employeeLogin, roles)

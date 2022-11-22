@@ -71,41 +71,6 @@ func AdminLogin(context *gin.Context) {
 	}
 	Global.Id = requestAdmin.Id
 	Response.Success(context, gin.H{"token": token, "data": admin}, "登录成功")
-
-	//fmt.Println("admin = ", admin)
-	//fmt.Println("Id = ", admin.Id)
-	//fmt.Println("Password = ", admin.Password)
-	//fmt.Println("EmployeeType = ", admin.Employee_type)
-	//fmt.Println("Name = ", admin.Name)
-	//fmt.Println("Sex = ", admin.Sex)
-	//fmt.Println("Birthday = ", admin.Birthday)
-	//fmt.Println("Political = ", admin.Political)
-	//fmt.Println("Nation = ", admin.Nation)
-	//fmt.Println("NativePlace = ", admin.Native_place)
-	//fmt.Println("Phone = ", admin.Phone)
-	//fmt.Println("Email = ", admin.Email)
-	//fmt.Println("Height = ", admin.Height)
-	//fmt.Println("BloodType = ", admin.Blood_type)
-	//fmt.Println("MaritalStatus = ", admin.Marital_status)
-	//fmt.Println("Birthplace = ", admin.Birthplace)
-	//fmt.Println("RegisteredResidence = ", admin.Registered_residence)
-	//fmt.Println("DepartmentNumber = ", admin.Department_number)
-	//fmt.Println("PostNumber = ", admin.Post_number)
-	//fmt.Println("EntryDate = ", admin.Entry_date)
-	//fmt.Println("EmploymentForm = ", admin.Employment_form)
-	//fmt.Println("PersonnelSource = ", admin.Personnel_source)
-	//fmt.Println("HighestEducation = ", admin.Highest_education)
-	//fmt.Println("GraduationSchool = ", admin.Graduation_school)
-	//fmt.Println("MajorStudied = ", admin.Major_studied)
-	//fmt.Println("GraduationDate = ", admin.Graduation_date)
-	//fmt.Println("IsQuit = ", admin.Is_quit)
-	//
-	//var post Model.PostTable
-	//err = Global.Db.Where("post_number = ?", 10).First(&post).Error
-	//if err != nil {
-	//	fmt.Println("出错了!", err)
-	//}
-	//fmt.Println(post)
 }
 
 func EmployeeBasic(context *gin.Context) {
@@ -254,23 +219,6 @@ func EmployeeBasicAdd(context *gin.Context) {
 	//var Height, Department_number, Post_number int
 	json.NewDecoder(context.Request.Body).Decode(&requestEmployee)
 	fmt.Println("即将添加的员工信息：", requestEmployee)
-	//Height, err = strconv.Atoi(requestEmployee.Height),
-	//tempEmployee := Model.Employee{
-	//	Id : requestEmployee.Id,
-	//	Password : requestEmployee.Password,
-	//	Employee_type : requestEmployee.Employee_type,
-	//	Name : requestEmployee.Name,
-	//	Sex : requestEmployee.Sex,
-	//	Birthday : requestEmployee.Birthday,
-	//	Id_card : requestEmployee.Id_card,
-	//	Political : requestEmployee.Political,
-	//	Nation : requestEmployee.Nation,
-	//	Native_place : requestEmployee.Native_place,
-	//	Phone : requestEmployee.Phone,
-	//	Email : requestEmployee.Email,
-	//	Height : Height,
-	//
-	//}
 
 	/*查找重复的员工ID*/
 	err = Global.Db.Where("id = ?", requestEmployee.Id).First(&requestEmployee).Error
@@ -314,7 +262,7 @@ func EmployeeBasicAdd(context *gin.Context) {
 		return
 	}
 	/*检查岗位编号和名称是否对应*/
-	var tempPost Model.PostTable
+	var tempPost Model.PostTable // 将Model层PostTable表定义为一个临时变量tempPost
 	Global.Db.Where("post_name = ?", requestEmployee.Post_name).First(&tempPost)
 	if requestEmployee.Post_number != tempPost.Post_number {
 		fmt.Println("岗位编号与名称不对应")
@@ -324,8 +272,9 @@ func EmployeeBasicAdd(context *gin.Context) {
 		})
 		return
 	}
-
+	//将值插入数据库
 	Global.Db.Create(&requestEmployee)
+	//JSON格式
 	context.JSON(http.StatusOK, gin.H{
 		"code": 200,
 		"msg":  "添加成功",
@@ -359,6 +308,7 @@ func EmployeeBasicSearch(context *gin.Context) {
 	})
 }
 
+//员工基础数据查询
 func EmployeeBasicSearchDate(context *gin.Context) {
 	requestDate := make(map[string]interface{})
 	context.ShouldBind(&requestDate)

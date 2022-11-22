@@ -165,6 +165,12 @@ export const directorLogin = [
                 name : '查询部门信息',
                 component : DepartmentBasic
             },
+            //**********加入信息录入组件
+            // {
+            //     path : '/department/basic',
+            //     name : '新入职员工信息录入',
+            //     component : InfoEntry
+            // },
             {
                 path : '/manage/post',
                 name : '申请新岗位',

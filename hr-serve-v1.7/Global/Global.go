@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
+//全局变量
 var Db *gorm.DB
 
 //var Db *sqlx.DB
