@@ -4,14 +4,18 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+
 	"github.com/jackc/pgtype"
+
 	"cx/Global"
+
 	"cx/Model"
 	"net/http"
+
 	"strconv"
 	"time"
 )
-
+//申请调动员工的信息
 func ApplyPostInformation(context *gin.Context)  {
 	var requestEmployee Model.Employee
 	json.NewDecoder(context.Request.Body).Decode(&requestEmployee)
@@ -29,7 +33,7 @@ func ApplyPostInformation(context *gin.Context)  {
 	fmt.Println("查询到的员工：", employee)
 	context.JSON(http.StatusOK, employee)
 }
-
+//请求新的调动信息
 func ApplyNewPost(context *gin.Context)  {
 	var requestApplication Model.PostApplications
 	json.NewDecoder(context.Request.Body).Decode(&requestApplication)
@@ -93,7 +97,7 @@ func ApplyNewPost(context *gin.Context)  {
 	})
 
 }
-
+//申请离职的员工信息
 func ApplyResignedInformation(context *gin.Context)  {
 	var requestEmployee Model.Employee
 	json.NewDecoder(context.Request.Body).Decode(&requestEmployee)
@@ -111,7 +115,7 @@ func ApplyResignedInformation(context *gin.Context)  {
 	fmt.Println("查询到的员工：", employee)
 	context.JSON(http.StatusOK, employee)
 }
-
+//申请离职
 func ApplyResigned(context *gin.Context)  {
 	var requestResigned Model.ResignedEmployee
 	json.NewDecoder(context.Request.Body).Decode(&requestResigned)

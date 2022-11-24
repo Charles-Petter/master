@@ -168,8 +168,8 @@ export const directorLogin = [
             //**********加入信息录入组件
             // {
             //     path : '/department/basic',
-            //     name : '新入职员工信息录入',
-            //     component : InfoEntry
+            //     name : '员工工资统计',
+            //     component : SalaryBasic_cx
             // },
             {
                 path : '/manage/post',

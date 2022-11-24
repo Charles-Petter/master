@@ -34,12 +34,13 @@ func main() {
 		return
 	}
 
-	//5.注册路由
+	//4.注册路由
 	//re := routers.Setup()
 	re = Router.CreateRoute(re)
-	panic(re.Run(":" + v.GetString("server.port")))
+	panic(re.Run(":" + v.GetString("server.port")))//若报端口被占用 重启电脑
 
-	//6.启动服务（优雅关机）
+
+	//5.启动服务（优雅关机）
 	//re.GET("/", func(c *gin.Context) {
 	//	time.Sleep(5 * time.Second)
 	//	c.String(http.StatusOK, "Welcome Gin Server")
@@ -74,3 +75,4 @@ func main() {
 
 
 }
+

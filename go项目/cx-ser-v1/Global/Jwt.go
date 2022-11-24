@@ -27,7 +27,7 @@ func ReaeaseTokec(user Model.Employee) (string, error) {
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 			IssuedAt:  time.Now().Unix(),
-			Issuer:    "oceanlearn.tech",
+			Issuer:    "cx",//签发人
 			Subject:   "user token",
 		},
 	}
@@ -35,7 +35,7 @@ func ReaeaseTokec(user Model.Employee) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	// 生成签名字符串
 	tokenString, err := token.SignedString(jwtKey)
-	if err != nil {
+	if err != nil { //解析token失败
 		return "", err
 	}
 	return tokenString, err

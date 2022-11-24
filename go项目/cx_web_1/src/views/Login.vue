@@ -46,8 +46,8 @@
                 </tr>
                 <Vcode :show="isShow" @success="success" @close="close"></Vcode>
                 <el-button-group style="width: 100%">
-                  <el-button size="normal" type="danger" style="width: 50%;" @click="submit" :round="true" :disabled="right">人机验证</el-button>
-                  <el-button size="normal" type="primary" style="width: 50%;" @click="submitLogin" :round="true" :disabled="!right">登录</el-button>
+                  <el-button size="normal" type="danger" style="width: 50%;" @click="submit"  :disabled="right">人机验证</el-button>
+                  <el-button size="normal" type="primary" style="width: 50%;" @click="submitLogin"  :disabled="!right">登录</el-button>
                 </el-button-group>
               </el-form>
         </div>
@@ -112,21 +112,23 @@ export default {
     this.initPost();
   },
   methods: {
-    updateVerifyCode() {
-      this.vcUrl = '/verifyCode?time='+new Date();
-    },
+    // updateVerifyCode() {
+    //   this.vcUrl = '/verifyCode?time='+new Date();
+    // },
     submit () {
       this.isShow = true;
     },
+    //两种不同身份登录
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
           // type:1是主管 2是员工
           let str = '';
-          if (this.type == 1) {
+          if (this.type === 1) {
             str = '主管';
-          } else  {
+          }
+          if (this.type ===2 ) {
             str = '员工';
           }
           localStorage.setItem("type", str);//设置登录人员的身份

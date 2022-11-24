@@ -10,16 +10,7 @@ import (
 
 func AllMenu(context *gin.Context)  {
 	fmt.Println("进入AllMenu")
-	//var requestMenu = Model.Menu{}
-	//json.NewDecoder(context.Request.Body).Decode(&requestMenu)
-	//fmt.Println("获取的数据：", requestMenu)
-
 	var menu []Model.Menu
-	//err := Global.Db.Find(&menu).Error
-	//if err != nil {
-	//	fmt.Println("查询菜单栏出错")
-	//	return
-	//}
 	var err error
 	//err = Global.Db.Raw("select m1.id as id1,m1.name as name1,m2.id as id2,m2.name as name2,m3.id as id3,m3.name as name3 from menus m1,menus m2,menus m3 where m1.id=m2.parent_id and m2.id=m3.parent_id and m3.enabled=1 order by m1.id,m2.id,m3.id").Scan(&menu).Error
 	//err = Global.Db.Raw("select m.*,r.id as rid,r.name as rname,r.name_zh as rname_zh from menus m,menu_roles mr,roles r where m.id=mr.mid and mr.rid=r.id order by m.id").Scan(&menu).Error

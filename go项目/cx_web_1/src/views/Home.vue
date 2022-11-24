@@ -2,12 +2,12 @@
     <div>
         <el-container>
             <el-header class="homeHeader">
-                <div class="title">人事管理系统</div>
+                <div class="title">区块链学院管理系统</div>
                 <div>
 <!--                    <el-button icon="el-icon-bell" type="text" style="margin-right: 8px;color: #000000;" size="normal" @click="goChat"></el-button>-->
                     <el-dropdown class="userInfo" @command="commandHandler">
   <span class="el-dropdown-link">
-    <b>编号:{{userId}}<br />角色:{{userRole}}</b>
+    <b>账号:{{userId}}<br />职位:{{userRole}}</b>
     <i></i>
   </span>
 
@@ -124,7 +124,7 @@
         text-align: center;
         font-size: 30px;
         font-family: 华文行楷;
-        color: #409eff;
+        color: #060709;
         padding-top: 50px;
     }
 
@@ -139,8 +139,8 @@
 
     .homeHeader .title {
         font-size: 40px;
-        font-family: 华文行楷;
-        color: #f0f639
+        font-family: 宋体;
+        color:  #3299CC
     }
 
     .homeHeader .userInfo {

@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"time"
 )
-
+//主管部门
 func DirectorDepartment(context *gin.Context) {
 	var requestDirector Model.Employee
 	json.NewDecoder(context.Request.Body).Decode(&requestDirector)
@@ -218,7 +218,7 @@ func DirectorAgreeApply(context *gin.Context) {
 	}
 
 }
-
+//主管拒绝收到的申请
 func DirectorRefuseApply(context *gin.Context) {
 	var requestApplication Model.PostApplications
 	json.NewDecoder(context.Request.Body).Decode(&requestApplication)
@@ -423,39 +423,39 @@ func EmployeeBasicSearchByDirector(context *gin.Context) {
 }
 
 //根据入职日期查询按钮
-func EmployeeBasicSearchDateByDirector(context *gin.Context) {
-	requestDate := make(map[string]interface{})
-	context.ShouldBind(&requestDate)
-	fmt.Println(requestDate)
-	requestId := requestDate["id"].(string)
-	startDate := requestDate["start"].(string)
-	endDate := requestDate["end"].(string)
-	fmt.Println("开始日期：", startDate)
-	fmt.Println("结束日期：", endDate)
-	tempStart, _ := time.Parse("2006-01-02", startDate)
-	tempEnd, _ := time.Parse("2006-01-02", endDate)
-	fmt.Println(tempStart, tempEnd)
-	start := pgtype.Date{tempStart, 2, 0}
-	end := pgtype.Date{tempEnd, 2, 0}
-	fmt.Println("开始日期2：", start)
-	fmt.Println("结束日期2：", end)
-	var err error
-	var temp Model.Employee
-	err = Global.Db.Where("id = ?", requestId).First(&temp).Error
-	var employee []Model.Employee
-	err = Global.Db.Where("entry_date >= ? and entry_date <= ? and department_name = ? and employee_type != ?", start, end, temp.Department_name, "总裁").Find(&employee).Error
-	if err != nil {
-		fmt.Println("查找指定日期区间的员工出错", err)
-		context.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "查找指定日期区间的员工出错",
-		})
-		return
-	}
-	fmt.Println("查找结果：", employee)
-	context.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"msg":  "查找成功",
-		"data": employee,
-	})
-}
+//func EmployeeBasicSearchDateByDirector(context *gin.Context) {
+//	requestDate := make(map[string]interface{})
+//	context.ShouldBind(&requestDate)
+//	fmt.Println(requestDate)
+//	requestId := requestDate["id"].(string)
+//	startDate := requestDate["start"].(string)
+//	endDate := requestDate["end"].(string)
+//	fmt.Println("开始日期：", startDate)
+//	fmt.Println("结束日期：", endDate)
+//	tempStart, _ := time.Parse("2006-01-02", startDate)
+//	tempEnd, _ := time.Parse("2006-01-02", endDate)
+//	fmt.Println(tempStart, tempEnd)
+//	start := pgtype.Date{tempStart, 2, 0}
+//	end := pgtype.Date{tempEnd, 2, 0}
+//	fmt.Println("开始日期2：", start)
+//	fmt.Println("结束日期2：", end)
+//	var err error
+//	var temp Model.Employee
+//	err = Global.Db.Where("id = ?", requestId).First(&temp).Error
+//	var employee []Model.Employee
+//	err = Global.Db.Where("entry_date >= ? and entry_date <= ? and department_name = ? and employee_type != ?", start, end, temp.Department_name, "总裁").Find(&employee).Error
+//	if err != nil {
+//		fmt.Println("查找指定日期区间的员工出错", err)
+//		context.JSON(http.StatusOK, gin.H{
+//			"code": 200,
+//			"msg":  "查找指定日期区间的员工出错",
+//		})
+//		return
+//	}
+//	fmt.Println("查找结果：", employee)
+//	context.JSON(http.StatusOK, gin.H{
+//		"code": 200,
+//		"msg":  "查找成功",
+//		"data": employee,
+//	})
+//}

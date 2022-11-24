@@ -26,7 +26,7 @@ func Info(context *gin.Context) {
 		},
 	})
 }
-
+//进入AdminLogin  身份验证
 func AdminLogin(context *gin.Context) {
 	fmt.Println("进入AdminLogin")
 	var requestAdmin = Model.Employee{}
@@ -38,7 +38,6 @@ func AdminLogin(context *gin.Context) {
 	//数据验证
 	fmt.Println("开始数据验证")
 
-	//var admin Model.Employee
 	var admin Model.Employee
 	var err error
 
@@ -143,7 +142,7 @@ func EmployeeBasicUpdate(context *gin.Context) {
 		"msg":  "修改成功",
 	})
 }
-
+//在basic组件中删除员工
 func EmployeeBasicDelete(context *gin.Context) {
 	var requestEmployee = Model.Employee{}
 	json.NewDecoder(context.Request.Body).Decode(&requestEmployee)
@@ -199,7 +198,7 @@ func EmployeeBasicMultiDelete(context *gin.Context) {
 	})
 
 }
-
+//添加员工信息
 func EmployeeBasicAdd(context *gin.Context) {
 	var requestEmployee = Model.Employee{}
 	var err error
@@ -267,13 +266,8 @@ func EmployeeBasicAdd(context *gin.Context) {
 		"msg":  "添加成功",
 	})
 }
-
+//搜索名字（搜索框）
 func EmployeeBasicSearch(context *gin.Context) {
-	//requestSearch := make(map[string]interface{})
-	//context.ShouldBind(&requestSearch)
-	//requestName := requestSearch["keyword"].(string)
-	//fmt.Println("名字：", requestName)
-
 	var requestEmployee Model.Employee
 	json.NewDecoder(context.Request.Body).Decode(&requestEmployee)
 	fmt.Println("获取的搜索名字：", requestEmployee.Name)
@@ -295,7 +289,7 @@ func EmployeeBasicSearch(context *gin.Context) {
 	})
 }
 
-//员工基础数据查询
+//查询指定日期间的数据
 func EmployeeBasicSearchDate(context *gin.Context) {
 	requestDate := make(map[string]interface{})
 	context.ShouldBind(&requestDate)

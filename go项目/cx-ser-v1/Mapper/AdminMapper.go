@@ -6,7 +6,7 @@ import (
 )
 
 func AdminMapper(re *gin.Engine) {
-	//POST请求路由           路径         hander
+	//POST请求路由              路径         hander
 	re.POST("/AdminLogin", Controller.AdminLogin)
 	re.POST("/AllMenu", Controller.AllMenu)
 	re.POST("/EmployeeBasic", Controller.EmployeeBasic)

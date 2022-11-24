@@ -3,7 +3,7 @@
     <div>
       <el-form :model="emp" :rules="rules" ref="emp" @submit.native.prevent>
         <el-form-item prop="name">
-          <el-input placeholder="请输入员工姓名进行搜索，可以直接回车搜索..." prefix-icon="el-icon-search"
+          <el-input placeholder="请输入姓名" prefix-icon="el-icon-search"
                     clearable
                     @clear="initEmps"
                     style="width: 350px;margin-right: 10px" v-model="emp.name"

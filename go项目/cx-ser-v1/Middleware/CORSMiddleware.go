@@ -2,21 +2,21 @@ package Middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
-
+//跨域资源共享中间件
 func CORSMiddleware() gin.HandlerFunc {
-	return func(context *gin.Context) {
-		context.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		context.Writer.Header().Set("Access-Control-Max-Age", "86400")
-		context.Writer.Header().Set("Access-Control-Allow-Methods", "*")
-		context.Writer.Header().Set("Access-Control-Allow-Headers", "*")
-		context.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-
-		if context.Request.Method == http.MethodOptions {
-			context.AbortWithStatus(200)
+	return func(c_cx *gin.Context) {
+		method := c_cx.Request.Method
+		c_cx.Writer.Header().Set("Access-Control-Allow-Origin", "*") // 设置允许访问所有域
+		c_cx.Writer.Header().Set("Access-Control-Max-Age", "86400")
+		c_cx.Writer.Header().Set("Access-Control-Allow-Methods", "*")
+		c_cx.Writer.Header().Set("Access-Control-Allow-Headers", "*")
+		c_cx.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		//if c_cx.Request.Method == http.MethodOptions {
+		if method == "OPTIONS" {
+			c_cx.AbortWithStatus(200)
 		} else {
-			context.Next()
+			c_cx.Next()
 		}
 	}
 }
