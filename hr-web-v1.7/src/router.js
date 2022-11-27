@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from './views/Login.vue'
 import Home from './views/Home.vue'
 import HrInfo from './views/HrInfo.vue'
+
 import EmployeeBasic from "@/views/emp/EmployeeBasic";
 import PostTransfer from "@/views/transfer/PostTransfer";
 import DepartmentTransfer from "@/views/transfer/DepartmentTransfer";
@@ -13,7 +14,8 @@ import ApplyQuit from "@/views/manage/ApplyQuit";
 import ApplyPost from "@/views/manage/ApplyPost";
 import PostTalent from "@/views/talent/PostTalent";
 import DepartmentBasic from "@/views/manage/DepartmentBasic";
-
+import SalSob from "@/views/sal/SalSob";
+import SalSobCfg from "./views/sal/SalSobCfg";
 Vue.use(VueRouter)
 
 export const startLogin = [
@@ -147,10 +149,18 @@ export const directorLogin = [
                 name : '基本资料',
                 component : EmployeeBasic,
             },
+
+            //员工工资路由
+            {
+                path : '/sal/SalSob',
+                name : '员工工资',
+                component : SalSob,
+            },
+            //工资
             // {
-            //     path : '/employee/advance',
-            //     name : '高级资料',
-            //     component : EmployeeAdvance,
+            //     path : '/sal/SalSobCfg',
+            //     name : '员工工资',
+            //     component : SalSobCfg,
             // }
         ]
     },

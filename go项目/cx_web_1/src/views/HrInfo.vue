@@ -625,9 +625,9 @@ export default {
       passwdDialogVisible: false,
       size : '',
       disabled : true,
-      employee_types:['总裁', '主管', '员工'],
+      employee_types:['主管', '员工'],
       post_names : {
-        '开发部' : ['C++开发', 'Java开发', 'C#开发', 'Python开发', 'Go开发'],
+        '开发部' : ['C++开发', 'Java开发', 'C#开发', 'Python开发', 'Go开发','智能合约开发'],
         '运维部' : ['云运维', '服务器运维'],
         '测试部' : ['系统测试', 'Bug测试'],
         '设计部' : ['UI设计', '动画设计'],

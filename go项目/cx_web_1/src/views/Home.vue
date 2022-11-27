@@ -10,8 +10,7 @@
     <b>账号:{{userId}}<br />职位:{{userRole}}</b>
     <i></i>
   </span>
-
-                        <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
 <!--                            <el-dropdown-item command="setting">设置</el-dropdown-item>-->
                             <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
@@ -20,8 +19,16 @@
                 </div>
             </el-header>
             <el-container>
-                <el-aside width="200px">
-                    <el-menu router unique-opened>
+                <el-aside hight="100%" width="200px">
+                    <el-menu
+                        mode="vertical"
+                        unique-opened
+                        :default-active="$route.path"
+                        background-color="#304156"
+                        text-color="#fff"
+                        active-text-color="#409EFF"
+
+                    >
                         <el-submenu :index="index+''" v-for="(item,index) in $router.options.routes" v-if="!item.hidden" :key="index">
                             <template slot="title">
                                 <i style="color: #162aef;margin-right: 5px" :class="item.iconCls"></i>

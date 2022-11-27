@@ -71,7 +71,7 @@ export default {
       dialogAddVisible : false,
       bannerHeight : "",
       note: {
-        // backgroundImage: "url(" + require("../assets/loginBackgroundImg3.png") + ")",//背景圖片
+        backgroundImage: "url(" + require("../assets/loginBackgroundImg.webp") + ")",//背景圖片
         backgroundRepeat: "no-repeat",
         backgroundPosition: "auto auto",
         backgroundSize: "100% 100%",
@@ -138,6 +138,7 @@ export default {
             this.loginForm.employee_type = str;
             console.log("loginForm.type = ", this.loginForm.employee_type);
             console.log("即将提交的信息：", this.loginForm);
+            //跳转到AdminLogin
             this.$axios.post('/AdminLogin', this.loginForm).then((resp) => {
               this.loading = false;
               const _this = this;
@@ -150,10 +151,12 @@ export default {
                   window.sessionStorage.setItem("user", JSON.stringify(resp.data.data));
                   console.log("存储的数据："+JSON.stringify(resp.data.data));
                   let path = this.$route.query.redirect;
+                  //登录成功之后重定向到首页
                   this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
+                  //进入home
                   _this.$router.push({path : '/home', query : _this.loginForm})
                 } else {
-                  Message.error({message: resp.data.msg})
+                  Message.error({message: resp.data.msg})//登录失败提示错误
                 }
               } else {
                 this.vcUrl = '/verifyCode?time='+new Date();
@@ -214,7 +217,7 @@ export default {
   margin: auto auto;
   width: 400px;
   padding: 15px 35px 15px 35px;
-  background: #fff;
+  background: #ffffff;
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
 }

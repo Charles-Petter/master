@@ -97,7 +97,7 @@ func EmployeeBasicUpdate(context *gin.Context) {
 		quit.Name = requestEmployee.Name
 		quit.Sex = requestEmployee.Sex
 		quit.Resignation_date = pgtype.Date{time.Now(), 2, 0}
-		quit.Reasons_for_resignation = "总裁手动离职"
+		//quit.Reasons_for_resignation = "总裁手动离职"
 		quit.Department_number = requestEmployee.Department_number
 		quit.Department_name = requestEmployee.Department_name
 		quit.Post_number = requestEmployee.Post_number

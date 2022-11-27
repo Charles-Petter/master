@@ -141,14 +141,14 @@ export default {
               const _this = this;
               console.log("resp = ", resp.data)
               if (resp) {
-                if (resp.data.msg == "登录成功") {
+                if (resp.data.msg === "登录成功") {
                   console.log("222")
                   this.$store.commit("INIT_CURRENTHR", resp.data.data);
                   console.log("333")
                   window.sessionStorage.setItem("user", JSON.stringify(resp.data.data));
                   console.log("存储的数据："+JSON.stringify(resp.data.data));
                   let path = this.$route.query.redirect;
-                  this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
+                  this.$router.replace((path === '/' || path === undefined) ? '/home' : path);
                   _this.$router.push({path : '/home', query : _this.loginForm})
                 } else {
                   Message.error({message: resp.data.msg})

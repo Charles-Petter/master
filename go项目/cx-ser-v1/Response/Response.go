@@ -8,7 +8,7 @@ import (
 func Response(context *gin.Context, httpStatus int, code int, data gin.H, msg string) {
 	context.JSON(httpStatus, gin.H{"code":code, "data":data, "msg":msg})
 }
-
+//登陆成功
 func Success(context *gin.Context, data gin.H, msg string) {
 	Response(context, http.StatusOK, 200, data, msg)
 }

@@ -513,7 +513,7 @@ export default {
     },
     doAddEmp() {
       this.$refs['emp'].validate(valid => {
-        if (valid) {
+        if (valid) {Success
           this.$axios.post('/Department/Add', this.emp).then(resp => {
             if (resp.data.msg === "新增成功") {
               this.dialogAddVisible = false;
@@ -554,6 +554,8 @@ export default {
         Message.info({message : "已取消删除"});
       });
     },
+
+    //新增
     doAddPost() {
       this.$refs['post'].validate(valid => {
         if (valid) {
@@ -570,6 +572,7 @@ export default {
         }
       })
     },
+    //修改
     doEditPost() {
       this.$refs['post'].validate(valid => {
         if (valid) {
@@ -587,6 +590,8 @@ export default {
         }
       });
     },
+
+    //初始化部门
     initDepartment() {
       this.$axios.post('/Department/Init').then(resp => {
         this.department_names = resp.data;

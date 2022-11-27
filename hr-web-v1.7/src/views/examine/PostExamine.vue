@@ -3,7 +3,7 @@
     <!--  主管的信息-->
     <div>
       <span v-if="is_director">您是{{ this.emp.department_name }}部门的主管</span>
-      <span v-else>您是公司总裁</span>
+
       <el-descriptions class="margin-top" :title="title" :column="3" :size="size" border>
 <!--        <template slot="extra">-->
 <!--          <el-button type="primary" size="small">操作</el-button>-->
@@ -204,34 +204,7 @@
           </template>
           {{this.emp.is_quit}}
         </el-descriptions-item>
-<!--        <el-descriptions-item>-->
-<!--          <template slot="label">-->
-<!--            <i class="el-icon-mobile-phone"></i>-->
-<!--            手机号-->
-<!--          </template>-->
-<!--          18100000000-->
-<!--        </el-descriptions-item>-->
-<!--        <el-descriptions-item>-->
-<!--          <template slot="label">-->
-<!--            <i class="el-icon-location-outline"></i>-->
-<!--            居住地-->
-<!--          </template>-->
-<!--          苏州市-->
-<!--        </el-descriptions-item>-->
-<!--        <el-descriptions-item>-->
-<!--          <template slot="label">-->
-<!--            <i class="el-icon-tickets"></i>-->
-<!--            备注-->
-<!--          </template>-->
-<!--          <el-tag size="small">学校</el-tag>-->
-<!--        </el-descriptions-item>-->
-<!--        <el-descriptions-item>-->
-<!--          <template slot="label">-->
-<!--            <i class="el-icon-office-building"></i>-->
-<!--            联系地址-->
-<!--          </template>-->
-<!--          江苏省苏州市吴中区吴中大道 1188 号-->
-<!--        </el-descriptions-item>-->
+
       </el-descriptions>
     </div>
 

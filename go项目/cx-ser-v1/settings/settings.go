@@ -7,19 +7,8 @@ import (
 	"os"
 )
 
-////viper 管理文件
-//
-//func Init() (err error) {
-//	//viper.SetConfigFile("./config.yaml") // 指定配置文件路径
-//	viper.SetConfigName("config") //指定配置文件的名称（不需要带后缀）
-//	viper.SetConfigType("yaml")   //指定配置文件的类型
-//	viper.AddConfigPath(".")
-//	err = viper.ReadInConfig() // 读取配置信息
-//	if err != nil {
-//		// 读取配置信息失败
-//		fmt.Printf("viper.ReadInConfig() failed,err:%v\n", err)
-//		return
-//	}
+
+
 //
 //	// 监控配置文件变化
 //	viper.WatchConfig()
@@ -70,7 +59,7 @@ import (
 //	MaxBackups int    `mapstructure:"max_backups"`
 //}
 
-
+//viper 管理文件
 func InitConfig() (v *viper.Viper){
 	workDir, _ := os.Getwd()
 	v = viper.New()
