@@ -323,7 +323,7 @@ func EmployeeBasicSearchDate(context *gin.Context) {
 		"data": employee,
 	})
 }
-
+//高级搜索
 func EmployeeBasicSearchAdvance(context *gin.Context) {
 	requestSearch := make(map[string]interface{})
 	context.ShouldBind(&requestSearch)
@@ -352,7 +352,7 @@ func EmployeeBasicSearchAdvance(context *gin.Context) {
 		"data": tempEmployee,
 	})
 }
-
+//文件上传
 func EmployeeBasicImport(context *gin.Context) {
 	fmt.Println("进入文件上传")
 	files, _ := context.FormFile("file")

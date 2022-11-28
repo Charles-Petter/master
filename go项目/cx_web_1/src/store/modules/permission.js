@@ -1,11 +1,10 @@
-import { startLogin,directorLogin, employeeLogin } from '@/router'
+import { startLogin,bossLogin,directorLogin, employeeLogin } from '@/router'
 
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
  * @param route
  */
-//判断是否有权限
 function hasPermission(roles, route) {
   if (route.meta && route.meta.roles) {
     return roles.some(role => route.meta.roles.includes(role))
@@ -16,10 +15,9 @@ function hasPermission(roles, route) {
 
 /**
  * Filter asynchronous routing tables by recursion
- * @param routes asyncRoutes 异步路由
- * @param roles  作用
+ * @param routes asyncRoutes
+ * @param roles
  */
-//通过递归过滤异步路由表
 export function filterAsyncRoutes(routes, roles) {
   const res = []
   console.log('routes + roles')
@@ -54,10 +52,10 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes
-//根据按钮类型来filter跳转不同权限的页面
+
       const type = localStorage.getItem('type');
-     if (type === '主管'){
-        accessedRoutes = filterAsyncRoutes(directorLogin, roles)//主管登录
+     if (type == '主管'){
+        accessedRoutes = filterAsyncRoutes(directorLogin, roles)
       } else {
         accessedRoutes = filterAsyncRoutes(employeeLogin, roles)
       }

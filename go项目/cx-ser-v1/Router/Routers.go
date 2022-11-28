@@ -12,10 +12,6 @@ func CreateRoute(re *gin.Engine) *gin.Engine {
 	Mapper.AdminMapper(re)
 	Mapper.EmployeeMapper(re) //员工 路由
 	Mapper.DirectorMapper(re)
-	//Mapper.AdministratorMapper(re)
-	//Mapper.DesignerMapper(re)
-	//Mapper.OperatorMapper(re)
-	//Mapper.ComponentMapper(re)
 	re.GET("/info", Middleware.AuthMiddleware(), Controller.Info)
 	return re
 }

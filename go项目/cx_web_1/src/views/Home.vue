@@ -2,15 +2,18 @@
     <div>
         <el-container>
             <el-header class="homeHeader">
-                <div class="title">区块链学院管理系统</div>
+                <div class="title">人事管理系统</div>
                 <div>
 <!--                    <el-button icon="el-icon-bell" type="text" style="margin-right: 8px;color: #000000;" size="normal" @click="goChat"></el-button>-->
                     <el-dropdown class="userInfo" @command="commandHandler">
   <span class="el-dropdown-link">
-    <b>账号:{{userId}}<br />职位:{{userRole}}</b>
+<!--     <el-image :src="" class="eImage"></el-image>-->
+    <span  :style="img_cx"> </span>
+    <b>编号:{{userId}}<br />角色:{{userRole}}</b>
     <i></i>
   </span>
-                      <el-dropdown-menu slot="dropdown">
+
+                        <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
 <!--                            <el-dropdown-item command="setting">设置</el-dropdown-item>-->
                             <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
@@ -19,7 +22,7 @@
                 </div>
             </el-header>
             <el-container>
-                <el-aside hight="100%" width="200px">
+                <el-aside width="200px" hight="100%">
                     <el-menu
                         mode="vertical"
                         unique-opened
@@ -27,8 +30,7 @@
                         background-color="#304156"
                         text-color="#fff"
                         active-text-color="#409EFF"
-
-                    >
+                        router unique-opened>
                         <el-submenu :index="index+''" v-for="(item,index) in $router.options.routes" v-if="!item.hidden" :key="index">
                             <template slot="title">
                                 <i style="color: #162aef;margin-right: 5px" :class="item.iconCls"></i>
@@ -63,7 +65,12 @@
         data() {
             return {
                 // user: JSON.parse(window.sessionStorage.getItem("user"))
+              img_cx:{
+                Image: "url(" + require("../assets/loginBackgroundImg.webp") + ")",//背景圖片
+
+              },
             }
+
         },
         computed: {
             routes() {
@@ -123,6 +130,27 @@
 </script>
 
 <style>
+.sidebar-container {
+  transition: width 0.28s;
+  width: 180px !important;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+}
+.sidebar-container a {
+  display: inline-block;
+  width: 100%;
+}
+.sidebar-container .svg-icon {
+  margin-right: 16px;
+}
+.sidebar-container .el-menu {
+  border: none;
+  width: 100%;
+}
     .homeRouterView {
         margin-top: 10px;
     }
@@ -130,8 +158,8 @@
     .homeWelcome {
         text-align: center;
         font-size: 30px;
-        font-family: 华文行楷;
-        color: #060709;
+        font-family: 宋体;
+        color: white;
         padding-top: 50px;
     }
 
@@ -147,7 +175,7 @@
     .homeHeader .title {
         font-size: 40px;
         font-family: 宋体;
-        color:  #3299CC
+        color: #f0f639
     }
 
     .homeHeader .userInfo {
@@ -166,9 +194,12 @@
         align-items: center;
     }
     .el-menu-font {
-      font-family: 方正姚体;
+      font-family: 宋体;
     }
     .el-submenu-font {
-      font-family: 华文楷体;
+      font-family: 宋体;
     }
+.nest-menu .el-submenu > .el-submenu__title,.el-submenu .el-menu-item {min-width: 180px !important;background-color: #1f2d3d !important;}
+.nest-menu .el-submenu > .el-submenu__title,.el-submenu .el-menu-item :hover {background-color: #001528 !important;}
+.el-menu--collapse .el-menu .el-submenu {min-width: 180px !important;}
 </style>

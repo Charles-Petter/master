@@ -1,20 +1,10 @@
 <template>
   <div>
-<!--    部门信息-->
+    <!--    部门信息-->
     <div>
       <span>
         部门信息
       </span>
-      <el-button-group style="float: right">
-        <el-button type="primary" icon="el-icon-plus" @click="showAddPostView" v-if="is_boss" :disabled="!open">
-          添加岗位
-        </el-button>
-      </el-button-group>
-      <el-button-group style="float: right">
-        <el-button type="primary" icon="el-icon-plus" @click="showAddEmpView" :disabled="!is_boss">
-          添加部门
-        </el-button>
-      </el-button-group>
       <el-table :data="empsData"
                 stripe border
                 v-loading="loading"
@@ -93,9 +83,10 @@
             width="200"
             label="操作">
           <template slot-scope="scope">
-            <el-button @click="showEditEmpView(scope.row)" v-if="is_boss" style="padding: 3px" size="mini" type="warning">编辑</el-button>
-            <el-button @click="initPost(scope.row)" style="padding: 3px" size="mini" type="primary">查看岗位信息</el-button>
-            <el-button @click="deleteEmp(scope.row)" v-if="is_boss" style="padding: 3px" size="mini" type="danger">删除</el-button>
+            <el-button @click="initPost(scope.row)" style="padding: 3px" size="mini" type="primary">查看部门成员</el-button>
+<!--            <el-input placeholder="请输入内容" maxlength="20" v-model="searchContent" clearable class="input-with-select">-->
+<!--              <el-button slot="append" icon="el-icon-search" @click="search()">查询</el-button>-->
+<!--            </el-input>-->
           </template>
         </el-table-column>
       </el-table>
@@ -104,7 +95,7 @@
       <span>
         岗位信息
       </span>
-<!--      岗位信息-->
+      <!--      岗位信息-->
       <el-table :data="postsData" stripe border
                 v-loading="loading"
                 element-loading-text="正在加载..."
@@ -117,15 +108,15 @@
         <el-table-column prop="post_type" label="岗位类型" align="left" width="100"></el-table-column>
         <el-table-column prop="post_establishment" label="岗位编制" align="left" width="100"></el-table-column>
         <el-table-column fixed="right" width="200" label="操作">
-          <template slot-scope="scope">
-            <el-button @click="showEditPostView(scope.row)" v-if="is_boss" style="padding: 3px" size="mini" type="warning">编辑</el-button>
-            <el-button @click="deletePost(scope.row)" v-if="is_boss" style="padding: 3px" size="mini" type="danger">删除</el-button>
-          </template>
+<!--          <template slot-scope="scope">-->
+<!--            <el-button @click="showEditPostView(scope.row)" v-if="is_boss" style="padding: 3px" size="mini" type="warning">编辑</el-button>-->
+<!--            <el-button @click="deletePost(scope.row)" v-if="is_boss" style="padding: 3px" size="mini" type="danger">删除</el-button>-->
+<!--          </template>-->
         </el-table-column>
 
       </el-table>
     </div>
-<!--    部门编辑-->
+    <!--    部门编辑-->
     <div>
       <el-dialog :title="title" @close="resetForm('emp')" :visible.sync="dialogEditVisible" width="80%">
         <div>
@@ -188,7 +179,7 @@
       </span>
       </el-dialog>
     </div>
-<!--    部门添加-->
+    <!--    部门添加-->
     <div>
       <el-dialog :title="title" @close="resetForm('emp')" :visible.sync="dialogAddVisible" width="80%">
         <div>
@@ -251,7 +242,7 @@
       </span>
       </el-dialog>
     </div>
-<!--    岗位添加-->
+    <!--    岗位添加-->
     <div>
       <el-dialog :title="title" @close="resetForm('post')" :visible.sync="dialogAddPostVisible" width="80%">
         <div>
@@ -290,7 +281,7 @@
         </span>
       </el-dialog>
     </div>
-<!--    岗位编辑-->
+    <!--    岗位编辑-->
     <div>
       <el-dialog :title="title" @close="resetForm('post')" :visible.sync="dialogEditPostVisible" width="80%">
         <div>
@@ -421,12 +412,12 @@ export default {
     },
     initEmps(type) {
       this.loading = true;
-      var tempRole = localStorage.getItem("role");
-      if (tempRole === "总裁") {
-        this.is_boss = true;
-      } else {
-        this.is_boss = false;
-      }
+      // var tempRole = localStorage.getItem("role");
+      // if (tempRole === "总裁") {
+      //   this.is_boss = true;
+      // } else {
+      //   this.is_boss = false;
+      // }
       // this.emp.id = localStorage.getItem("id");
       this.$axios.post('/Department/Basic').then(resp => {
         this.loading = false;
@@ -458,41 +449,7 @@ export default {
       // this.inputDepName = data.department_name;
       this.dialogEditVisible = true;
     },
-    deleteEmp(data) {
-      this.$confirm('此操作将永久删除【' + data.department_name + '】, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$axios.post("/Department/Delete", data).then(resp => {
-          if (resp.data.msg === "删除成功") {
-            this.initEmps();
-            Message.success({message : "删除成功"});
-          } else {
-            Message.error({message : resp.data.msg});
-          }
-        })
-      }).catch(() => {
-        Message.info({message : "已取消删除"});
-      });
-    },
-    doEditEmp() {
-      //编辑
-      this.$refs['emp'].validate(valid => {
-        if (valid) {
-          // this.emp.height = parseInt(this.emp.height);
-          this.$axios.post('/Department/Update', this.emp).then(resp => {
-            if (resp) {
-              this.dialogEditVisible = false;
-              this.initEmps();
-              Message.success({message : '修改成功!'});
-            } else {
-              Message.error({message : resp.data.msg});
-            }
-          });
-        }
-      });
-    },
+
     emptyEmp() {
       this.emp = {
         department_number : "",
@@ -511,93 +468,37 @@ export default {
       this.title = '添加部门信息';
       this.dialogAddVisible = true;
     },
-    doAddEmp() {
-      this.$refs['emp'].validate(valid => {
-        if (valid) {Success
-          this.$axios.post('/Department/Add', this.emp).then(resp => {
-            if (resp.data.msg === "新增成功") {
-              this.dialogAddVisible = false;
-              this.initEmps();
-              Message.success({message : '新增成功'});
-            } else {
-              Message.error({message : resp.data.msg});
-            }
-          })
-        }
-      })
-    },
-    showAddPostView() {
-      this.title = '添加' + this.emp.department_name + '岗位信息';
-      this.dialogAddPostVisible = true;
-    },
-    showEditPostView(data) {
-      this.title = '编辑岗位信息';
-      this.post = data;
-      this.dialogEditPostVisible = true;
-    },
-    deletePost(data) {
-      this.$confirm('此操作将永久删除【' + data.post_name + '】, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$axios.post("/Post/Delete", data).then(resp => {
-          if (resp.data.msg === "删除成功") {
-            this.initEmps();
-            this.initPost(this.emp);
-            Message.success({message : "删除成功"});
-          } else {
-            Message.error({message : resp.data.msg});
-          }
-        })
-      }).catch(() => {
-        Message.info({message : "已取消删除"});
-      });
-    },
 
-    //新增
-    doAddPost() {
-      this.$refs['post'].validate(valid => {
-        if (valid) {
-          this.$axios.post('/Post/Add', this.post).then(resp => {
-            if (resp.data.msg === "新增成功") {
-              this.dialogAddPostVisible = false;
-              this.initEmps();
-              this.initPost(this.emp);
-              Message.success({message : '新增成功'});
-            } else {
-              Message.error({message : resp.data.msg});
-            }
-          })
-        }
-      })
-    },
-    //修改
-    doEditPost() {
-      this.$refs['post'].validate(valid => {
-        if (valid) {
-          // this.emp.height = parseInt(this.emp.height);
-          this.$axios.post('/Post/Update', this.post).then(resp => {
-            if (resp.data.msg === "修改成功") {
-              this.dialogEditPostVisible = false;
-              this.initEmps();
-              this.initPost(this.emp);
-              Message.success({message : '修改成功'});
-            } else {
-              Message.error({message : resp.data.msg});
-            }
-          });
-        }
-      });
-    },
-
-    //初始化部门
     initDepartment() {
       this.$axios.post('/Department/Init').then(resp => {
         this.department_names = resp.data;
         console.log("初始化部门：", this.department_names);
       })
     },
+
+    //根据部门查询成员
+    // search(){
+    //   this.queryDepartmentList();
+    // },
+    // queryDepartmentList(){
+    //   if(this.userInfo.role == 1){
+    //     this.getAllDepartmentList({company_id: this.companyId}).then( res => {
+    //       if(res.errno == 0){
+    //         this.departmentList = res.data;
+    //       }else{
+    //         this.$message.error(res.errmsg || '服务器出了小差');
+    //       }
+    //     })
+    //   }else if(this.userInfo.role == 2){
+    //     this.getAllDepartmentList({searchContent: this.searchContent}).then( res => {
+    //       if(res.errno == 0){
+    //         this.departmentList = res.data;
+    //       }else{
+    //         this.$message.error(res.errmsg || '服务器出了小差');
+    //       }
+    //     })
+    //   }
+    // },
   }
 }
 </script>

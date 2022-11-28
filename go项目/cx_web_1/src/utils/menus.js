@@ -15,6 +15,7 @@ export const initMenu = (router, store) => {
         }
     })
 }
+//表单路由
 export const formatRoutes = (routes) => {
     let fmRoutes = [];
     routes.forEach(router => {
@@ -35,14 +36,13 @@ export const formatRoutes = (routes) => {
             iconCls: iconCls,
             meta: meta,
             children: children,
+            //根据组件名拼接
             component(resolve) {
                 if (component.startsWith("Home")) {
                     require(['../views/' + component + '.vue'], resolve);
                 } else if (component.startsWith("Emp")) {
                     require(['../views/emp/' + component + '.vue'], resolve);
-                } else if (component.startsWith("Per")) {
-                    require(['../views/per/' + component + '.vue'], resolve);
-                } else if (component.startsWith("Sal")) {
+                }  else if (component.startsWith("Sal")) {
                     require(['../views/sal/' + component + '.vue'], resolve);
                 } else if (component.startsWith("Sta")) {
                     require(['../views/sta/' + component + '.vue'], resolve);
