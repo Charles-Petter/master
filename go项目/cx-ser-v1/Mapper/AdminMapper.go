@@ -8,7 +8,8 @@ import (
 func AdminMapper(re *gin.Engine) {
 	//POST请求路由              路径         hander
 	re.POST("/AdminLogin", Controller.AdminLogin)
-	re.POST("/AllMenu", Controller.AllMenu)
+	//菜单 不知道干嘛的  先不删
+	//re.POST("/AllMenu", Controller.AllMenu)
 	re.POST("/EmployeeBasic", Controller.EmployeeBasic)
 	//re.POST("/EmployeeBasic/Update", Controller.EmployeeBasicUpdate)
 	//re.POST("/EmployeeBasic/Delete", Controller.EmployeeBasicDelete)

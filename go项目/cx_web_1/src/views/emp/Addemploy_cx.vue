@@ -17,115 +17,115 @@
           </el-button-group>
         </div>
       </div>
-      <transition name="slide-fade">
-        <div v-show="showDateSearchView" style="position: center; border: 1px solid #40ff76;border-radius: 5px;box-sizing: border-box;padding: 5px;margin: 10px 0px;">
-          <div>
-            <span class="demonstration"></span>
-            <el-date-picker
-                v-model="value1"
-                type="date"
-                size="mini"
-                value-format="yyyy-MM-dd"
-                placeholder="开始日期"
-                :picker-options="pickerOptions0">
-            </el-date-picker>
-            <el-date-picker
-                v-model="value2"
-                type="date"
-                size="mini"
-                value-format="yyyy-MM-dd"
-                placeholder="结束日期"
-                :picker-options="pickerOptions1">
-            </el-date-picker>
-            <el-button-group>
-              <el-button type="primary" icon="el-icon-search" @click="selectDate"></el-button>
-              <el-button type="info" icon="el-icon-refresh" @click="resetDate"></el-button>
-            </el-button-group>
-          </div>
-        </div>
-      </transition>
-      <transition name="slide-fade">
-        <div v-show="showAdvanceSearchView"
-             style="border: 1px solid #409eff;border-radius: 5px;box-sizing: border-box;padding: 5px;margin: 10px 0px;">
-          <el-form :model="searchValue" :rules="rules" ref="searchValue">
-            <el-row>
+<!--      <transition name="slide-fade">-->
+<!--        <div v-show="showDateSearchView" style="position: center; border: 1px solid #40ff76;border-radius: 5px;box-sizing: border-box;padding: 5px;margin: 10px 0px;">-->
+<!--          <div>-->
+<!--            <span class="demonstration"></span>-->
+<!--            <el-date-picker-->
+<!--                v-model="value1"-->
+<!--                type="date"-->
+<!--                size="mini"-->
+<!--                value-format="yyyy-MM-dd"-->
+<!--                placeholder="开始日期"-->
+<!--                :picker-options="pickerOptions0">-->
+<!--            </el-date-picker>-->
+<!--            <el-date-picker-->
+<!--                v-model="value2"-->
+<!--                type="date"-->
+<!--                size="mini"-->
+<!--                value-format="yyyy-MM-dd"-->
+<!--                placeholder="结束日期"-->
+<!--                :picker-options="pickerOptions1">-->
+<!--            </el-date-picker>-->
+<!--            <el-button-group>-->
+<!--              <el-button type="primary" icon="el-icon-search" @click="selectDate"></el-button>-->
+<!--              <el-button type="info" icon="el-icon-refresh" @click="resetDate"></el-button>-->
+<!--            </el-button-group>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </transition>-->
+<!--      <transition name="slide-fade">-->
+<!--        <div v-show="showAdvanceSearchView"-->
+<!--             style="border: 1px solid #409eff;border-radius: 5px;box-sizing: border-box;padding: 5px;margin: 10px 0px;">-->
+<!--          <el-form :model="searchValue" :rules="rules" ref="searchValue">-->
+<!--            <el-row>-->
 
-              <el-col :span="6">
-                <el-form-item label="政治面貌:" prop="political">
-                  <el-select v-model="searchValue.political" placeholder="政治面貌" size="mini"
-                             style="width: 130px;">
-                    <el-option
-                        v-for="item in politicals"
-                        :key="item"
-                        :label="item"
-                        :value="item">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="民族:" prop="nation">
-                  <el-select v-model="searchValue.nation" placeholder="民族" size="mini"
-                             style="width: 130px;" filterable>
-                    <el-option
-                        v-for="item in nations"
-                        :key="item"
-                        :label="item"
-                        :value="item">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="部门:" prop="department_name">
-                  <el-select @change="changeSelect" v-model="searchValue.department_name" placeholder="部门" size="mini" style="width: 130px;">
-                    <el-option
-                        v-for="(item, index) in department_names"
-                        :key="index"
-                        :label="item"
-                        :value="item">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="岗位:" prop="post_name">
-                  <el-select v-model="searchValue.post_name" placeholder="岗位" size="mini"
-                             style="width: 130px;">
-                    <el-option
-                        v-for="(item, index) in post_type_options"
-                        :key="index"
-                        :label="item"
-                        :value="item">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
+<!--              <el-col :span="6">-->
+<!--                <el-form-item label="政治面貌:" prop="political">-->
+<!--                  <el-select v-model="searchValue.political" placeholder="政治面貌" size="mini"-->
+<!--                             style="width: 130px;">-->
+<!--                    <el-option-->
+<!--                        v-for="item in politicals"-->
+<!--                        :key="item"-->
+<!--                        :label="item"-->
+<!--                        :value="item">-->
+<!--                    </el-option>-->
+<!--                  </el-select>-->
+<!--                </el-form-item>-->
+<!--              </el-col>-->
+<!--              <el-col :span="6">-->
+<!--                <el-form-item label="民族:" prop="nation">-->
+<!--                  <el-select v-model="searchValue.nation" placeholder="民族" size="mini"-->
+<!--                             style="width: 130px;" filterable>-->
+<!--                    <el-option-->
+<!--                        v-for="item in nations"-->
+<!--                        :key="item"-->
+<!--                        :label="item"-->
+<!--                        :value="item">-->
+<!--                    </el-option>-->
+<!--                  </el-select>-->
+<!--                </el-form-item>-->
+<!--              </el-col>-->
+<!--              <el-col :span="6">-->
+<!--                <el-form-item label="部门:" prop="department_name">-->
+<!--                  <el-select @change="changeSelect" v-model="searchValue.department_name" placeholder="部门" size="mini" style="width: 130px;">-->
+<!--                    <el-option-->
+<!--                        v-for="(item, index) in department_names"-->
+<!--                        :key="index"-->
+<!--                        :label="item"-->
+<!--                        :value="item">-->
+<!--                    </el-option>-->
+<!--                  </el-select>-->
+<!--                </el-form-item>-->
+<!--              </el-col>-->
+<!--              <el-col :span="6">-->
+<!--                <el-form-item label="岗位:" prop="post_name">-->
+<!--                  <el-select v-model="searchValue.post_name" placeholder="岗位" size="mini"-->
+<!--                             style="width: 130px;">-->
+<!--                    <el-option-->
+<!--                        v-for="(item, index) in post_type_options"-->
+<!--                        :key="index"-->
+<!--                        :label="item"-->
+<!--                        :value="item">-->
+<!--                    </el-option>-->
+<!--                  </el-select>-->
+<!--                </el-form-item>-->
+<!--              </el-col>-->
 
-            </el-row>
-            <el-row style="margin-top: 10px">
+<!--            </el-row>-->
+<!--            <el-row style="margin-top: 10px">-->
 
-              <el-col :span="8">
-                <el-form-item label="毕业院校:" prop="graduation_school">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-edit"
-                            v-model="searchValue.graduation_school" placeholder="毕业院校名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="所学专业:" prop="major_studied">
-                  <el-input size="mini" style="width: 200px" prefix-icon="el-icon-edit"
-                            v-model="searchValue.major_studied" placeholder="请输入专业名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8" :offset="4">
-                <el-button icon="el-icon-refresh" type="info" size="mini" @click="resetForm('searchValue')">取消</el-button>
-                <el-button size="mini" icon="el-icon-search" type="primary" @click="searchEmpAdvance('searchValue')">搜索</el-button>
-              </el-col>
+<!--              <el-col :span="8">-->
+<!--                <el-form-item label="毕业院校:" prop="graduation_school">-->
+<!--                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-edit"-->
+<!--                            v-model="searchValue.graduation_school" placeholder="毕业院校名称" clearable></el-input>-->
+<!--                </el-form-item>-->
+<!--              </el-col>-->
+<!--              <el-col :span="8">-->
+<!--                <el-form-item label="所学专业:" prop="major_studied">-->
+<!--                  <el-input size="mini" style="width: 200px" prefix-icon="el-icon-edit"-->
+<!--                            v-model="searchValue.major_studied" placeholder="请输入专业名称" clearable></el-input>-->
+<!--                </el-form-item>-->
+<!--              </el-col>-->
+<!--              <el-col :span="8" :offset="4">-->
+<!--                <el-button icon="el-icon-refresh" type="info" size="mini" @click="resetForm('searchValue')">取消</el-button>-->
+<!--                <el-button size="mini" icon="el-icon-search" type="primary" @click="searchEmpAdvance('searchValue')">搜索</el-button>-->
+<!--              </el-col>-->
 
-            </el-row>
-          </el-form>
-        </div>
-      </transition>
+<!--            </el-row>-->
+<!--          </el-form>-->
+<!--        </div>-->
+<!--      </transition>-->
     </div>
     <div style="margin-top: 10px">
       <el-table
@@ -437,27 +437,27 @@
 <!--        </el-table-column>-->
       </el-table>
 
-      <el-dialog :visible.sync="multiDeleteVisible" title="提示" width="30%">
-        <span>确定要删除吗?</span>
-        <span slot="footer">
-          <el-button type="danger" @click="multiDelete">确 定</el-button>
-          <el-button @click="dialogVisible = false; multiDeleteVisible = false">取 消</el-button>
-        </span>
-      </el-dialog>
-      <div style="display: flex;justify-content: flex-end">
-        <el-pagination
-            background
-            @current-change="currentChange"
-            @size-change="sizeChange"
-            :page-size="pageSize"
-            :page-sizes="[1,5,10,20,100]"
-            :current-page.sync="currentPage"
-            layout="sizes, prev, pager, next, jumper, ->, total, slot"
-            :total="emps.length">
-          <!--                        :total="total">-->
-        </el-pagination>
-      </div>
-    </div>
+<!--      <el-dialog :visible.sync="multiDeleteVisible" title="提示" width="30%">-->
+<!--        <span>确定要删除吗?</span>-->
+<!--        <span slot="footer">-->
+<!--          <el-button type="danger" @click="multiDelete">确 定</el-button>-->
+<!--          <el-button @click="dialogVisible = false; multiDeleteVisible = false">取 消</el-button>-->
+<!--        </span>-->
+<!--      </el-dialog>-->
+<!--      <div style="display: flex;justify-content: flex-end">-->
+<!--        <el-pagination-->
+<!--            background-->
+<!--            @current-change="currentChange"-->
+<!--            @size-change="sizeChange"-->
+<!--            :page-size="pageSize"-->
+<!--            :page-sizes="[1,5,10,20,100]"-->
+<!--            :current-page.sync="currentPage"-->
+<!--            layout="sizes, prev, pager, next, jumper, ->, total, slot"-->
+<!--            :total="emps.length">-->
+<!--          &lt;!&ndash;                        :total="total">&ndash;&gt;-->
+<!--        </el-pagination>-->
+<!--      </div>-->
+<!--    </div>-->
     <!--      编辑框-->
     <el-dialog
         :title="title"
@@ -1287,6 +1287,7 @@
             </span>
     </el-dialog>
   </div>
+  </div>
 </template>
 
 <script>
@@ -1310,11 +1311,6 @@ export default {
       },
       isAdd : false,
       title: '',
-      importDataBtnText: '导入数据',
-      importDataBtnIcon: 'el-icon-upload2',
-      importDataDisabled: false,
-      showAdvanceSearchView: false,
-      allDeps: [],
       emps: [],
       loading: false,
       popVisible: false,
@@ -1362,22 +1358,22 @@ export default {
       employee_forms:['实习生', '正式职工'],
       personnel_source:'',
       personnel_sources:['校招', '社招'],
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
+      // options: [{
+      //   value: '选项1',
+      //   label: '黄金糕'
+      // }, {
+      //   value: '选项2',
+      //   label: '双皮奶'
+      // }, {
+      //   value: '选项3',
+      //   label: '蚵仔煎'
+      // }, {
+      //   value: '选项4',
+      //   label: '龙须面'
+      // }, {
+      //   value: '选项5',
+      //   label: '北京烤鸭'
+      // }],
       inputDepName: '所属部门',
       emp: {
         id : "",
@@ -1415,13 +1411,6 @@ export default {
         politicId: 13,
         jobLevelId: 9,
         posId: 29,
-        // workState: "在职",
-        // contractTerm: 2,
-        // conversionTime: "2018-03-31",
-        // notworkDate: null,
-        // beginContract: "2017-12-31",
-        // endContract: "2019-12-31",
-        // workAge: null,
       },
       defaultProps: {
         children: 'children',
@@ -1480,26 +1469,10 @@ export default {
         nationId: [{required: true, message: '请输入您组', trigger: 'blur'}],
         jobLevelId: [{required: true, message: '请输入职称', trigger: 'blur'}],
         posId: [{required: true, message: '请输入职位', trigger: 'blur'}],
-        // workState: [{required: true, message: '请输入工作状态', trigger: 'blur'}],
-        // contractTerm: [{required: true, message: '请输入合同期限', trigger: 'blur'}],
-        // conversionTime: [{required: true, message: '请输入转正日期', trigger: 'blur'}],
-        // notworkDate: [{required: true, message: '请输入离职日期', trigger: 'blur'}],
-        // beginContract: [{required: true, message: '请输入合同起始日期', trigger: 'blur'}],
-        // endContract: [{required: true, message: '请输入合同结束日期', trigger: 'blur'}],
+
         // workAge: [{required: true, message: '请输入工龄', trigger: 'blur'}],
       },
-      multipleSelectionFlag : false,
-      multiDeleteVisible : false,
-      multipleSelection : '',
-      filterDepartmentText : [],
-      filterPostText : [],
-      value1: "",
-      value2: "",
-      dateRules : {
-        value : [{required : true, message : '请输入开始和结束日期', trigger : 'blur'}],
-        value1 : [{required : true, message : '请输入开始日期', trigger : 'blur'}],
-        value2 : [{required : true, message : '请输入结束日期', trigger : 'blur'}],
-      },
+
       pickerOptions0: {
         disabledDate: (time) => {
           if (this.value2 !== "") {
@@ -1526,7 +1499,6 @@ export default {
     this.tipContent = '部门和岗位的编号与名称请一一对应！！！ 例如:部门编号-部门名称(岗位1编号-岗位1名称, 岗位2编号-岗位2名称) 1000-开发部(10-C++开发, 11-Java开发, 12-C#开发, 13-Python开发, 14-Go开发), 1001-运维部(20-云运维, 21-服务器运维), 1002-测试部(30-Bug测试, 31-系统测试), 1003-设计部(40-UI设计, 41-动画设计), 1004-策划部(50-策划, 51-系统策划)';
 
     localStorage.setItem("type", this.emp.employee_type);
-    // this.initPositions();
   },
   computed : {
     empsData() {
@@ -1544,31 +1516,7 @@ export default {
       this.searchValue.department_number = data.id;
       this.popVisible2 = !this.popVisible2
     },
-    // onError(err, file, fileList) {
-    //   console.log("执行Error");
-    //   this.importDataBtnText = '导入数据';
-    //   this.importDataBtnIcon = 'el-icon-upload2';
-    //   this.importDataDisabled = false;
-    // },
-    // onSuccess(response, file, fileList) {
-    //   console.log("执行Success");
-    //   this.importDataBtnText = '导入数据';
-    //   this.importDataBtnIcon = 'el-icon-upload2';
-    //   this.importDataDisabled = false;
-    //   this.initEmps();
-    // },
-    // beforeUpload(file) {
-    //   const isType = file.type === 'application/vnd.ms-excel'
-    //   const isTypeComputer = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    //   const fileType = isType || isTypeComputer
-    //   if(!fileType) {
-    //     this.$message.error('上传文件只能是xls/xlsx格式！')
-    //   }
-    //   this.importDataBtnText = '正在导入';
-    //   this.importDataBtnIcon = 'el-icon-loading';
-    //   this.importDataDisabled = true;
-    //   return fileType
-    // },
+
     uploadHttpRequest(param) {
       const formData = new FormData()
       formData.append('file', param.file)
@@ -1578,23 +1526,9 @@ export default {
       console.log("formData = ", formData);
       this.$axios.post(url, formData).then(resp => {
         const {data : {code, mark}} = resp
-      //   if (code == 200) {
-      //     param.onSuccess();
-      //     Message.success({message : '导入成功'});
-      //   } else {
-      //     param.onError();
-      //     Message.error({message : resp.data.msg});
-      //     console.log(resp.data.msg);
-      //   }
-      //   this.initEmps();
-      // }).catch(err => {
-      //   console.log("上传失败，", err)
-      //   param.onError();
-      //   Message.error({message : resp.data.msg});
       })
     },
     exportData() {
-      // window.open('/employee/basic/export', '_parent');
       window.open('/EmployeeBasic/Export', '_parent');
     },
 
@@ -1635,114 +1569,10 @@ export default {
         politicId: 13,
         jobLevelId: 9,
         posId: 29,
-
-        // contractTerm: 2,
-        // conversionTime: "",
-        // notworkDate: null,
-        // beginContract: "",
-        // endContract: "",
-        // workAge: null
       }
       this.inputDepName = '';
 
     },
-    showAllData(data) {
-      this.title = '查看员工信息';
-      this.emp = data;
-      this.dialogShowVisible = true;
-    },
-    showEditEmpView(data) {
-      // this.initPositions();
-      this.title = '编辑员工信息';
-      this.emp = data;
-      this.inputDepName = data.department_name;
-      this.dialogEditVisible = true;
-    },
-    changeSelect() {
-      // 清空部门内容
-      this.searchValue.post_name = ''
-
-      // 遍历部门的下拉选项数组
-      for (const k in this.department_names) {
-        // 岗位名称 是否等于 部门名称的下拉选择数组中的某一项
-        if (this.searchValue.department_name === this.department_names[k]) {
-          this.post_type_options = this.post_names[this.searchValue.department_name]
-        }
-      }
-      console.log("post_type_options = "+this.post_type_options);
-    },
-    changeEditSelect() {
-      // 清空部门内容
-      this.emp.post_name = ''
-
-      // 遍历部门的下拉选项数组
-      for (const k in this.department_names) {
-        // 岗位名称 是否等于 部门名称的下拉选择数组中的某一项
-        if (this.emp.department_name === this.department_names[k]) {
-          this.post_type_options = this.post_names[this.emp.department_name]
-        }
-      }
-      console.log("post_type_options = "+this.post_type_options);
-    },
-    // showAddEmpView(data) {
-    //   this.title = '添加员工信息';
-    //   this.emp = data;
-    //   this.inputDepName = data.department_name;
-    //   this.dialogAddVisible = true;
-    // },
-    // deleteEmp(data) {
-    //   console.log(localStorage.getItem("role"))
-    //   if (localStorage.getItem("role") === "主管" && ( data.employee_type === "主管")) {
-    //     Message.error({message : "不能删除同级权限或更高的用户"});
-    //   } else if (localStorage.getItem("role") === "员工" && ( data.employee_type === "主管")) {
-    //     Message.error({message : "员工没有删除领导的权限"});
-    //   } else {
-    //     var currentId = localStorage.getItem("id");
-    //     if (currentId !==data.id) {
-    //       this.$confirm('此操作将永久删除【' + data.name + '】, 是否继续?', '提示', {
-    //         confirmButtonText: '确定',
-    //         cancelButtonText: '取消',
-    //         type: 'warning'
-    //       }).then(() => {
-    //         this.$axios.post("/EmployeeBasic/Delete", data).then(resp => {
-    //           if (resp) {
-    //             this.initEmps();
-    //             Message.success({message : "删除成功"});
-    //           } else {
-    //             Message.error({message : resp.data.msg});
-    //           }
-    //         })
-    //       }).catch(() => {
-    //         // this.$message({
-    //         //   type: 'info',
-    //         //   message: '已取消删除'
-    //         // });
-    //         Message.info({message : "已取消删除"});
-    //       });
-    //     } else {
-    //       Message.error({message : "不能删除自己"});
-    //
-    //     }
-    //   }
-    // },
-    // doEditEmp() {
-    //   //编辑
-    //   this.$refs['empForm'].validate(valid => {
-    //     if (valid) {
-    //       this.emp.height = parseInt(this.emp.height);
-    //       this.$axios.post('/EmployeeBasic/Update', this.emp).then(resp => {
-    //         if (resp) {
-    //           this.dialogEditVisible = false;
-    //           this.initEmps();
-    //           Message.success({message : '修改成功!'});
-    //         } else {
-    //           Message.error({message : resp.data.msg});
-    //         }
-    //       });
-    //     }
-    //   });
-    //
-    // },
     doAddEmp() {
       this.$refs['empForm'].validate(valid => {
         if (valid) {
@@ -1767,39 +1597,39 @@ export default {
         }
       });
     },
-    handleNodeClick(data) {
-      this.inputDepName = data.name;
-      this.emp.department_number = data.id;
-      this.popVisible = !this.popVisible
-    },
-    showDepView() {
-      this.popVisible = !this.popVisible
-    },
-    showDepView2() {
-      this.popVisible2 = !this.popVisible2
-    },
-    initPositions() {
-      // this.getRequest('/employee/basic/positions').then(resp => {
-      //     if (resp) {
-      //         this.positions = resp;
-      //     }
-      // })
-      this.$axios.post('/EmployeeBasic/Position').then(resp => {
-        if (resp) {
-          this.positions = resp;
-        }
-      })
-    },
-    getMaxWordID() {
-      this.getRequest("/employee/basic/maxid").then(resp => {
-        if (resp) {
-          this.emp.id = resp.obj;
-        }
-      })
-    },
-    initData() {
-
-    },
+    // handleNodeClick(data) {
+    //   this.inputDepName = data.name;
+    //   this.emp.department_number = data.id;
+    //   this.popVisible = !this.popVisible
+    // },
+    // showDepView() {
+    //   this.popVisible = !this.popVisible
+    // },
+    // showDepView2() {
+    //   this.popVisible2 = !this.popVisible2
+    // },
+    // initPositions() {
+    //   // this.getRequest('/employee/basic/positions').then(resp => {
+    //   //     if (resp) {
+    //   //         this.positions = resp;
+    //   //     }
+    //   // })
+    //   this.$axios.post('/EmployeeBasic/Position').then(resp => {
+    //     if (resp) {
+    //       this.positions = resp;
+    //     }
+    //   })
+    // },
+    // getMaxWordID() {
+    //   this.getRequest("/employee/basic/maxid").then(resp => {
+    //     if (resp) {
+    //       this.emp.id = resp.obj;
+    //     }
+    //   })
+    // },
+    // initData() {
+    //
+    // },
     sizeChange(currentSize) {
       this.pageSize = currentSize;
       this.initEmps();
@@ -1811,83 +1641,73 @@ export default {
     showAddEmpView() {
       this.emptyEmp();
       this.title = '添加员工信息';
-      //this.getMaxWordID();
       this.dialogAddVisible = true;
     },
-    async searchEmp(data) {
-      console.log("name = ", this.emp.name);
-      var url;
-      if (localStorage.getItem("role") === "主管") {
-        url = '/EmployeeBasic/SearchByDirector';
-        var temp = {
-          'id' : localStorage.getItem("id"),
-          'name' : this.emp.name,
-        };
-        this.$refs[data].validate((valid) => {
-          if (valid) {
-            this.$axios.post(url, temp).then((resp) => {
-              if (resp.data.msg === "查询成功") {
-                this.emps = resp.data.data;
-              } else {
-                Message.error({message : resp.data.msg});
-              }
-            });
-          }
-        })
-      } else {
-        url = '/EmployeeBasic/SearchByEmployee';
-        var temp = {
-          'id' : localStorage.getItem("id"),
-          'name' : this.emp.name,
-        };
-        this.$refs[data].validate((valid) => {
-          if (valid) {
-            this.$axios.post(url, temp).then((resp) => {
-              if (resp.data.msg === "查询成功") {
-                this.emps = resp.data.data;
-              } else {
-                Message.error({message : resp.data.msg});
-              }
-            });
-          }
-        })
-      }
+    // async searchEmp(data) {
+    //   console.log("name = ", this.emp.name);
+    //   var url;
+    //   if (localStorage.getItem("role") === "主管") {
+    //     url = '/EmployeeBasic/SearchByDirector';
+    //     var temp = {
+    //       'id' : localStorage.getItem("id"),
+    //       'name' : this.emp.name,
+    //     };
+    //     this.$refs[data].validate((valid) => {
+    //       if (valid) {
+    //         this.$axios.post(url, temp).then((resp) => {
+    //           if (resp.data.msg === "查询成功") {
+    //             this.emps = resp.data.data;
+    //           } else {
+    //             Message.error({message : resp.data.msg});
+    //           }
+    //         });
+    //       }
+    //     })
+    //   } else {
+    //     url = '/EmployeeBasic/SearchByEmployee';
+    //     var temp = {
+    //       'id' : localStorage.getItem("id"),
+    //       'name' : this.emp.name,
+    //     };
+    //     this.$refs[data].validate((valid) => {
+    //       if (valid) {
+    //         this.$axios.post(url, temp).then((resp) => {
+    //           if (resp.data.msg === "查询成功") {
+    //             this.emps = resp.data.data;
+    //           } else {
+    //             Message.error({message : resp.data.msg});
+    //           }
+    //         });
+    //       }
+    //     })
+    //   }
+    //
+    //
+    // },
+    // resetForm(data) {
+    //   console.log("data = ", data, "emp = ", this.emp)
+    //   this.$refs[data].resetFields();
+    //   this.initEmps();
+    // },
 
-
-    },
-    resetForm(data) {
-      console.log("data = ", data, "emp = ", this.emp)
-      this.$refs[data].resetFields();
-      this.initEmps();
-    },
-
-    //高级搜索  根据部门查询
-    async searchEmpAdvance(data) {
-      this.$refs[data].validate((valid) => {
-        if (valid) {
-          this.$axios.post('/EmployeeBasic/SearchAdvance', this.searchValue).then((resp) => {
-            if (resp.data.msg == "查询成功") {
-              this.emps = resp.data.data;
-            } else {
-              Message.error({message : resp.data.msg});
-            }
-          })
-        }
-      })
-    },
+    // //高级搜索  根据部门查询
+    // async searchEmpAdvance(data) {
+    //   this.$refs[data].validate((valid) => {
+    //     if (valid) {
+    //       this.$axios.post('/EmployeeBasic/SearchAdvance', this.searchValue).then((resp) => {
+    //         if (resp.data.msg == "查询成功") {
+    //           this.emps = resp.data.data;
+    //         } else {
+    //           Message.error({message : resp.data.msg});
+    //         }
+    //       })
+    //     }
+    //   })
+    // },
     initEmps(type) {
       this.loading = true;
       var tempRole = localStorage.getItem("role");
-      if (tempRole === "总裁") {
-        this.$axios.post('/EmployeeBasic').then(resp => {
-          this.loading = false;
-          if (resp) {
-            this.emps = resp.data;
-            console.log("resp = ", this.emps);
-            this.total = resp.total;
-          }
-        })
-      } else if (tempRole === "主管") {
+    if (tempRole === "主管") {
         let temp = {
           id : "",
         }
@@ -1920,43 +1740,43 @@ export default {
     popDelete() {
       this.multiDeleteVisible = true;
     },
-    multiDelete() {
-      this.multiDeleteVisible = false;
-      let checkArr = this.multipleSelection;   // multipleSelection存储了勾选到的数据
-      let params = [];
-      let self = this;
-      let flag = true;
-      checkArr.forEach(function (item) {
-        if (localStorage.getItem("id") === item.id) {//不能删除自己
-          console.log("不能删除自己");
-          flag = false;
-        } else if (localStorage.getItem("role") === "主管" && item.employee_type === "主管") {//身份为主管，不能删除其他主管
-          console.log("执行力第二个false");
-          flag = false;
-        } else {
-          params.push(item.id);       // 添加所有需要删除数据的id到一个数组，post提交过去
-        }
-      });
-      if (flag === true) {
-        console.log("批量删除的id：", params);
-
-        //  $http即是axios，可以在main.js里面设置 Vue.prototype.$http = axios;
-        this.$axios.post('/EmployeeBasic/MultiDelete', params).then(function (res) {
-          if (res.data.msg == "删除成功") {
-            Message.success({message : "批量删除成功"});
-          } else {
-            Message.error({message : resp.data.msg});
-          }
-          // self.getFashionList(1, 1, 5);
-        })
-        this.initEmps();
-      } else {
-        Message.error({message : "不能删除自己和其他主管"});
-        this.initEmps();
-      }
-      this.initEmps();
-
-    },
+    // multiDelete() {
+    //   this.multiDeleteVisible = false;
+    //   let checkArr = this.multipleSelection;   // multipleSelection存储了勾选到的数据
+    //   let params = [];
+    //   let self = this;
+    //   let flag = true;
+    //   checkArr.forEach(function (item) {
+    //     if (localStorage.getItem("id") === item.id) {//不能删除自己
+    //       console.log("不能删除自己");
+    //       flag = false;
+    //     } else if (localStorage.getItem("role") === "主管" && item.employee_type === "主管") {//身份为主管，不能删除其他主管
+    //       console.log("执行力第二个false");
+    //       flag = false;
+    //     } else {
+    //       params.push(item.id);       // 添加所有需要删除数据的id到一个数组，post提交过去
+    //     }
+    //   });
+    //   if (flag === true) {
+    //     console.log("批量删除的id：", params);
+    //
+    //     //  $http即是axios，可以在main.js里面设置 Vue.prototype.$http = axios;
+    //     this.$axios.post('/EmployeeBasic/MultiDelete', params).then(function (res) {
+    //       if (res.data.msg == "删除成功") {
+    //         Message.success({message : "批量删除成功"});
+    //       } else {
+    //         Message.error({message : resp.data.msg});
+    //       }
+    //       // self.getFashionList(1, 1, 5);
+    //     })
+    //     this.initEmps();
+    //   } else {
+    //     Message.error({message : "不能删除自己和其他主管"});
+    //     this.initEmps();
+    //   }
+    //   this.initEmps();
+    //
+    // },
     initDepartment() {
       this.$axios.post('/Department/Init').then(resp => {
         this.department_names = resp.data;
@@ -1972,53 +1792,53 @@ export default {
         console.log("初始化岗位：", this.post_names);
       })
     },
-    filterHandler(value, row, column) {
-      const property = column['property'];
-      return row[property] === value;
-    },
-    initSearchText() {
-      this.$axios.post('/SearchByDepartmentNumber').then(resp => {
-        this.filterDepartmentText = resp.data;
-        console.log("Text : ", this.filterDepartmentText);
-      })
-      this.$axios.post('/SearchByPostNumber').then(resp => {
-        this.filterPostText = resp.data;
-        console.log("Text : ", this.filterPostText);
-      })
-    },
-    selectDate() {
-      if ((this.value1 === "" || this.value1 === null) || (this.value2 === "" || this.value2 === null)) {
-        Message.error({message : '请输入开始和结束日期'});
-      } else {
-        console.log("value1 = ", this.value1);
-        var url;
-     if (localStorage.getItem("role") === "主管") {
-          url = '/EmployeeBasic/SearchDateByDirector';
-        } else {
-          url = '/EmployeeBasic/SearchDateByEmployee';
-        }
-        var temp = {
-          'id' : localStorage.getItem("id"),
-          'start' : this.value1,
-          'end' : this.value2,
-        }
-        this.$axios.post(url, temp).then(resp => {
-          if (resp.data.data) {
-            this.emps = resp.data.data;
-            Message.success({message : '查询成功'});
-          } else {
-            Message.warning({message : '未找到符合条件的信息'});
-          }
-        })
-        // this.initEmps();
-      }
-
-    },
-    resetDate() {
-      this.value1 = ""
-      this.value2 = ""
-      this.initEmps();
-    }
+    // filterHandler(value, row, column) {
+    //   const property = column['property'];
+    //   return row[property] === value;
+    // },
+    // initSearchText() {
+    //   this.$axios.post('/SearchByDepartmentNumber').then(resp => {
+    //     this.filterDepartmentText = resp.data;
+    //     console.log("Text : ", this.filterDepartmentText);
+    //   })
+    //   this.$axios.post('/SearchByPostNumber').then(resp => {
+    //     this.filterPostText = resp.data;
+    //     console.log("Text : ", this.filterPostText);
+    //   })
+    // },
+    // selectDate() {
+    //   if ((this.value1 === "" || this.value1 === null) || (this.value2 === "" || this.value2 === null)) {
+    //     Message.error({message : '请输入开始和结束日期'});
+    //   } else {
+    //     console.log("value1 = ", this.value1);
+    //     var url;
+    //  if (localStorage.getItem("role") === "主管") {
+    //       url = '/EmployeeBasic/SearchDateByDirector';
+    //     } else {
+    //       url = '/EmployeeBasic/SearchDateByEmployee';
+    //     }
+    //     var temp = {
+    //       'id' : localStorage.getItem("id"),
+    //       'start' : this.value1,
+    //       'end' : this.value2,
+    //     }
+    //     this.$axios.post(url, temp).then(resp => {
+    //       if (resp.data.data) {
+    //         this.emps = resp.data.data;
+    //         Message.success({message : '查询成功'});
+    //       } else {
+    //         Message.warning({message : '未找到符合条件的信息'});
+    //       }
+    //     })
+    //     // this.initEmps();
+    //   }
+    //
+    // },
+    // resetDate() {
+    //   this.value1 = ""
+    //   this.value2 = ""
+    //   this.initEmps();
+    // }
   }
 }
 window["tmripple"] =
