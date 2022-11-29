@@ -2,24 +2,24 @@
     <div>
         <el-container>
             <el-header class="homeHeader">
-                <div class="title">人事管理系统</div>
-                <div>
-<!--                    <el-button icon="el-icon-bell" type="text" style="margin-right: 8px;color: #000000;" size="normal" @click="goChat"></el-button>-->
-                    <el-dropdown class="userInfo" @command="commandHandler">
-  <span class="el-dropdown-link">
-<!--     <el-image :src="" class="eImage"></el-image>-->
-    <span  :style="img_cx"> </span>
-    <b>编号:{{userId}}<br />角色:{{userRole}}</b>
-    <i></i>
-  </span>
+<!--                <div class="title">人事管理系统</div>-->
+<!--                <div>-->
+<!--&lt;!&ndash;                    <el-button icon="el-icon-bell" type="text" style="margin-right: 8px;color: #000000;" size="normal" @click="goChat"></el-button>&ndash;&gt;-->
+<!--                    <el-dropdown class="userInfo" @command="commandHandler">-->
+<!--  <span class="el-dropdown-link">-->
+<!--&lt;!&ndash;     <el-image :src="" class="eImage"></el-image>&ndash;&gt;-->
+<!--    <span  :style="img_cx"> </span>-->
+<!--    <b>编号:{{userId}}<br />角色:{{userRole}}</b>-->
+<!--    <i></i>-->
+<!--  </span>-->
 
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
-<!--                            <el-dropdown-item command="setting">设置</el-dropdown-item>-->
-                            <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                </div>
+<!--                        <el-dropdown-menu slot="dropdown">-->
+<!--                            <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>-->
+<!--&lt;!&ndash;                            <el-dropdown-item command="setting">设置</el-dropdown-item>&ndash;&gt;-->
+<!--                            <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>-->
+<!--                        </el-dropdown-menu>-->
+<!--                    </el-dropdown>-->
+<!--                </div>-->
             </el-header>
             <el-container>
                 <el-aside width="200px" hight="100%">

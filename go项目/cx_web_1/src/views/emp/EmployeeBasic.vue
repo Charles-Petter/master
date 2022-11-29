@@ -5,11 +5,11 @@
       <div style="display: flex;justify-content: space-between">
         <div>
           <el-form :model="emp" :rules="rules" ref="emp" @submit.native.prevent>
-            <el-form-item prop="name">
+            <el-form-item prop="department_name">
               <el-input placeholder="请输入员工姓名进行搜索，可以直接回车搜索..." prefix-icon="el-icon-search"
                         clearable
                         @clear="initEmps"
-                        style="width: 350px;margin-right: 10px" v-model="emp.name"
+                        style="width: 350px;margin-right: 10px" v-model="emp.department_name"
                         @keydown.enter.native="searchEmp('emp')" :disabled="showAdvanceSearchView || showDateSearchView"></el-input>
               <el-button-group>
                 <el-button icon="el-icon-search" type="primary" @click="searchEmp('emp')" :disabled="showAdvanceSearchView || showDateSearchView">搜索</el-button>
@@ -17,6 +17,7 @@
               </el-button-group>
 
               <el-button-group>
+
                 <el-button style="margin-left: 50px;"  type="primary" @click="showAdvanceSearchView = !showAdvanceSearchView" :disabled="showDateSearchView">
                   <i :class="showAdvanceSearchView?'fa fa-angle-double-up':'fa fa-angle-double-down'"
                      aria-hidden="true"></i>
@@ -1965,49 +1966,24 @@ export default {
       //this.getMaxWordID();
       this.dialogAddVisible = true;
     },
+
+
+    //查询部门实现
     async searchEmp(data) {
-      console.log("name = ", this.emp.name);
+      console.log("department_name = ", this.emp.department_name);
       var url;
-      if (localStorage.getItem("role") === "总裁") {
-        url = '/EmployeeBasic/Search';
-        this.$refs[data].validate((valid) => {
-          if (valid) {
-            this.$axios.post(url, this.emp).then((resp) => {
-              if (resp.data.msg == "查询成功") {
-                this.emps = resp.data.data;
-              } else {
-                Message.error({message : resp.data.msg});
-              }
-            });
-          }
-        })
-      } else if (localStorage.getItem("role") === "主管") {
-        url = '/EmployeeBasic/SearchByDirector';
+ if (localStorage.getItem("role") === "主管") {
+        // url = '/EmployeeBasic/SearchByDirector';
+   url = '/DepartmentSearch';
+
         var temp = {
           'id' : localStorage.getItem("id"),
-          'name' : this.emp.name,
+          'department_name' : this.emp.department_name,
         };
         this.$refs[data].validate((valid) => {
           if (valid) {
             this.$axios.post(url, temp).then((resp) => {
-              if (resp.data.msg == "查询成功") {
-                this.emps = resp.data.data;
-              } else {
-                Message.error({message : resp.data.msg});
-              }
-            });
-          }
-        })
-      } else {
-        url = '/EmployeeBasic/SearchByEmployee';
-        var temp = {
-          'id' : localStorage.getItem("id"),
-          'name' : this.emp.name,
-        };
-        this.$refs[data].validate((valid) => {
-          if (valid) {
-            this.$axios.post(url, temp).then((resp) => {
-              if (resp.data.msg == "查询成功") {
+              if (resp.data.msg === "查询成功") {
                 this.emps = resp.data.data;
               } else {
                 Message.error({message : resp.data.msg});
@@ -2024,6 +2000,7 @@ export default {
       this.$refs[data].resetFields();
       this.initEmps();
     },
+    //查询部门
     async searchEmpAdvance(data) {
       this.$refs[data].validate((valid) => {
         if (valid) {

@@ -7,15 +7,14 @@ import (
 
 func DirectorMapper(re *gin.Engine)  {
 	re.POST("/DirectorDepartment", Controller.DirectorDepartment)
-	re.POST("/DirectorInitExamine", Controller.DirectorInitExamine)
-	re.POST("/DirectorAgreeApply", Controller.DirectorAgreeApply)
-	re.POST("/DirectorRefuseApply", Controller.DirectorRefuseApply)
+	//re.POST("/DirectorInitExamine", Controller.DirectorInitExamine)
 	re.POST("/EmployeeBasicByDirector", Controller.EmployeeBasicByDirector)
-	re.POST("/EmployeeBasic/SearchByDirector", Controller.EmployeeBasicSearchByDirector)
+	re.POST("/EmployeeBasicSearchByDirector/", Controller.EmployeeBasicSearchByDirector)
 	//re.POST("/EmployeeBasic/SearchDateByDirector", Controller.EmployeeBasicSearchDateByDirector)
-	re.POST("/EmployeeQuitByDirector", Controller.EmployeeQuitByDirector)
-	re.POST("/EmployeeQuitByDirector/SearchByDate", Controller.EmployeeBasicByDirectorBySearchByDate)
 	re.POST("/GetDepartmentName", Controller.GetDepartmentName)
-	re.POST("/TalentApplyPart", Controller.TalentApplyPart)
+
+	//部门搜索
+	re.POST("/DepartmentSearch", Controller.DepartmentSearch)
+
 
 }

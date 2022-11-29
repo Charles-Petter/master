@@ -6,7 +6,6 @@ import EmployeeBasic from "@/views/emp/EmployeeBasic";
 import DepartmentBasic from "@/views/manage/DepartmentBasic";
 import SalSob from "@/views/sal/SalSob";
 import Addemploy_cx from "@/views/emp/Addemploy_cx";
-import searchDepartent_cx from "./views/sal/searchDepartent_cx";
 
 
 Vue.use(VueRouter)
@@ -53,11 +52,7 @@ export const directorLogin = [
                 name : '查询部门信息',
                 component : DepartmentBasic
             },
-            {
-                path : '/sal/searchDepartent_cx',
-                name : '查询信息',
-                component : searchDepartent_cx
-            },
+
             //员工工资路由
             {
                 path : '/sal/SalSob',

@@ -29,24 +29,24 @@ func DirectorDepartment(context *gin.Context) {
 }
 
 //主管信息
-func DirectorInitExamine(context *gin.Context) {
-	var requestDirector Model.Employee
-	json.NewDecoder(context.Request.Body).Decode(&requestDirector)
-	fmt.Println("请求到的主管：", requestDirector)
-	var application []Model.PostApplications
-	var err error
-	err = Global.Db.Where("new_department_name = ? and is_agree = ?", requestDirector.Department_name, 0).Find(&application).Error
-	if err != nil {
-		fmt.Println("寻找初始审核信息出错", err)
-		context.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "初始化审核信息出错",
-		})
-		return
-	}
-	fmt.Println("即将返回的申请数据：", application)
-	context.JSON(http.StatusOK, application)
-}
+//func DirectorInitExamine(context *gin.Context) {
+//	var requestDirector Model.Employee
+//	json.NewDecoder(context.Request.Body).Decode(&requestDirector)
+//	fmt.Println("请求到的主管：", requestDirector)
+//	var application []Model.PostApplications
+//	var err error
+//	err = Global.Db.Where("new_department_name = ? and is_agree = ?", requestDirector.Department_name, 0).Find(&application).Error
+//	if err != nil {
+//		fmt.Println("寻找初始审核信息出错", err)
+//		context.JSON(http.StatusOK, gin.H{
+//			"code": 200,
+//			"msg":  "初始化审核信息出错",
+//		})
+//		return
+//	}
+//	fmt.Println("即将返回的申请数据：", application)
+//	context.JSON(http.StatusOK, application)
+//}
 
 //同意申请
 //func DirectorAgreeApply(context *gin.Context) {

@@ -3,6 +3,7 @@ drop table if exists departments;
 /*部门表*/
 create table departments(
 	department_number  int not null primary key,
+     name varchar(255),
 	department_name varchar(255),
 	department_type varchar(255),
 	department_head varchar(255),
@@ -132,146 +133,12 @@ comment on column resigned_employees.department_name is '部门名称';
 comment on column resigned_employees.post_number is '岗位编号';
 comment on column resigned_employees.post_name is '岗位名称';
 
-drop table if exists department_transfer_employee_tables;
 
-/*部门调动员工表*/
-create table department_transfer_employee_tables(
-	transfer_id int not null primary key,
-	id varchar(255) not null,
-	name varchar(255),
-	sex varchar(10),
-	original_department_number int not null,
-	original_department_name varchar(255),
-	new_department_number int not null,
-	new_department_name varchar(255),
-	transfer_date date,
-	reasons_for_transfer varchar(255)
-);
-
-comment on column department_transfer_employee_tables.transfer_id is '部门调动编号';
-comment on column department_transfer_employee_tables.id is '员工编号';
-comment on column department_transfer_employee_tables.name is '姓名';
-comment on column department_transfer_employee_tables.sex is '性别';
-comment on column department_transfer_employee_tables.original_department_number is '原部门编号';
-comment on column department_transfer_employee_tables.original_department_name is '原部门名称';
-comment on column department_transfer_employee_tables.new_department_number is '新部门编号';
-comment on column department_transfer_employee_tables.new_department_name is '新部门名称';
-comment on column department_transfer_employee_tables.transfer_date is '调动日期';
-comment on column department_transfer_employee_tables.reasons_for_transfer is '调动原因';
-
-drop table if exists post_transfer_employee_tables;
-
-/*岗位调动员工表*/
-create table post_transfer_employee_tables(
-	transfer_id int not null primary key,
-	id varchar(255) not null,
-	name varchar(255),
-	sex varchar(10),
-	original_post_number int not null,
-	original_post_name varchar(255),
-	new_post_number int not null,
-	new_post_name varchar(255),
-	transfer_date date,
-	reasons_for_transfer varchar(255)
-);
-
-comment on column post_transfer_employee_tables.transfer_id is '岗位调动编号';
-comment on column post_transfer_employee_tables.id is '员工编号';
-comment on column post_transfer_employee_tables.name is '姓名';
-comment on column post_transfer_employee_tables.sex is '性别';
-comment on column post_transfer_employee_tables.original_post_number is '原岗位编号';
-comment on column post_transfer_employee_tables.original_post_name is '原岗位名称';
-comment on column post_transfer_employee_tables.new_post_number is '新岗位编号';
-comment on column post_transfer_employee_tables.new_post_name is '新岗位名称';
-comment on column post_transfer_employee_tables.transfer_date is '调动日期';
-comment on column post_transfer_employee_tables.reasons_for_transfer is '调动原因';
-
-drop table if exists post_applications;
-
-/*岗位申请*/
-create table post_applications(
-	application_id serial not null primary key,
-	id varchar(255) not null,
-	name varchar(255),
-	original_department_name varchar(255) not null,
-	new_department_name varchar(255) not null,
-	original_post_name varchar(255) not null,
-	new_post_name varchar(255) not null,
-	is_agree int default 0,
-	reason_for_application varchar(255) not null
-);
-
-comment on column post_applications.application_id is '申请编号';
-comment on column post_applications.id is '员工编号';
-comment on column post_applications.name is '姓名';
-comment on column post_applications.original_department_name is '原部门名称';
-comment on column post_applications.new_department_name is '新部门名称';
-comment on column post_applications.original_post_name is '原岗位名称';
-comment on column post_applications.new_post_name is '新岗位名称';
-comment on column post_applications.is_agree is '领导是否同意';
-comment on column post_applications.reason_for_application is '申请原因';
-
-drop table if exists talent_pools;
-
-/*人才库*/
-create table talent_pools(
-	talent_id int primary key not null,
-	name varchar(255),
-	sex varchar(10) default '男',
-	birthday date,
-	id_card varchar(20) not null,
-	political varchar(255),
-	nation varchar(255),
-	native_place varchar(255),
-	phone varchar(16),
-	email varchar(255),
-	height int,
-	blood_type varchar(10),
-	marital_status varchar(10),
-	birthplace varchar(255),
-	registered_residence varchar(255),
-	department_name varchar(255) not null,
-	post_name varchar(255) not null,
-	employment_form varchar(255) not null,
-	personnel_source varchar(255),
-	highest_education varchar(255),
-	graduation_school varchar(255),
-	major_studied varchar(255),
-	graduation_date date,
-	is_agree int default 0
-);
-
-comment on column talent_pools.talent_id is '人才编号';
-comment on column talent_pools.name is '姓名';
-comment on column talent_pools.sex is '性别';
-comment on column talent_pools.birthday is '出生日期';
-comment on column talent_pools.id_card is '身份证号';
-comment on column talent_pools.political is '政治面貌';
-comment on column talent_pools.nation is '民族';
-comment on column talent_pools.native_place is '籍贯';
-comment on column talent_pools.phone is '电话';
-comment on column talent_pools.email is '电子邮箱';
-comment on column talent_pools.height is '身高';
-comment on column talent_pools.blood_type is '血型';
-comment on column talent_pools.marital_status is '婚姻状况';
-comment on column talent_pools.birthplace is '出生地';
-comment on column talent_pools.registered_residence is '户口所在地';
-comment on column talent_pools.department_name  is '部门名称';
-comment on column talent_pools.post_name is '岗位名称';
-comment on column talent_pools.employment_form is '用工形式';
-comment on column talent_pools.personnel_source is '人员来源';
-comment on column talent_pools.highest_education is '最高学历';
-comment on column talent_pools.graduation_school is '毕业院校';
-comment on column talent_pools.major_studied is '所学专业';
-comment on column talent_pools.graduation_date is '毕业日期';
-comment on column talent_pools.is_agree is '领导是否同意';
-
-
-insert into departments values(1000, '开发部', '一级部门', '20210002', '047100001111', '000111', '软件开发部门', '开发部', '2010-1-1');
-insert into departments values(1001, '运维部', '二级部门', '20210003', '047100002222', '000222', '软件运行与维护部门', '开发部', '2010-1-2');
-insert into departments values(1002, '测试部', '二级部门', '20210004', '047100003333', '000333', '软件测试部门', '开发部', '2010-1-3');
-insert into departments values(1003, '设计部', '二级部门', '20210005', '047100004444', '000444', '软件架构设计部门', '开发部', '2010-1-4');
-insert into departments values(1004, '策划部', '二级部门', '20210006', '047100005555', '000555', '软件需求分析部门', '开发部', '2010-1-5');
+insert into departments values(1000,'张三' ,'开发部', '一级部门', '20210002', '047100001111', '000111', '软件开发部门', '开发部', '2010-1-1');
+insert into departments values(1001,'萧炎' ,'运维部', '二级部门', '20210003', '047100002222', '000222', '软件运行与维护部门', '开发部', '2010-1-2');
+insert into departments values(1002,'张天爱', '测试部', '二级部门', '20210004', '047100003333', '000333', '软件测试部门', '开发部', '2010-1-3');
+insert into departments values(1003,'王五', '设计部', '二级部门', '20210005', '047100004444', '000444', '软件架构设计部门', '开发部', '2010-1-4');
+insert into departments values(1004,'赵子龙', '策划部', '二级部门', '20210006', '047100005555', '000555', '软件需求分析部门', '开发部', '2010-1-5');
 
 insert into post_tables values(10, 'C++开发', 1000, '开发岗', '无编制');
 insert into post_tables values(11, 'Java开发', 1000, '开发岗', '无编制');
@@ -301,4 +168,4 @@ insert into employees values('20210010', '123456', '员工', '李峰', '男', '2
 insert into employees values('20210011', '123456', '员工', '陈明', '女', '2000-1-10', '150104200001100020', '群众', '壮族', '广东省广州市白云区', '18100010000', '123456780@qq.com', '170', 'A型', '未婚', '广东省广州市白云区', '广东省广州市白云区', 1004, '策划部', 50, '策划', '2021-1-5', '实习生', '社招', '本科', '华南理工大学', '人工智能', '2020-6-1', '否');
 insert into employees values('20210012', '123456', '员工', '吴军', '男', '2000-1-11', '150104200001110020', '群众', '汉族', '广东省广州市白云区', '18100011111', '123456779@qq.com', '185', 'O型', '未婚', '广东省广州市白云区', '广东省广州市白云区', 1004, '策划部', 50, '策划', '2021-1-5', '实习生', '社招', '本科', '华南理工大学', '人工智能', '2020-6-1', '否');
 
-insert into talent_pools values(0, '亚索', '男', '2000-1-1', '150101200001010010', '群众', '汉族', '上海市静安区', '19100001111', '111222333@qq.com', '180', 'B型', '未婚', '上海市静安区', '上海市静安区', '开发部', 'Go开发', '实习生', '校招', '本科', '复旦大学', '数据科学', '2020-6-1', 0);
+

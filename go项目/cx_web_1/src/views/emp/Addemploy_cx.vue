@@ -1860,6 +1860,8 @@ export default {
       this.$refs[data].resetFields();
       this.initEmps();
     },
+
+    //高级搜索  根据部门查询
     async searchEmpAdvance(data) {
       this.$refs[data].validate((valid) => {
         if (valid) {

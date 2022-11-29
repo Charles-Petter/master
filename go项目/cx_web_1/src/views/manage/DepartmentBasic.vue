@@ -5,7 +5,25 @@
       <span>
         部门信息
       </span>
-      <el-table :data="empsData"
+      <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+        <el-col :span="16">
+
+          <el-form :model="emp" :rules="rules" ref="emp" @submit.native.prevent>
+            <el-form-item prop="department_name">
+              <el-input placeholder="请输入员工姓名进行搜索，可以直接回车搜索..." prefix-icon="el-icon-search"
+                        clearable
+                        @clear="initEmps"
+                        style="width: 350px;margin-right: 10px" v-model="emp.department_name"
+                        @keydown.enter.native="searchEmp('emp')" :disabled="showAdvanceSearchView || showDateSearchView"></el-input>
+              <el-button-group>
+                <el-button icon="el-icon-search" type="primary" @click="searchEmp('emp')" :disabled="showAdvanceSearchView || showDateSearchView">搜索</el-button>
+                <el-button icon="el-icon-refresh" type="info" @click="resetForm('emp')" :disabled="showAdvanceSearchView || showDateSearchView">重置</el-button>
+              </el-button-group>
+            </el-form-item>
+          </el-form>
+          </el-col>
+      </el-col>
+          <el-table :data="empsData"
                 stripe border
                 v-loading="loading"
                 element-loading-text="正在加载..."
@@ -77,251 +95,11 @@
             width="150"
             show-overflow-tooltip>
         </el-table-column>
-
-        <el-table-column
-            fixed="right"
-            width="200"
-            label="操作">
-          <template slot-scope="scope">
-            <el-button @click="initPost(scope.row)" style="padding: 3px" size="mini" type="primary">查看部门成员</el-button>
-<!--            <el-input placeholder="请输入内容" maxlength="20" v-model="searchContent" clearable class="input-with-select">-->
-<!--              <el-button slot="append" icon="el-icon-search" @click="search()">查询</el-button>-->
-<!--            </el-input>-->
-          </template>
-        </el-table-column>
       </el-table>
-    </div>
-    <div>
-      <span>
-        岗位信息
-      </span>
-      <!--      岗位信息-->
-      <el-table :data="postsData" stripe border
-                v-loading="loading"
-                element-loading-text="正在加载..."
-                element-loading-spinner="el-icon-loading"
-                element-loading-background="rgba(0, 0, 0, 0.8)"
-                style="width: 100%">
-        <el-table-column prop="post_number" label="岗位编号" align="left" width="100"></el-table-column>
-        <el-table-column prop="post_name" label="岗位名称" align="left" width="100"></el-table-column>
-        <el-table-column prop="department_number" label="部门编号" align="left" width="100"></el-table-column>
-        <el-table-column prop="post_type" label="岗位类型" align="left" width="100"></el-table-column>
-        <el-table-column prop="post_establishment" label="岗位编制" align="left" width="100"></el-table-column>
-        <el-table-column fixed="right" width="200" label="操作">
-<!--          <template slot-scope="scope">-->
-<!--            <el-button @click="showEditPostView(scope.row)" v-if="is_boss" style="padding: 3px" size="mini" type="warning">编辑</el-button>-->
-<!--            <el-button @click="deletePost(scope.row)" v-if="is_boss" style="padding: 3px" size="mini" type="danger">删除</el-button>-->
-<!--          </template>-->
-        </el-table-column>
-
-      </el-table>
-    </div>
-    <!--    部门编辑-->
-    <div>
-      <el-dialog :title="title" @close="resetForm('emp')" :visible.sync="dialogEditVisible" width="80%">
-        <div>
-          <el-form :model="emp" :rules="rules" ref="emp">
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="部门名称:" prop="department_name">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="emp.department_name" placeholder="请输入部门名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="部门类型:" prop="department_type">
-                  <el-select v-model="emp.department_type" placeholder="请选择部门类型" size="mini" style="width: 150px;">
-                    <el-option v-for="item in department_types" :key="item" :label="item" :value="item"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="部门电话:" prop="phone">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="emp.phone" placeholder="请输入部门名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="部门传真:" prop="fax">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="emp.fax" placeholder="请输入部门名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="部门描述:" prop="describe">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="emp.describe" placeholder="请输入部门名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="上级部门:" prop="superior_department">
-                  <el-select v-model="emp.superior_department" placeholder="请选择上级部门" size="mini" style="width: 150px;">
-                    <el-option v-for="item in department_names" :key="item" :label="item" :value="item"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成立日期:" prop="incorporation_date">
-                  <el-date-picker
-                      v-model="emp.incorporation_date"
-                      size="mini"
-                      type="date"
-                      value-format="yyyy-MM-dd"
-                      style="width: 150px;"
-                      placeholder="请选择成立日期">
-                  </el-date-picker>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogEditVisible = false">取 消</el-button>
-          <el-button type="primary" @click="doEditEmp">确 定</el-button>
-      </span>
-      </el-dialog>
-    </div>
-    <!--    部门添加-->
-    <div>
-      <el-dialog :title="title" @close="resetForm('emp')" :visible.sync="dialogAddVisible" width="80%">
-        <div>
-          <el-form :model="emp" :rules="rules" ref="emp">
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="部门名称:" prop="department_name">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="emp.department_name" placeholder="请输入部门名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="部门类型:" prop="department_type">
-                  <el-select v-model="emp.department_type" placeholder="请选择部门类型" size="mini" style="width: 150px;">
-                    <el-option v-for="item in department_types" :key="item" :label="item" :value="item"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="部门电话:" prop="phone">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="emp.phone" placeholder="请输入部门名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="部门传真:" prop="fax">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="emp.fax" placeholder="请输入部门名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="6">
-                <el-form-item label="部门描述:" prop="describe">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="emp.describe" placeholder="请输入部门名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="上级部门:" prop="superior_department">
-                  <el-select v-model="emp.superior_department" placeholder="请选择上级部门" size="mini" style="width: 150px;">
-                    <el-option v-for="item in department_names" :key="item" :label="item" :value="item"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="成立日期:" prop="incorporation_date">
-                  <el-date-picker
-                      v-model="emp.incorporation_date"
-                      size="mini"
-                      type="date"
-                      value-format="yyyy-MM-dd"
-                      style="width: 150px;"
-                      placeholder="请选择成立日期">
-                  </el-date-picker>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogAddVisible = false">取 消</el-button>
-          <el-button type="primary" @click="doAddEmp">确 定</el-button>
-      </span>
-      </el-dialog>
-    </div>
-    <!--    岗位添加-->
-    <div>
-      <el-dialog :title="title" @close="resetForm('post')" :visible.sync="dialogAddPostVisible" width="80%">
-        <div>
-          <el-form :model="post" :rules="postRules" ref="post">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="岗位名称:" prop="post_name">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="post.post_name" placeholder="请输入岗位名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="部门编号:" prop="department_number">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="post.department_number" placeholder="请输入部门编号" clearable disabled></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="岗位类型:" prop="post_type">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="post.post_type" placeholder="请输入岗位类型" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="岗位编制:" prop="post_establishment">
-                  <el-select v-model="post.post_establishment" placeholder="请选择岗位编制" size="mini" style="width: 150px;">
-                    <el-option v-for="item in post_establishments" :key="item" :label="item" :value="item"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogAddPostVisible = false">取 消</el-button>
-          <el-button type="primary" @click="doAddPost">确 定</el-button>
-        </span>
-      </el-dialog>
-    </div>
-    <!--    岗位编辑-->
-    <div>
-      <el-dialog :title="title" @close="resetForm('post')" :visible.sync="dialogEditPostVisible" width="80%">
-        <div>
-          <el-form :model="post" :rules="postRules" ref="post">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="岗位名称:" prop="post_name">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="post.post_name" placeholder="请输入岗位名称" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="部门编号:" prop="department_number">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="post.department_number" placeholder="请输入部门编号" clearable disabled></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="岗位类型:" prop="post_type">
-                  <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="post.post_type" placeholder="请输入岗位类型" clearable></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="岗位编制:" prop="post_establishment">
-                  <el-select v-model="post.post_establishment" placeholder="请选择岗位编制" size="mini" style="width: 150px;">
-                    <el-option v-for="item in post_establishments" :key="item" :label="item" :value="item"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogEditPostVisible = false">取 消</el-button>
-          <el-button type="primary" @click="doEditPost">确 定</el-button>
-        </span>
-      </el-dialog>
     </div>
   </div>
-</template>
+ </template>
+
 
 <script>
 import {Message} from "element-ui";
@@ -340,24 +118,6 @@ export default {
         describe : "",
         superior_department : "",
         incorporation_date : "",
-      },
-      rules: {
-        department_number : [{required : true, message : '请输入部门编号', trigger : 'blur'}],
-        department_name : [{required : true, message : '请输入部门名称', trigger : 'blur'}],
-        department_type : [{required : true, message : '请输入部门类型', trigger : 'blur'}],
-        department_head : [{require : true, message : '请输入部门主管员工编号', trigger : 'blur'}],
-        phone : [{required : true, message : '请输入部门电话', trigger : 'blur'}],
-        fax : [{required : true, message : '请输入部门传真', trigger : 'blur'}],
-        describe : [{required : true, message : '请输入部门描述', trigger : 'blur'}],
-        superior_department : [{required : true, message : '请输入上级部门', trigger : 'blur'}],
-        incorporation_date : [{required : true, message : '请输入成立日期', trigger : 'blur'}],
-      },
-      postRules : {
-        post_number : [{required : true, message : '请输入岗位编号', trigger : 'blur'}],
-        post_name : [{required : true, message : '请输入岗位名称', trigger : 'blur'}],
-        department_number : [{required : true, message : '请输入部门编号', trigger : 'blur'}],
-        post_type : [{required : true, message : '请输入岗位类型', trigger : 'blur'}],
-        post_establishment : [{required : true, message : '请输入岗位编制', trigger : 'blur'}],
       },
       emps : [],
       post : {
@@ -405,20 +165,9 @@ export default {
     }
   },
   methods : {
-    showMyData(data) {
-      this.title = '查看部门所有岗位信息';
-      this.emp = data;
-      this.dialogShowVisible = true;
-    },
     initEmps(type) {
       this.loading = true;
-      // var tempRole = localStorage.getItem("role");
-      // if (tempRole === "总裁") {
-      //   this.is_boss = true;
-      // } else {
-      //   this.is_boss = false;
-      // }
-      // this.emp.id = localStorage.getItem("id");
+
       this.$axios.post('/Department/Basic').then(resp => {
         this.loading = false;
         if (resp) {
@@ -475,30 +224,46 @@ export default {
         console.log("初始化部门：", this.department_names);
       })
     },
+    async searchEmpAdvance(data) {
+      this.$refs[data].validate((valid) => {
+        if (valid) {
+          this.$axios.post('/EmployeeBasic/SearchAdvance', this.searchValue).then((resp) => {
+            if (resp.data.msg == "查询成功") {
+              this.emps = resp.data.data;
+            } else {
+              Message.error({message : resp.data.msg});
+            }
+          })
+        }
+      })
+    },
 
-    //根据部门查询成员
-    // search(){
-    //   this.queryDepartmentList();
-    // },
-    // queryDepartmentList(){
-    //   if(this.userInfo.role == 1){
-    //     this.getAllDepartmentList({company_id: this.companyId}).then( res => {
-    //       if(res.errno == 0){
-    //         this.departmentList = res.data;
-    //       }else{
-    //         this.$message.error(res.errmsg || '服务器出了小差');
-    //       }
-    //     })
-    //   }else if(this.userInfo.role == 2){
-    //     this.getAllDepartmentList({searchContent: this.searchContent}).then( res => {
-    //       if(res.errno == 0){
-    //         this.departmentList = res.data;
-    //       }else{
-    //         this.$message.error(res.errmsg || '服务器出了小差');
-    //       }
-    //     })
-    //   }
-    // },
+    //查询部门实现
+    async searchEmp(data) {
+      console.log("department_name = ", this.emp.department_name);
+      var url;
+      if (localStorage.getItem("role") === "主管") {
+        // url = '/EmployeeBasic/SearchByDirector';
+        url = '/DepartmentSearch';
+
+        var temp = {
+          'id' : localStorage.getItem("id"),
+          'department_name' : this.emp.department_name,
+        };
+        this.$refs[data].validate((valid) => {
+          if (valid) {
+            this.$axios.post(url, temp).then((resp) => {
+              if (resp.data.msg === "查询成功") {
+                this.emps = resp.data.data;
+              } else {
+                Message.error({message : resp.data.msg});
+              }
+            });
+          }
+        })
+      }
+    },
+
   }
 }
 </script>
