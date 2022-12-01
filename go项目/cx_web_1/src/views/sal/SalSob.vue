@@ -1,213 +1,190 @@
 <template>
   <div>
-    <div style="display: flex;justify-content: space-between">
-      <el-button icon="el-icon-plus" type="primary" @click="showAddSalaryView">计算工资</el-button>
-      <el-button icon="el-icon-refresh" type="success" @click="initSalaries"></el-button>
-    </div>
-    <div style="margin-top: 10px">
-      <el-table :data="salaries" border stripe>
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column width="120" prop="name" label="账套名称"></el-table-column>
-        <el-table-column width="70" prop="basicSalary" label="基本工资"></el-table-column>
-        <el-table-column width="70" prop="trafficSalary" label="交通补助"></el-table-column>
-        <el-table-column width="70" prop="lunchSalary" label="午餐补助"></el-table-column>
-        <el-table-column width="70" prop="bonus" label="奖金"></el-table-column>
-        <el-table-column width="100" prop="createDate" label="启用时间"></el-table-column>
-        <el-table-column label="养老金" align="center">
-          <el-table-column width="70" prop="pensionPer" label="比率"></el-table-column>
-          <el-table-column width="70" prop="pensionBase" label="基数"></el-table-column>
-        </el-table-column>
-        <el-table-column label="医疗保险" align="center">
-          <el-table-column width="70" prop="medicalPer" label="比率"></el-table-column>
-          <el-table-column width="70" prop="medicalBase" label="基数"></el-table-column>
-        </el-table-column>
-        <el-table-column label="公积金" align="center">
-          <el-table-column width="70" prop="accumulationFundPer" label="比率"></el-table-column>
-          <el-table-column width="70" prop="accumulationFundBase" label="基数"></el-table-column>
-        </el-table-column>
-        <el-table-column label="操作">
+    <!--    部门信息-->
+    <div>
+      <span>
+        部门信息
+      </span>
+      <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+        <el-col :span="16">
+          <el-form :model="emp" :rules="rules" ref="emp" @submit.native.prevent>
+          </el-form>
+        </el-col>
+      </el-col>
+      <el-table :data="empsData"
+                stripe border
+                v-loading="loading"
+                element-loading-text="正在加载..."
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0, 0, 0, 0.8)"
+                style="width: 100%">
+          <el-table-column
+              prop="id"
+              fixed
+              sortable
+              align="left"
+              label="id"
+              width="75"
+              show-overflow-tooltip>
+          </el-table-column>
+          <el-table-column
+              prop="name_cx"
+              fixed
+              sortable
+              align="left"
+              label="姓名"
+              width="75"
+              show-overflow-tooltip>
+          </el-table-column>
+          <el-table-column
+              prop="employee_type_cx"
+              fixed
+              sortable
+              align="left"
+              label="员工类型"
+              width="75"
+              show-overflow-tooltip>
+          </el-table-column>
+          <el-table-column
+              prop="sex_cx"
+              label="性别"
+              align="left"
+              width="75"
+              sortable
+              show-overflow-tooltip>
+          </el-table-column>
+        <el-table-column  width="75"  prop="initsalay_cx" label="初始工资">
           <template slot-scope="scope">
-            <el-button @click="showEditSalaryView(scope.row)">编辑</el-button>
-            <el-button type="danger" @click="deleteSalary(scope.row)">删除</el-button>
+            <span class="input-group-addon" >税前工资</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+                   v-model="TaxBefore"
+                   @keyup.enter="search" @input="search($event)"
+            >
+            <span class="input-group-addon" >元</span>
+            <el-input v-model.initsalay_cx="scope.row.initsalay_cx"  />
           </template>
         </el-table-column>
-      </el-table>
-    </div>
-    <el-dialog
-        :title="dialogTitle"
-        :visible.sync="dialogVisible"
-        width="50%">
-      <div style="display: flex;justify-content: space-around;align-items: center">
-        <el-steps direction="vertical" :active="activeItemIndex">
-          <el-step :title="itemName" v-for="(itemName,index) in salaryItemName" :key="index"></el-step>
-        </el-steps>
-        <el-input v-model="salary[title]" :placeholder="'请输入'+salaryItemName[index]+'...'"
-                  v-for="(value,title,index) in salary"
-                  :key="index" v-show="activeItemIndex===index" style="width: 200px"></el-input>
+        <el-table-column  width="150" :show-overflow-tooltip="true" prop="salayCount_cx" label="税后工资">
+          <template slot-scope="scope">
+            <el-input v-model.salayCount_cx="scope.row.salayCount_cx"  />
+<!--            v-show不支持在template中使用-->
+            <p class="TaxInfo">实发工资：<span v-show="FuckMoney > 0">{{TaxAfter}} 元</span></p>
+          </template>
+        </el-table-column>
+
+        </el-table>
       </div>
-      <span slot="footer" class="dialog-footer">
-    <el-button @click="preStep">{{activeItemIndex===4?'取消':'上一步'}}</el-button>
-    <el-button type="primary" @click="nextStep">{{activeItemIndex===4?'完成':'下一步'}}</el-button>
-         <el-button type="primary" @click="initSalaries">{{'完成'}}</el-button>
-  </span>
-    </el-dialog>
-  </div>
+
+    </div>
 </template>
 
 <script>
 import {Message} from "element-ui";
 
+
+
 export default {
+
   name: "SalSob",
   data() {
     return {
-      dialogVisible: false,
-      dialogTitle: '添加工资账套',
-      salaries: [],
-      activeItemIndex: 0,
-      salaryItemName: [
-        '基本工资',
-        '交通补助',
-        '午餐补助',
-        '奖金',
-        // '养老金比率',
-        // '养老金基数',
-        // '医疗保险比率',
-        // '医疗保险基数',
-        // '公积金比率',
-        // '公积金基数',
-        '账套名称'
-      ],
-      salary: {
-        basicSalary: 0,
-        trafficSalary: 0,
-        lunchSalary: 0,
-        bonus: 0,
-        pensionPer: 0,
-        pensionBase: 0,
-        medicalPer: 0,
-        medicalBase: 0,
-        accumulationFundPer: 0,
-        accumulationFundBase: 0,
-        name: ''
+      emp: {
+        id : "",
+        name_cx : "",
+        employee_type_cx : "",
+        sex_cx : "",
+        initsalay_cx:"",
+        salayCount_cx:"",
+
+      },
+      FuckMoney: 0,	     //应参加缴税金额
+      TaxAfter: 0 ,        //税后工资
+      emps : [],
+      post : {
+        id : "",
+        employee_type_cx : "",
+        name_cx : "",
+        sex_cx : "",
+        initsalay_cx:"",
+        salayCount_cx:"",
+      },
+      posts : [],
+      loading : false,
+      currentPage: 1,
+      pageSize: 10,
+      title : "岗位信息",
+      size : '',
+      is_boss : true,
+      dialogEditVisible : false,
+      dialogAddVisible : false,
+      dialogAddPostVisible : false,
+      dialogEditPostVisible : false,
+      open : false,
+      // department_types : ['一级部门', '二级部门', '三级部门'],
+      // department_names : ['开发部', '运维部', '测试部', '设计部', '策划部'],
+      // post_establishments : ['有编制', '无编制'],
+    }
+  },
+  computed : {
+    empsData() {
+      console.log("emps.length = ", this.emps.length);
+      if (this.emps.length > 0) {
+        return this.emps.slice( (this.currentPage -1) * this.pageSize, this.currentPage * this.pageSize) || [];
       }
+      console.log("emps = ", this.emps);
+      return this.emps;
+    },
+    postsData() {
+      if (this.posts.length > 0) {
+        return this.posts.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize) || [];
+      }
+      return this.posts;
     }
   },
   mounted() {
+    this.initEmps();
     this.initSalaries();
   },
   methods: {
-    showEditSalaryView(data) {
-      this.dialogTitle = '修改工资账套';
-      this.dialogVisible = true;
-      this.salary.basicSalary = data.basicSalary;
-      this.salary.trafficSalary = data.trafficSalary;
-      this.salary.lunchSalary = data.lunchSalary;
-      this.salary.bonus = data.bonus;
-      this.salary.pensionPer = data.pensionPer;
-      this.salary.pensionBase = data.pensionBase;
-      this.salary.medicalPer = data.medicalPer;
-      this.salary.medicalBase = data.medicalBase;
-      this.salary.accumulationFundPer = data.accumulationFundPer;
-      this.salary.accumulationFundBase = data.accumulationFundBase;
-      this.salary.name = data.name;
-      this.salary.id = data.id;
-    },
-    deleteSalary(data) {
-      this.$confirm('此操作将删除【' + data.name + '】账套，是否继续？', '提示', {
-        cancelButtonText: '取消',
-        confirmButtonText: '确定'
-      }).then(() => {
-        this.deleteRequest("/salary/sob/" + data.id).then(resp => {
-          if (resp) {
-            this.initSalaries();
-          }
-        })
-      }).catch(() => {
-        this.$message.info("取消删除!");
+    initEmps(type) {
+      this.loading = true;
+      this.$axios.post('/SearchEmpSalary').then(resp => {
+        this.loading = false;
+        if (resp) {
+          this.emps = resp.data;
+        }
       })
     },
-    preStep() {
-      if (this.activeItemIndex === 0) {
-        return;
-      } else if (this.activeItemIndex === 10) {
-        //关闭对话框
-        this.dialogVisible = false;
-        return;
-      }
-      this.activeItemIndex--;
+    search(event){
+      event.currentTarget.value
+      console.log(event.currentTarget.value)
     },
-    nextStep() {
-      if (this.activeItemIndex === 10) {
-        if (this.salary.id) {
-          this.putRequest("/salary/sob/", this.salary).then(resp=>{
-            if (resp) {
-              this.initSalaries();
-              this.dialogVisible = false;
-            }
-          })
-        } else {
-          this.postRequest("/salary/sob/", this.salary).then(resp => {
-            if (resp) {
-              this.initSalaries();
-              this.dialogVisible = false;
-            }
-          });
-        }
-        return;
-      }
-      this.activeItemIndex++;
+    resetForm(data) {
+      console.log("data = ", data, "emp = ", this.emp)
+      this.$refs[data].resetFields();
+      this.initEmps();
     },
-    showAddSalaryView() {
-      //数据初始化
-      this.salary = {
-        basicSalary: 0,
-        trafficSalary: 0,
-        lunchSalary: 0,
-        bonus: 0,
-        pensionPer: 0,
-        pensionBase: 0,
-        medicalPer: 0,
-        medicalBase: 0,
-        accumulationFundPer: 0,
-        accumulationFundBase: 0,
-        name: ''
-      }
-      this.dialogTitle = '添加工资账套';
-      this.activeItemIndex = 0;
-      this.dialogVisible = true;
+
+
+
+// 输入框聚焦事件
+    onfoucs(val) {
+      const selected = false //聚焦取消勾选
+      this.$refs.multipleTable.toggleRowSelection(val.row, selected) //ref定义在el-table中
     },
+    // 输入框失焦事件
+    blurUsername(val) {
+      const selected = true //失焦勾选
+      this.$refs.multipleTable.toggleRowSelection(val.row, selected)
+    },
+    //注：由于有输入项合计需求，因此以聚焦失焦来控制复选框状态从而获取最新输入值。
     initSalaries() {
-      this.getRequest("/salary/sob/").then(resp => {
+      this.getRequest("/EmpSalary/Init/").then(resp => {
         if (resp) {
           this.salaries = resp;
         }
       })
     },
-    // doAddEmp() {
-    //   this.$refs['empForm'].validate(valid => {
-    //     if (valid) {
-    //       console.log(this.emp);
-    //       this.emp.height = parseInt(this.emp.height);
-    //       this.emp.department_number = parseInt(this.emp.department_number);
-    //       this.emp.post_number = parseInt(this.emp.post_number);
-    //       this.$axios.post('/EmployeeBasic/Add', this.emp).then(resp => {
-    //         if (resp) {
-    //           this.dialogAddVisible = false;
-    //           this.initEmps();
-    //           if (resp.data.msg === "添加成功") {
-    //             Message.success({message : '添加成功'});
-    //           } else {
-    //             Message.error({message : resp.data.msg})
-    //           }
-    //
-    //         } else {
-    //           Message.error({message : resp.data.msg});
-    //         }
-    //       })
-    //     }
-    //   });
-    // },
   }
 }
 </script>

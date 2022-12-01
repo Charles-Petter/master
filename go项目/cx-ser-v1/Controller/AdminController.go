@@ -3,11 +3,10 @@ package Controller
 import (
 	"cx/Global"
 	"cx/Model"
+	"cx/Response"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
-
-	"cx/Response"
 	"net/http"
 	"strconv"
 )
@@ -80,7 +79,16 @@ func EmployeeBasic(context *gin.Context) {
 	context.JSON(http.StatusOK, employee)
 }
 
-
+//func SalaryBasic_cx(context *gin.Context) {
+//	var employee []Model.Salaytable
+//	err := Global.Db.Order("id").Find(&employee).Error
+//	if err != nil {
+//		fmt.Println("查找所有员工出错！", err)
+//		return
+//	}
+//	fmt.Println("数据库查到的所有员工：", employee)
+//	context.JSON(http.StatusOK, employee)
+//}
 
 ////在basic组件中删除员工
 //func EmployeeBasicDelete(context *gin.Context) {
@@ -138,6 +146,28 @@ func EmployeeBasic(context *gin.Context) {
 //	})
 //
 //}
+
+
+
+
+func EmployeeBasicUpdate(context *gin.Context)  {
+	var requestEmployee = Model.Employee{}
+	json.NewDecoder(context.Request.Body).Decode(&requestEmployee)
+	fmt.Println("即将修改的用户：", requestEmployee)
+	err := Global.Db.Where("id = ?", requestEmployee.Id).Updates(&requestEmployee).Error
+	if err != nil {
+		fmt.Println("修改出错！")
+		context.JSON(http.StatusOK, gin.H{
+			"code" : 200,
+			"msg" : "修改出错",
+		})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{
+		"code" : 200,
+		"msg" : "修改成功",
+	})
+}
 //添加员工信息
 func EmployeeBasicAdd(context *gin.Context) {
 	var requestEmployee = Model.Employee{}
@@ -167,15 +197,15 @@ func EmployeeBasicAdd(context *gin.Context) {
 		return
 	}
 	/*查找岗位编号是否存在*/
-	err = Global.Db.Where("post_number = ?", requestEmployee.Post_number).First(&Model.PostTable{}).Error
-	if err != nil {
-		fmt.Println("找不到此岗位编号")
-		context.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "岗位编号不存在",
-		})
-		return
-	}
+	//err = Global.Db.Where("post_number = ?", requestEmployee.Post_number).First(&Model.PostTable{}).Error
+	//if err != nil {
+	//	fmt.Println("找不到此岗位编号")
+	//	context.JSON(http.StatusOK, gin.H{
+	//		"code": 200,
+	//		"msg":  "岗位编号不存在",
+	//	})
+	//	return
+	//}
 	/*检查部门编号和部门名称是否对应*/
 	var tempDepartment Model.Department
 	Global.Db.Where("department_name = ?", requestEmployee.Department_name).First(&tempDepartment) //根据请求来的部门名称检查是否与部门编号所对应
@@ -188,16 +218,16 @@ func EmployeeBasicAdd(context *gin.Context) {
 		return
 	}
 	/*检查岗位编号和名称是否对应*/
-	var tempPost Model.PostTable // 将Model层PostTable表定义为一个临时变量tempPost
-	Global.Db.Where("post_name = ?", requestEmployee.Post_name).First(&tempPost)
-	if requestEmployee.Post_number != tempPost.Post_number {
-		fmt.Println("岗位编号与名称不对应")
-		context.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "岗位编号与名称不对应",
-		})
-		return
-	}
+	//var tempPost Model.PostTable // 将Model层PostTable表定义为一个临时变量tempPost
+	//Global.Db.Where("post_name = ?", requestEmployee.Post_name).First(&tempPost)
+	//if requestEmployee.Post_number != tempPost.Post_number {
+	//	fmt.Println("岗位编号与名称不对应")
+	//	context.JSON(http.StatusOK, gin.H{
+	//		"code": 200,
+	//		"msg":  "岗位编号与名称不对应",
+	//	})
+	//	return
+	//}
 	//将值插入数据库
 	Global.Db.Create(&requestEmployee)
 	//JSON格式
@@ -231,10 +261,10 @@ func EmployeeBasicSearch(context *gin.Context) {
 
 //搜索部门（搜索框）
 func DepartmentSearch(context *gin.Context) {
-	var requestEmployeeMent Model.Department
+	var requestEmployeeMent Model.Employee
 	json.NewDecoder(context.Request.Body).Decode(&requestEmployeeMent)
 	fmt.Println("获取的搜索部门：", requestEmployeeMent.Department_name)
-		var tempEmployee []Model.Department
+		var tempEmployee []Model.Employee
 	err := Global.Db.Where("Department_name = ?", requestEmployeeMent.Department_name).First(&tempEmployee).Error
 	if err != nil {
 		fmt.Println("未找到此部门")
@@ -516,7 +546,22 @@ func initEmployeeId(count int) string {
 	fmt.Println("生成的编号：", result)
 	return result
 }
-
+//查询工资信息
+func SearchEmpSalary(context *gin.Context) {
+	var empsalary []Model.Salaytable
+	var err error
+	err = Global.Db.Find(&empsalary).Error
+	if err != nil {
+		fmt.Println("查询工资出错", err)
+		context.JSON(http.StatusOK, gin.H{
+			"code": 200,
+			"msg":  "查询工资表出错",
+		})
+		return
+	}
+	fmt.Println("所有工资信息：", empsalary)
+	context.JSON(http.StatusOK, empsalary)
+}
 
 
 
@@ -562,6 +607,8 @@ func DepartmentInit(context *gin.Context) {
 	fmt.Println("找到的部门数组：", department)
 	context.JSON(http.StatusOK, department)
 }
+
+
 //修改部门
 func DepartmentUpdate(context *gin.Context) {
 	var requestDepartment Model.Department
@@ -581,6 +628,33 @@ func DepartmentUpdate(context *gin.Context) {
 		"code": 200,
 		"msg":  "修改成功",
 	})
+}
+
+//初始化员工工资表
+func EmpSalaryInit(context *gin.Context) {
+
+	var count int64
+	var temp []Model.Salaytable
+	var err error
+	err = Global.Db.Find(&temp).Count(&count).Error
+	if err != nil {
+		fmt.Println("初始化员工工资表出错", err)
+		context.JSON(http.StatusOK, gin.H{
+			"code": 200,
+			"msg":  "初始化员工工资表出错",
+		})
+		return
+	}
+	var Empsalary []string
+	strInt64 := strconv.FormatInt(count, 10)
+	tempCount, _ := strconv.Atoi(strInt64)
+	for i := 0; i < tempCount; i++ {
+		//de := temp[i].Department_name
+		Empsalary = append(Empsalary, temp[i].Name_cx)
+		//department[i] = temp[i].Department_name
+	}
+	fmt.Println("找到的部门数组：", Empsalary)
+	context.JSON(http.StatusOK, Empsalary)
 }
 
 //func DepartmentDelete(context *gin.Context) {
@@ -667,63 +741,63 @@ func DepartmentUpdate(context *gin.Context) {
 //
 //}
 
-func PostInit(context *gin.Context) {
-
-	// 找所有的部门
-	//var post_names [][]string
-	var tempDepartmentCount int64 //部门数量
-	var tempDepartment []Model.Department
-	var err error
-	err = Global.Db.Find(&tempDepartment).Count(&tempDepartmentCount).Error
-	if err != nil {
-		fmt.Println("初始化部门出错", err)
-		context.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "初始化部门出错",
-		})
-		return
-	}
-	var department []string
-	strInt64 := strconv.FormatInt(tempDepartmentCount, 10)
-	DepartmentCount, _ := strconv.Atoi(strInt64) //部门数量
-	for i := 0; i < DepartmentCount; i++ {
-		//de := temp[i].Department_name
-		department = append(department, tempDepartment[i].Department_name)
-		//department[i] = temp[i].Department_name
-	}
-	fmt.Println("找到的部门数组：", department)
-
-	//post_names := map[string][]string{}
-	var post_names map[string][]string = make(map[string][]string)
-
-	for i := 0; i < DepartmentCount; i++ {
-		//根据部门名称查找岗位
-		var post []Model.PostTable
-		var temp Model.Department
-		err = Global.Db.Where("department_name = ?", department[i]).First(&temp).Error
-		if err != nil {
-			fmt.Println("错误1")
-		}
-		var postCount int64
-		err = Global.Db.Where("department_number = ?", temp.Department_number).Find(&post).Count(&postCount).Error
-		if err != nil {
-			fmt.Println("错误2")
-		}
-		var allPost []string
-		strInt64 = strconv.FormatInt(postCount, 10)
-		postCountTrue, _ := strconv.Atoi(strInt64)
-		for i := 0; i < postCountTrue; i++ {
-			allPost = append(allPost, post[i].Post_name)
-		}
-
-		post_names[department[i]] = allPost
-	}
-	fmt.Println("即将返回的重要数据：", post_names)
-	context.JSON(http.StatusOK, post_names)
-	// 根据所有的部门，查找每一个的所有岗位
-
-	// 把部门和岗位赋值给特殊数组
-}
+//func PostInit(context *gin.Context) {
+//
+//	// 找所有的部门
+//	//var post_names [][]string
+//	var tempDepartmentCount int64 //部门数量
+//	var tempDepartment []Model.Department
+//	var err error
+//	err = Global.Db.Find(&tempDepartment).Count(&tempDepartmentCount).Error
+//	if err != nil {
+//		fmt.Println("初始化部门出错", err)
+//		context.JSON(http.StatusOK, gin.H{
+//			"code": 200,
+//			"msg":  "初始化部门出错",
+//		})
+//		return
+//	}
+//	var department []string
+//	strInt64 := strconv.FormatInt(tempDepartmentCount, 10)
+//	DepartmentCount, _ := strconv.Atoi(strInt64) //部门数量
+//	for i := 0; i < DepartmentCount; i++ {
+//		//de := temp[i].Department_name
+//		department = append(department, tempDepartment[i].Department_name)
+//		//department[i] = temp[i].Department_name
+//	}
+//	fmt.Println("找到的部门数组：", department)
+//
+//	//post_names := map[string][]string{}
+//	var post_names map[string][]string = make(map[string][]string)
+//
+//	for i := 0; i < DepartmentCount; i++ {
+//		//根据部门名称查找岗位
+//		var post []Model.PostTable
+//		var temp Model.Department
+//		err = Global.Db.Where("department_name = ?", department[i]).First(&temp).Error
+//		if err != nil {
+//			fmt.Println("错误1")
+//		}
+//		var postCount int64
+//		err = Global.Db.Where("department_number = ?", temp.Department_number).Find(&post).Count(&postCount).Error
+//		if err != nil {
+//			fmt.Println("错误2")
+//		}
+//		var allPost []string
+//		strInt64 = strconv.FormatInt(postCount, 10)
+//		postCountTrue, _ := strconv.Atoi(strInt64)
+//		for i := 0; i < postCountTrue; i++ {
+//			allPost = append(allPost, post[i].Post_name)
+//		}
+//
+//		post_names[department[i]] = allPost
+//	}
+//	fmt.Println("即将返回的重要数据：", post_names)
+//	context.JSON(http.StatusOK, post_names)
+//	// 根据所有的部门，查找每一个的所有岗位
+//
+//	// 把部门和岗位赋值给特殊数组
+//}
 
 
 
@@ -757,35 +831,6 @@ func SearchByDepartmentNumber(context *gin.Context) {
 	fmt.Println("数组：", departmentNumber)
 	context.JSON(http.StatusOK, departmentNumber)
 }
-
-func SearchByPostNumber(context *gin.Context) {
-	type temp struct {
-		Text  string `json:"text"`
-		Value int    `json:"value"`
-	}
-
-	var tempPost []Model.PostTable
-	var err error
-	var tempCount int64
-	err = Global.Db.Table("post_tables").Find(&tempPost).Count(&tempCount).Error
-	if err != nil {
-		fmt.Println("查找岗位数量出错", err)
-	}
-	strInt64 := strconv.FormatInt(tempCount, 10)
-	count, _ := strconv.Atoi(strInt64)
-	fmt.Println("岗位数量：", count)
-	var postNumber []temp
-	for i := 0; i < count; i++ {
-		//text := tempDepartment[i].Department_number
-		var t temp
-		t.Text = strconv.Itoa(tempPost[i].Post_number) + ":" + tempPost[i].Post_name
-		t.Value = tempPost[i].Post_number
-		postNumber = append(postNumber, t)
-	}
-	fmt.Println("数组：", postNumber)
-	context.JSON(http.StatusOK, postNumber)
-}
-
 
 
 

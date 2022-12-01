@@ -67,7 +67,6 @@
                 // user: JSON.parse(window.sessionStorage.getItem("user"))
               img_cx:{
                 Image: "url(" + require("../assets/loginBackgroundImg.webp") + ")",//背景圖片
-
               },
             }
 
@@ -81,7 +80,6 @@
                 return this.$store.state.currentHr;
             },
             userId() {
-              // var currentId = localStorage.getItem('id');
               var currentId = localStorage.getItem("id");
               console.log("currentId = ", localStorage.getItem("id"));
               console.log("type = ", localStorage.getItem("type"));
@@ -89,14 +87,12 @@
             },
             userRole() {
               var result = '';
-              // console.log("登陆的员工角色：", role);
-              // if (role === '总裁') {
-              //   result = "总裁";
-              // } else if (role === '主管') {
-              //   result = "主管";
-              // } else {
-              //   result = "员工";
-              // }
+              console.log("登陆的员工角色：", role);
+              if (role === '主管') {
+                result = "主管";
+              } else {
+                result = "员工";
+              }
               return localStorage.getItem("role");
             }
         },
@@ -104,27 +100,27 @@
             goChat() {
                 this.$router.push("/chat");
             },
-            commandHandler(cmd) {
-                if (cmd == 'logout') {
-                    this.$confirm('此操作将注销登录, 是否继续?', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        // this.getRequest("/logout");
-                        window.sessionStorage.removeItem("user")
-                        this.$store.commit('initRoutes', []);
-                        this.$router.replace("/");
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '已取消操作'
-                        });
-                    });
-                }else if (cmd == 'userinfo') {
-                    this.$router.push('/hrinfo');
-                }
-            },
+            // commandHandler(cmd) {
+            //     if (cmd == 'logout') {
+            //         this.$confirm('此操作将注销登录, 是否继续?', '提示', {
+            //             confirmButtonText: '确定',
+            //             cancelButtonText: '取消',
+            //             type: 'warning'
+            //         }).then(() => {
+            //             // this.getRequest("/logout");
+            //             window.sessionStorage.removeItem("user")
+            //             this.$store.commit('initRoutes', []);
+            //             this.$router.replace("/");
+            //         }).catch(() => {
+            //             this.$message({
+            //                 type: 'info',
+            //                 message: '已取消操作'
+            //             });
+            //         });
+            //     }else if (cmd == 'userinfo') {
+            //         this.$router.push('/hrinfo');
+            //     }
+            // },
         }
     }
 </script>

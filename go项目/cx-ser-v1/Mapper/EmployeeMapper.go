@@ -11,6 +11,10 @@ func EmployeeMapper(re *gin.Engine)  {
 	//re.POST("/ApplyResignedInformation", Controller.ApplyResignedInformation)
 	//re.POST("/ApplyResigned", Controller.ApplyResigned)
 	re.POST("/EmployeeBasicByEmployee", Controller.EmployeeBasicByEmployee)
+
+	re.POST("/SalaryBasicByEmp", Controller.SalaryBasicByEmp)
+
+
 	re.POST("/EmployeeBasic/SearchByEmployee", Controller.EmployeeBasicSearchByEmployee)
 	//re.POST("/EmployeeBasic/SearchDateByEmployee", Controller.EmployeeBasicSearchDateByEmployee)
 }

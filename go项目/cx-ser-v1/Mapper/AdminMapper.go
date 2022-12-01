@@ -11,7 +11,9 @@ func AdminMapper(re *gin.Engine) {
 	//菜单 不知道干嘛的  先不删
 	//re.POST("/AllMenu", Controller.AllMenu)
 	re.POST("/EmployeeBasic", Controller.EmployeeBasic)
-	//re.POST("/EmployeeBasic/Update", Controller.EmployeeBasicUpdate)
+	//re.POST("/SalaryBasic_cx", Controller.SalaryBasicByEmp)
+
+	re.POST("/EmployeeBasic/Update", Controller.EmployeeBasicUpdate)
 	//re.POST("/EmployeeBasic/Delete", Controller.EmployeeBasicDelete)
 	//re.POST("/EmployeeBasic/MultiDelete", Controller.EmployeeBasicMultiDelete)
 	re.POST("/EmployeeBasic/Add", Controller.EmployeeBasicAdd)
@@ -35,17 +37,21 @@ func AdminMapper(re *gin.Engine) {
 	//re.POST("/TalentAgreeApply", Controller.TalentAgreeApply)
 	//re.POST("/TalentRefuseApply", Controller.TalentRefuseApply)
 	re.POST("/Department/Basic", Controller.DepartmentBasic)
+	re.POST("/SearchEmpSalary", Controller.SearchEmpSalary)
+
 	re.POST("/Department/Init", Controller.DepartmentInit)
+	re.POST("/EmpSalary/Init", Controller.EmpSalaryInit)
+
 	//re.POST("/Department/Post", Controller.DepartmentPost)
 	re.POST("/Department/Update", Controller.DepartmentUpdate)
 	//re.POST("/Department/Delete", Controller.DepartmentDelete)
 	//re.POST("/Department/Add", Controller.DepartmentAdd)
-	re.POST("/Post/Init", Controller.PostInit)
+	//re.POST("/Post/Init", Controller.PostInit)
 	//re.POST("/Post/Add", Controller.PostAdd)
 	//re.POST("/Post/Update", Controller.PostUpdate)
 	//re.POST("/Post/Delete", Controller.PostDelete)
 	re.POST("/SearchByDepartmentNumber", Controller.SearchByDepartmentNumber)
-	re.POST("/SearchByPostNumber", Controller.SearchByPostNumber)
+	//re.POST("/SearchByPostNumber", Controller.SearchByPostNumber)
 	//re.POST("/DepartmentTransfer/SearchByDate", Controller.DepartmentTransferSearchByDate)
 	//re.POST("/PostTransfer/SearchByDate", Controller.PostTransferSearchByDate)
 }

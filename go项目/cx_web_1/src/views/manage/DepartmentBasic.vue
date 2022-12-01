@@ -7,10 +7,9 @@
       </span>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         <el-col :span="16">
-
           <el-form :model="emp" :rules="rules" ref="emp" @submit.native.prevent>
             <el-form-item prop="department_name">
-              <el-input placeholder="请输入员工姓名进行搜索，可以直接回车搜索..." prefix-icon="el-icon-search"
+              <el-input placeholder="请输入部门名称" prefix-icon="el-icon-search"
                         clearable
                         @clear="initEmps"
                         style="width: 350px;margin-right: 10px" v-model="emp.department_name"
@@ -167,7 +166,6 @@ export default {
   methods : {
     initEmps(type) {
       this.loading = true;
-
       this.$axios.post('/Department/Basic').then(resp => {
         this.loading = false;
         if (resp) {
@@ -180,24 +178,24 @@ export default {
       this.$refs[data].resetFields();
       this.initEmps();
     },
-    initPost(data) {
-      this.open = true;
-      this.$axios.post('/Department/Post', data).then(resp => {
-        if (resp) {
-          this.emp.department_number = data.department_number;
-          this.post.department_number = this.emp.department_number;
-          this.posts = resp.data;
-          console.log("岗位信息：", this.posts);
-        }
-      })
-    },
-    showEditEmpView(data) {
-      // this.initPositions();
-      this.title = '编辑部门信息';
-      this.emp = data;
-      // this.inputDepName = data.department_name;
-      this.dialogEditVisible = true;
-    },
+    // initPost(data) {
+    //   this.open = true;
+    //   this.$axios.post('/Department/Post', data).then(resp => {
+    //     if (resp) {
+    //       this.emp.department_number = data.department_number;
+    //       this.post.department_number = this.emp.department_number;
+    //       this.posts = resp.data;
+    //       console.log("岗位信息：", this.posts);
+    //     }
+    //   })
+    // },
+    // showEditEmpView(data) {
+    //   // this.initPositions();
+    //   this.title = '编辑部门信息';
+    //   this.emp = data;
+    //   // this.inputDepName = data.department_name;
+    //   this.dialogEditVisible = true;
+    // },
 
     emptyEmp() {
       this.emp = {
@@ -218,34 +216,21 @@ export default {
       this.dialogAddVisible = true;
     },
 
-    initDepartment() {
-      this.$axios.post('/Department/Init').then(resp => {
-        this.department_names = resp.data;
-        console.log("初始化部门：", this.department_names);
-      })
-    },
-    async searchEmpAdvance(data) {
-      this.$refs[data].validate((valid) => {
-        if (valid) {
-          this.$axios.post('/EmployeeBasic/SearchAdvance', this.searchValue).then((resp) => {
-            if (resp.data.msg == "查询成功") {
-              this.emps = resp.data.data;
-            } else {
-              Message.error({message : resp.data.msg});
-            }
-          })
-        }
-      })
-    },
+    // initDepartment() {
+    //   this.$axios.post('/Department/Init').then(resp => {
+    //     this.department_names = resp.data;
+    //     console.log("初始化部门：", this.department_names);
+    //   })
+    // },
 
-    //查询部门实现
+
+    //查询部门实现(搜索框)
     async searchEmp(data) {
       console.log("department_name = ", this.emp.department_name);
       var url;
       if (localStorage.getItem("role") === "主管") {
         // url = '/EmployeeBasic/SearchByDirector';
         url = '/DepartmentSearch';
-
         var temp = {
           'id' : localStorage.getItem("id"),
           'department_name' : this.emp.department_name,

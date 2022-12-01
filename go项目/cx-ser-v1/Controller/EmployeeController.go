@@ -79,6 +79,42 @@ func EmployeeBasicByEmployee(context *gin.Context)  {
 	context.JSON(http.StatusOK, employees)
 }
 
+
+
+
+
+
+func SalaryBasicByEmp(context *gin.Context)  {
+	request := make(map[string]interface{})
+	context.ShouldBind(&request)
+	requestId := request["id"].(string)
+	fmt.Println("登录的员工ID：", requestId)
+
+	//根据员工id查找部门，返回此部门的所有同事
+	var employees []Model.Salaytable
+	var err error
+	var employee Model.Salaytable
+	err = Global.Db.Where("id = ?", requestId).First(&employee).Error
+	if err != nil {
+		fmt.Println("查找员工ID出错", err)
+		context.JSON(http.StatusOK, gin.H{
+			"code" : 200,
+			"msg" : "查找员工ID出错",
+		})
+		return
+	}
+	//err = Global.Db.Where("department_name = ? and employee_type != ?", employee.Department_name, "总裁").Find(&employees).Error
+	//if err != nil {
+	//	fmt.Println("查找员工部门的同事出错", err)
+	//	context.JSON(http.StatusOK, gin.H{
+	//		"code" : 200,
+	//		"msg" : "查找员工部门的同事出错",
+	//	})
+	//	return
+	//}
+	context.JSON(http.StatusOK, employees)
+}
+
 func EmployeeBasicSearchByEmployee(context *gin.Context)  {
 	request := make(map[string]interface{})
 	context.ShouldBind(&request)
