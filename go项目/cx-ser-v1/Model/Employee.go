@@ -7,7 +7,7 @@ type Test struct {
 }
 
 /*员工表*/
-type Employee struct {
+type Employee_cx struct {
 	Id                   string `json:"id"`                   //员工编号
 	Password             string `json:"password"`             //密码
 	Employee_type        string    `json:"employee_type"`        //员工类型

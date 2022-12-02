@@ -19,7 +19,7 @@ type Claims struct {
 }
 
 //使用默认声明创建jwt
-func ReaeaseTokec(user Model.Employee) (string, error) {
+func ReaeaseTokec(user Model.Employee_cx) (string, error) {
 	expirationTime := time.Now().Add(7 * 24 * time.Hour) //过期时间
 	//创建Claims
 	claims := &Claims{

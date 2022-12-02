@@ -1682,7 +1682,7 @@ tmripple.init()
   opacity: 0;
 }
 body {
-  background: #36353c;
+  background: #FFFFF0;
 }
 
 .container {

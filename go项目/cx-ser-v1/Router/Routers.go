@@ -7,11 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CreateRoute(re *gin.Engine) *gin.Engine {
-	re.Use(Middleware.CORSMiddleware())
-	Mapper.AdminMapper(re)
-	Mapper.EmployeeMapper(re) //员工 路由
-	Mapper.DirectorMapper(re)
-	re.GET("/info", Middleware.AuthMiddleware(), Controller.Info)
-	return re
+func CreateRoute(r_cx *gin.Engine) *gin.Engine {
+	r_cx.Use(Middleware.CORSMiddleware())
+	Mapper.AdminMapper(r_cx)
+	Mapper.EmployeeMapper(r_cx) //员工 路由
+	Mapper.DirectorMapper(r_cx)
+	r_cx.GET("/info", Middleware.ShowMiddleware_cx(), Controller.Info)
+	return r_cx
 }

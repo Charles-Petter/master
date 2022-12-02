@@ -20,9 +20,9 @@
               </el-button-group>
             </el-form-item>
           </el-form>
-          </el-col>
+        </el-col>
       </el-col>
-          <el-table :data="empsData"
+      <el-table :data="empsData"
                 stripe border
                 v-loading="loading"
                 element-loading-text="正在加载..."
@@ -97,7 +97,7 @@
       </el-table>
     </div>
   </div>
- </template>
+</template>
 
 
 <script>
@@ -178,24 +178,7 @@ export default {
       this.$refs[data].resetFields();
       this.initEmps();
     },
-    // initPost(data) {
-    //   this.open = true;
-    //   this.$axios.post('/Department/Post', data).then(resp => {
-    //     if (resp) {
-    //       this.emp.department_number = data.department_number;
-    //       this.post.department_number = this.emp.department_number;
-    //       this.posts = resp.data;
-    //       console.log("岗位信息：", this.posts);
-    //     }
-    //   })
-    // },
-    // showEditEmpView(data) {
-    //   // this.initPositions();
-    //   this.title = '编辑部门信息';
-    //   this.emp = data;
-    //   // this.inputDepName = data.department_name;
-    //   this.dialogEditVisible = true;
-    // },
+
 
     emptyEmp() {
       this.emp = {
@@ -216,12 +199,6 @@ export default {
       this.dialogAddVisible = true;
     },
 
-    // initDepartment() {
-    //   this.$axios.post('/Department/Init').then(resp => {
-    //     this.department_names = resp.data;
-    //     console.log("初始化部门：", this.department_names);
-    //   })
-    // },
 
 
     //查询部门实现(搜索框)

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="32ae0e7c-81fe-4920-bd70-2d3f91a09477" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/.idea/dataSources/cfdf97bf-0d9b-421e-97bb-fa1b04f6d7f2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/.idea/dataSources/cfdf97bf-0d9b-421e-97bb-fa1b04f6d7f2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Controller/AdminController.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Controller/AdminController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Controller/DirectorController.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Controller/DirectorController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Controller/EmploySalaly_cx.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Controller/EmploySalaly_cx.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Controller/EmployeeController.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Controller/EmployeeController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Controller/MenuController.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Mapper/AdminMapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Mapper/AdminMapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Mapper/DirectorMapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Mapper/DirectorMapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Mapper/EmployeeMapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Mapper/EmployeeMapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Mapper/InitDB.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Mapper/InitDB.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Middleware/AuthMiddleware.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Middleware/CORSMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Middleware/CORSMiddleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Model/Department.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Model/Department.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Model/Employee.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Model/Employee.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Model/Salaytable.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Model/Salaytable.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/Router/Routers.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/Router/Routers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/cx.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/cx.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/logger/logger.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/logger/logger.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx-ser-v1/settings/settings.go" beforeDir="false" afterPath="$PROJECT_DIR$/cx-ser-v1/settings/settings.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/cx_web_1/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/src/views/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cx_web_1/src/views/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cx_web_1/src/views/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/src/views/NotFound.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/src/views/emp/Addemploy_cx.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cx_web_1/src/views/emp/Addemploy_cx.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/src/views/emp/EmployeeBasic.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cx_web_1/src/views/emp/EmployeeBasic.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/src/views/sal/SalMonth.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/src/views/sal/SalSearch.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/src/views/sal/SalTable.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cx_web_1/src/views/sys/SysBasic.vue" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2IKs9xALrpPpsD1jNMzoGwtk4ab" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cx-ser-v1" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+</project>

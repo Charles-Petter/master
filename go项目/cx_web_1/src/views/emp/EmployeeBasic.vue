@@ -40,7 +40,7 @@
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
-            prop="password"
+            prop="password_cx"
             label="密码"
             align="left"
             width="85"
@@ -137,22 +137,6 @@
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
-            prop="birthplace"
-            label="出生地"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column
-            prop="registered_residence"
-            label="户口所在地"
-            align="left"
-            width="125"
-            sortable
-            show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column
             prop="department_number"
             label="部门编号"
             align="left"
@@ -171,25 +155,7 @@
             sortable
             show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="post_number"
-            label="岗位编号"
-            align="left"
-            width="125"
-            sortable
-            :filters="filterPostText"
-            :filter-method="filterHandler"
-            show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column
-            prop="post_name"
-            label="岗位名称"
-            fixed
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
-        </el-table-column>
+
         <el-table-column
             prop="entry_date"
             label="入职日期"
@@ -241,14 +207,6 @@
         <el-table-column
             prop="graduation_date"
             label="毕业日期"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column
-            prop="is_quit"
-            label="是否离职"
             align="left"
             width="100"
             sortable
@@ -418,20 +376,6 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="出生地:" prop="birthplace">
-                <el-input size="mini" style="width: 200px" prefix-icon="el-icon-s-opportunity"
-                          v-model="emp.birthplace" placeholder="请输入出生地" clearable></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-form-item label="户口所在地:" prop="registered_residence">
-                <el-input size="mini" style="width: 200px" prefix-icon="el-icon-house"
-                          v-model="emp.registered_residence" placeholder="请输入户口所在地" clearable></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
               <el-form-item label="部门编号:" prop="department_number">
                 <el-input size="mini" style="width: 100px" prefix-icon="el-icon-s-flag"
                           v-model="emp.department_number" disabled></el-input>
@@ -451,26 +395,9 @@
                 <!--                                      v-model="emp.department_name" disabled></el-input>-->
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item label="岗位编号:" prop="post_number">
-                <el-input size="mini" style="width: 100px" prefix-icon="el-icon-s-flag"
-                          v-model="emp.post_number" disabled></el-input>
-              </el-form-item>
-            </el-col>
+
           </el-row>
           <el-row>
-            <el-col :span="6">
-              <el-form-item label="岗位名称:" prop="post_name">
-                <el-select v-model="emp.post_name" placeholder="请输入岗位" size="mini" prefix-icon="el-icon-edit" disabled>
-                  <el-option
-                      v-for="(item, index) in post_type_options"
-                      :key="index"
-                      :label="item"
-                      :value="item">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
             <el-col :span="6">
               <el-form-item label="入职日期:" prop="entry_date">
                 <el-date-picker
@@ -539,14 +466,6 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="6">
-              <el-form-item label="是否离职" prop="is_quit">
-                <el-radio-group v-model="emp.is_quit">
-                  <el-radio label="是">是</el-radio>
-                  <el-radio label="否">否</el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
           </el-row>
         </el-form>
       </div>
@@ -618,23 +537,18 @@ export default {
       blood_type:'',
       blood_types:['A型', 'B型', 'AB型', 'O型', '其他'],
       employee_type:3,
-      employee_types:['总裁', '主管', '员工'],
+      employee_types:[ '主管', '员工'],
       nation: "",
       nations: [
-        '蒙古族', '藏族', '苗族', '壮族', '回族', '维吾尔族', '彝族', '布依族',
-        '朝鲜族', '侗族', '白族', '哈尼族', '傣族', '傈僳族', '畲族', '拉祜族',
-        '满族', '瑶族', '土家族', '哈萨克族', '黎族', '佤族', '高山族', '水族',
-        '东乡族', '景颇族', '土族', '仫佬族', '布朗族', '毛南族', '锡伯族', '普米族',
-        '纳西族', '柯尔克孜族', '达斡尔族', '羌族', '撒拉族', '仡佬族', '阿昌族', '塔吉克族',
         '怒族', '俄罗斯族', '德昂族', '裕固族', '塔塔尔族', '鄂伦春族', '门巴族', '基诺族',
-        '乌孜别克族', '鄂温克族', '保安族', '京族', '独龙族', '赫哲族', '珞巴族', '汉族',
+        '乌孜别克族', '珞巴族', '汉族',
         '其他',
       ],
       joblevels: [],
       political: "群众",
-      politicals: ['群众', '共青团员', '中共预备党员', '中共党员', '无党派人士', '其他'],
+      politicals: ['群众', '共青团员', '中共预备党员', '中共党员'],
       positions: [],
-      highest_educations: ['小学', '初中', '中专/高中', '专科', '本科', '硕士', '博士', '其他'],
+      highest_educations: [ '专科', '本科', '硕士', '博士', '其他'],
       employee_forms:['实习生', '正式职工'],
       personnel_source:'',
       personnel_sources:['校招', '社招'],
@@ -716,12 +630,8 @@ export default {
         height : [{required : true, message : '请输入身高', trigger : 'blur'}],
         blood_type : [{required : true, message : '请输入血型', trigger : 'blur'}],
         marital_status : [{required : true, message : '请输入婚姻状况', trigger : 'blur'}],
-        birthplace : [{required : true, message : '请输入出生地', trigger : 'blur'}],
-        registered_residence : [{required : true, message: '请输入户口所在地', trigger : 'blur'}],
-        department_number : [{required : true, message : '请输入部门编号', trigger : 'blur'}],
         department_name : [{required : true, message : '请输入部门名称', trigger : 'blur'}],
-        post_number : [{required : true, message : '请输入岗位编号', trigger : 'blur'}],
-        post_name : [{required : true, message : '请输入岗位名称', trigger : 'blur'}],
+        // post_name : [{required : true, message : '请输入岗位名称', trigger : 'blur'}],
         entry_date : [{required : true, message : '请输入入职日期', trigger : 'blur'}],
         employment_form : [{required : true, message : '请输入用工形式', trigger: 'blur'}],
         personnel_source : [{required : true, message : '请输入人员来源', trigger : 'blur'}],
@@ -729,13 +639,11 @@ export default {
         graduation_school : [{required : true, message : '请输入毕业院校', trigger : 'blur'}],
         major_studied : [{required : true, message : '请输入所学专业', trigger : 'blur'}],
         graduation_date : [{required : true, message : '请输入毕业日期', trigger : 'blur'}],
-        is_quit : [{required : true, message : '请输入是否离职', trigger : 'blur'}],
-
+        // is_quit : [{required : true, message : '请输入是否离职', trigger : 'blur'}],
         nationId: [{required: true, message: '请输入您组', trigger: 'blur'}],
         jobLevelId: [{required: true, message: '请输入职称', trigger: 'blur'}],
         posId: [{required: true, message: '请输入职位', trigger: 'blur'}],
 
-        // workAge: [{required: true, message: '请输入工龄', trigger: 'blur'}],
       },
       multipleSelectionFlag : false,
       multiDeleteVisible : false,
@@ -889,7 +797,6 @@ export default {
           });
         }
       });
-
     },
     doAddEmp() {
       this.$refs['empForm'].validate(valid => {
@@ -937,64 +844,10 @@ export default {
       //this.getMaxWordID();
       this.dialogAddVisible = true;
     },
-    async searchEmp(data) {
-      console.log("name = ", this.emp.name);
-      var url;
- if (localStorage.getItem("role") === "主管") {
-        url = '/EmployeeBasic/SearchByDirector';
-        var temp = {
-          'id' : localStorage.getItem("id"),
-          'name' : this.emp.name,
-        };
-        this.$refs[data].validate((valid) => {
-          if (valid) {
-            this.$axios.post(url, temp).then((resp) => {
-              if (resp.data.msg == "查询成功") {
-                this.emps = resp.data.data;
-              } else {
-                Message.error({message : resp.data.msg});
-              }
-            });
-          }
-        })
-      } else {
-        url = '/EmployeeBasic/SearchByEmployee';
-        var temp = {
-          'id' : localStorage.getItem("id"),
-          'name' : this.emp.name,
-        };
-        this.$refs[data].validate((valid) => {
-          if (valid) {
-            this.$axios.post(url, temp).then((resp) => {
-              if (resp.data.msg == "查询成功") {
-                this.emps = resp.data.data;
-              } else {
-                Message.error({message : resp.data.msg});
-              }
-            });
-          }
-        })
-      }
-
-
-    },
     resetForm(data) {
       console.log("data = ", data, "emp = ", this.emp)
       this.$refs[data].resetFields();
       this.initEmps();
-    },
-    async searchEmpAdvance(data) {
-      this.$refs[data].validate((valid) => {
-        if (valid) {
-          this.$axios.post('/EmployeeBasic/SearchAdvance', this.searchValue).then((resp) => {
-            if (resp.data.msg == "查询成功") {
-              this.emps = resp.data.data;
-            } else {
-              Message.error({message : resp.data.msg});
-            }
-          })
-        }
-      })
     },
     initEmps(type) {
       this.loading = true;
@@ -1028,18 +881,6 @@ export default {
         })
       }
 
-    },
-    handleSelectionChange(val) {
-      // console.log(val);
-      this.multipleSelection = val;
-      this.multipleSelectionFlag = true;
-      if (this.multipleSelection.length == 0) {
-        // 如不进行判断则勾选完毕后批量删除按钮还是会在
-        this.multipleSelectionFlag = false;
-      }
-    },
-    popDelete() {
-      this.multiDeleteVisible = true;
     },
 
     initDepartment() {

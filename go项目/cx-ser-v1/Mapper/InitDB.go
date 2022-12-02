@@ -9,25 +9,25 @@ import (
 	"gorm.io/gorm"
 )
 
-func InitDB(v *viper.Viper) (db *gorm.DB, erre error) {
-	var err error
-	args := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True",
-		v.GetString("mysql.user"),
-		v.GetString("mysql.password"),
-		v.GetString("mysql.host"),
-		v.GetInt("mysql.port"),
-		v.GetString("mysql.dbname"),
+func InitDB(v_cx *viper.Viper) (db *gorm.DB, erre error) {
+	var err_cx error
+	args_cx := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True",
+		v_cx.GetString("mysql.user"),
+		v_cx.GetString("mysql.password"),
+		v_cx.GetString("mysql.host"),
+		v_cx.GetInt("mysql.port"),
+		v_cx.GetString("mysql.dbname"),
 	)
 	//db, err = gorm.Open(postgres.Open(args), &gorm.Config{})
-	db, err = gorm.Open(mysql.Open(args), &gorm.Config{})
-	if err != nil {
-		panic("连接数据库失败" + err.Error())
+	db, err_cx = gorm.Open(mysql.Open(args_cx), &gorm.Config{})
+	if err_cx != nil {
+		panic("连接数据库失败" + err_cx.Error())
 		return db, erre
 	}
 	fmt.Println("数据库连接成功！")
-	err = db.AutoMigrate(&Model.Employee{})
-	if err != nil {
-		return nil, err
+	err_cx = db.AutoMigrate(&Model.Employee_cx{})
+	if err_cx != nil {
+		return nil, err_cx
 	}
 	return db, erre
 }

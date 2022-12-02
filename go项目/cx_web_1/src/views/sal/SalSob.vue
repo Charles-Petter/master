@@ -54,22 +54,22 @@
               show-overflow-tooltip>
           </el-table-column>
         <el-table-column  width="75"  prop="initsalay_cx" label="初始工资">
-          <template slot-scope="scope">
-            <span class="input-group-addon" >税前工资</span>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
-                   v-model="TaxBefore"
-                   @keyup.enter="search" @input="search($event)"
-            >
-            <span class="input-group-addon" >元</span>
-            <el-input v-model.initsalay_cx="scope.row.initsalay_cx"  />
-          </template>
+<!--          <template slot-scope="scope">-->
+<!--            <span class="input-group-addon" >税前工资</span>-->
+<!--            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"-->
+<!--                   v-model="TaxBefore"-->
+<!--                   @keyup.enter="search" @input="search($event)"-->
+<!--            >-->
+<!--            <span class="input-group-addon" >元</span>-->
+<!--            <el-input v-model.initsalay_cx="scope.row.initsalay_cx"  />-->
+<!--          </template>-->
         </el-table-column>
         <el-table-column  width="150" :show-overflow-tooltip="true" prop="salayCount_cx" label="税后工资">
-          <template slot-scope="scope">
-            <el-input v-model.salayCount_cx="scope.row.salayCount_cx"  />
-<!--            v-show不支持在template中使用-->
-            <p class="TaxInfo">实发工资：<span v-show="FuckMoney > 0">{{TaxAfter}} 元</span></p>
-          </template>
+<!--          <template slot-scope="scope">-->
+<!--            <el-input v-model.salayCount_cx="scope.row.salayCount_cx"  />-->
+<!--&lt;!&ndash;            v-show不支持在template中使用&ndash;&gt;-->
+<!--            <p class="TaxInfo">实发工资：<span v-show="FuckMoney > 0">{{TaxAfter}} 元</span></p>-->
+<!--          </template>-->
         </el-table-column>
 
         </el-table>
@@ -80,9 +80,6 @@
 
 <script>
 import {Message} from "element-ui";
-
-
-
 export default {
 
   name: "SalSob",
@@ -120,9 +117,6 @@ export default {
       dialogAddPostVisible : false,
       dialogEditPostVisible : false,
       open : false,
-      // department_types : ['一级部门', '二级部门', '三级部门'],
-      // department_names : ['开发部', '运维部', '测试部', '设计部', '策划部'],
-      // post_establishments : ['有编制', '无编制'],
     }
   },
   computed : {
@@ -165,19 +159,6 @@ export default {
       this.initEmps();
     },
 
-
-
-// 输入框聚焦事件
-    onfoucs(val) {
-      const selected = false //聚焦取消勾选
-      this.$refs.multipleTable.toggleRowSelection(val.row, selected) //ref定义在el-table中
-    },
-    // 输入框失焦事件
-    blurUsername(val) {
-      const selected = true //失焦勾选
-      this.$refs.multipleTable.toggleRowSelection(val.row, selected)
-    },
-    //注：由于有输入项合计需求，因此以聚焦失焦来控制复选框状态从而获取最新输入值。
     initSalaries() {
       this.getRequest("/EmpSalary/Init/").then(resp => {
         if (resp) {
