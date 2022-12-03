@@ -701,18 +701,11 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="6">
-              <el-form-item label="是否离职" prop="is_quit">
-                <el-input size="mini" style="width: 100px" prefix-icon="el-icon-edit"
-                          v-model="emp.is_quit" placeholder="是否离职" disabled></el-input>
-              </el-form-item>
-            </el-col>
           </el-row>
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
               <el-button @click="dialogShowVisible = false">关 闭</el-button>
-        <!--              <el-button type="primary" @click="doEditEmp">确 定</el-button>-->
             </span>
     </el-dialog>
   </div>
@@ -755,15 +748,8 @@ export default {
       birthday: '',
       post_number: null,
       post_name: '',
-      department_names : ['开发部', '运维部', '测试部', '设计部', '策划部'],
-      post_names : {
-        '开发部' : ['C++开发', 'Java开发', 'C#开发', 'Python开发', 'Go开发'],
-        '运维部' : ['云运维', '服务器运维'],
-        '测试部' : ['系统测试', 'Bug测试'],
-        '设计部' : ['UI设计', '动画设计'],
-        '策划部' : ['策划', '系统策划'],
-      },
-      post_type_options : [],
+      department_names : ['区块链学院', '智能科技学院', '新媒体学院', '设计部', '退役军人学院'],
+      // post_type_options : [],
       blood_type:'',
       blood_types:['A型', 'B型', 'AB型', 'O型', '其他'],
       employee_type:3,
@@ -778,7 +764,7 @@ export default {
       political: "群众",
       politicals: ['群众', '共青团员', '中共预备党员', '中共党员', '无党派人士', '其他'],
       positions: [],
-      highest_educations: [ '中专/高中', '专科', '本科', '硕士', '博士', '其他'],
+      highest_educations: [ '本科', '硕士', '博士', '其他'],
       employee_forms:['实习生', '正式职工'],
       personnel_source:'',
       personnel_sources:['校招', '社招'],
@@ -938,9 +924,6 @@ export default {
         graduation_school : "",
         major_studied : "",
         graduation_date : "",
-        is_quit : "",
-
-
         nationId: 1,
         politicId: 13,
         jobLevelId: 9,
@@ -1013,15 +996,7 @@ export default {
         console.log("初始化部门：", this.department_names);
       })
     },
-    // initPost() {
-    //   var temp = {
-    //     "department_name" : this.department_name
-    //   }
-    //   this.$axios.post('/Post/Init', temp).then(resp => {
-    //     this.post_names = resp.data;
-    //     console.log("初始化岗位：", this.post_names);
-    //   })
-    // },
+
   }
 }
 window["tmripple"] =
@@ -1273,7 +1248,7 @@ tmripple.init()
   opacity: 0;
 }
 body {
-  background: #36353c;
+  background:#F7F7F7;
 }
 
 .container {

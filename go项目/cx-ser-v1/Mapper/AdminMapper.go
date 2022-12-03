@@ -7,10 +7,15 @@ import (
 
 func AdminMapper(re *gin.Engine) {
 	//POST请求路由              路径         hander
+	//身份信息验证
 	re.POST("/AdminLogin", Controller.VerifyLogin_cx)
+	//查询员工信息
 	re.POST("/EmployeeBasic", Controller.EmployeeAll_cx)
+	//修改
 	re.POST("/EmployeeBasic/Update", Controller.EmployeeBasicUpdate)
+	//添加
 	re.POST("/EmployeeBasic/Add", Controller.EmployeeBasicAdd)
+	//编辑
 	re.POST("/Edit", Controller.EditMessage_cx)
 	re.POST("/Department/Basic", Controller.DepartmentBasic)
 	re.POST("/SearchEmpSalary", Controller.SearchEmpSalary)

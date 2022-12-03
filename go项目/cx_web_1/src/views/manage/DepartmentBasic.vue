@@ -56,7 +56,6 @@
             width="150"
             show-overflow-tooltip>
         </el-table-column>
-
         <el-table-column
             prop="description"
             width="150"
@@ -150,25 +149,6 @@ export default {
       this.$refs[data].resetFields();
       this.initEmps();
     },
-    // initPost(data) {
-    //   this.open = true;
-    //   this.$axios.post('/Department/Post', data).then(resp => {
-    //     if (resp) {
-    //       this.emp.department_number = data.department_number;
-    //       this.post.department_number = this.emp.department_number;
-    //       this.posts = resp.data;
-    //       console.log("岗位信息：", this.posts);
-    //     }
-    //   })
-    // },
-    // showEditEmpView(data) {
-    //   // this.initPositions();
-    //   this.title = '编辑部门信息';
-    //   this.emp = data;
-    //   // this.inputDepName = data.department_name;
-    //   this.dialogEditVisible = true;
-    // },
-
     emptyEmp() {
       this.emp = {
         department_number : "",
@@ -187,21 +167,11 @@ export default {
       this.title = '添加部门信息';
       this.dialogAddVisible = true;
     },
-
-    // initDepartment() {
-    //   this.$axios.post('/Department/Init').then(resp => {
-    //     this.department_names = resp.data;
-    //     console.log("初始化部门：", this.department_names);
-    //   })
-    // },
-
-
     //查询部门实现(搜索框)
     async searchEmp(data) {
       console.log("department_name = ", this.emp.department_name);
       var url;
       if (localStorage.getItem("role") === "主管") {
-        // url = '/EmployeeBasic/SearchByDirector';
         url = '/DepartmentSearch';
         var temp = {
           'id' : localStorage.getItem("id"),

@@ -16,6 +16,6 @@ func CreateRoute(r_cx *gin.Engine) *gin.Engine {
 	Mapper.EmployeeMapper(r_cx)
 	//主管路由
 	Mapper.DirectorMapper(r_cx)
-	r_cx.GET("/info", Middleware.ShowMiddleware_cx(), Controller.Info)
+	r_cx.GET("/info", Middleware.ShowMiddleware_cx(), Controller.Info_cx)
 	return r_cx
 }

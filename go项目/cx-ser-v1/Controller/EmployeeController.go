@@ -50,9 +50,9 @@ func SalaryBasicByEmp(c_cx *gin.Context)  {
 	fmt.Println("登录的员工ID：", requestId_cx)
 
 	//根据员工id查找部门，返回此部门的所有同事
-	var employees_cx []Model.Salaytable
+	var employees_cx []Model.Salaytable_cx
 	var err error
-	var employee Model.Salaytable
+	var employee Model.Salaytable_cx
 	err = Global.Db.Where("id = ?", requestId_cx).First(&employee).Error
 	if err != nil {
 		fmt.Println("查找员工ID出错", err)

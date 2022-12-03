@@ -2,9 +2,7 @@
   <div>
     <!--    部门信息-->
     <div>
-      <span>
-        工资信息
-      </span>
+
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         <el-col :span="16">
           <el-form :model="emp" :rules="rules" ref="emp" @submit.native.prevent>
@@ -23,12 +21,12 @@
               fixed
               sortable
               align="left"
-              label="id"
+              label="账户"
               width="75"
               show-overflow-tooltip>
           </el-table-column>
           <el-table-column
-              prop="name_cx"
+              prop="name"
               fixed
               sortable
               align="left"
@@ -37,7 +35,7 @@
               show-overflow-tooltip>
           </el-table-column>
           <el-table-column
-              prop="employee_type_cx"
+              prop="employee_type"
               fixed
               sortable
               align="left"
@@ -46,14 +44,14 @@
               show-overflow-tooltip>
           </el-table-column>
           <el-table-column
-              prop="sex_cx"
+              prop="sex"
               label="性别"
               align="left"
               width="75"
               sortable
               show-overflow-tooltip>
           </el-table-column>
-        <el-table-column  width="75"  prop="initsalay_cx" label="初始工资">
+        <el-table-column  width="75"  prop="initsalay" label="初始工资">
           <template slot-scope="scope">
             <span class="input-group-addon" >税前工资</span>
             <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
@@ -64,7 +62,7 @@
             <el-input v-model.initsalay_cx="scope.row.initsalay_cx"  />
           </template>
         </el-table-column>
-        <el-table-column  width="150" :show-overflow-tooltip="true" prop="salayCount_cx" label="税后工资">
+        <el-table-column  width="150" :show-overflow-tooltip="true" prop="taxafter" label="税后工资">
           <template slot-scope="scope">
             <el-input v-model.salayCount_cx="scope.row.salayCount_cx"  />
 <!--            v-show不支持在template中使用-->
@@ -87,11 +85,11 @@ export default {
     return {
       emp: {
         id : "",
-        name_cx : "",
-        employee_type_cx : "",
-        sex_cx : "",
-        initsalay_cx:"",
-        salayCount_cx:"",
+        name : "",
+        employee_type : "",
+        sex : "",
+        initsalay:"",
+        Taxafter:"",
 
       },
       FuckMoney: 0,	     //应参加缴税金额
@@ -99,11 +97,11 @@ export default {
       emps : [],
       post : {
         id : "",
-        employee_type_cx : "",
-        name_cx : "",
-        sex_cx : "",
-        initsalay_cx:"",
-        salayCount_cx:"",
+        employee_type : "",
+        name : "",
+        sex : "",
+        initsalay:"",
+        taxafter:"",
       },
       posts : [],
       loading : false,

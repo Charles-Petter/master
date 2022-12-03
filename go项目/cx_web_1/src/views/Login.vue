@@ -28,16 +28,7 @@
                   <el-input size="normal" type="password" v-model="loginForm.password"
                             placeholder="请输入密码"></el-input>
                 </el-form-item>
-                <!--            <el-form-item prop="code">-->
-                <!--                <el-input size="normal" type="text" v-model="loginForm.code" auto-complete="off"-->
-                <!--                          placeholder="点击图片更换验证码" @keydown.enter.native="submitLogin" style="width: 250px"></el-input>-->
-                <!--                <img :src="vcUrl" @click="updateVerifyCode" alt="" style="cursor: pointer">-->
-                <!--            </el-form-item>-->
-<!--                <el-checkbox size="normal" class="loginRemember" v-model="checked"></el-checkbox>-->
                 <tr>
-<!--                  <td class="login-title" style="justify-content: center">-->
-<!--                    身份-->
-<!--                  </td>-->
                   <td>
 <!--                    权限分离-->
                     <el-radio v-model="type" :label="1" border >主管</el-radio>
@@ -46,14 +37,12 @@
                 </tr>
                 <Vcode :show="isShow" @success="success" @close="close"></Vcode>
                 <el-button-group style="width: 100%">
-<!--                  <el-button size="normal" type="danger" style="width: 50%;" @click="submit" :round="true" :disabled="right">人机验证</el-button>-->
                   <el-button size="normal" type="primary" style="width: 100%;" @click="submitLogin" :round="true" :disabled="right">登录</el-button>
                 </el-button-group>
               </el-form>
         </div>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
@@ -103,18 +92,10 @@ export default {
     this.loginForm.employee_type = this.type;
   },
   mounted(){
-    // this.imgLoad();
-    // window.addEventListener('resize',() => {
-    //   this.bannerHeight=this.$refs.bannerHeight[0].height;
-    //   this.imgLoad();
-    // },false)
     this.initDepartment();
     this.initPost();
   },
   methods: {
-    // updateVerifyCode() {
-    //   this.vcUrl = '/verifyCode?time='+new Date();
-    // },
     submit () {
       this.isShow = true;
     },
@@ -163,14 +144,6 @@ export default {
         }
       });
     },
-    // imgLoad(){
-    //   this.$nextTick(()=>{
-    //     this.bannerHeight=this.$refs.bannerHeight[0].height;
-    //     console.log(this.$refs.bannerHeight[0].height);
-    //     // document.getElementsByClassName拿到的是数组并非某一个对象
-    //     var testH=document.getElementById("test-div");//拿到对象
-    //   })
-    // },
     success() {
       this.isShow = false;
       this.right = true;
@@ -185,15 +158,15 @@ export default {
         console.log("初始化部门：", this.department_names);
       })
     },
-    initPost() {
-      var temp = {
-        "department_name" : this.department_name
-      }
-      this.$axios.post('/Post/Init', temp).then(resp => {
-        this.post_names = resp.data;
-        console.log("初始化岗位：", this.post_names);
-      })
-    }
+    // initPost() {
+    //   var temp = {
+    //     "department_name" : this.department_name
+    //   }
+    //   this.$axios.post('/Post/Init', temp).then(resp => {
+    //     this.post_names = resp.data;
+    //     console.log("初始化岗位：", this.post_names);
+    //   })
+    // }
   }
 }
 </script>

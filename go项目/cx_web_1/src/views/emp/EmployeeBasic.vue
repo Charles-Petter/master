@@ -384,24 +384,19 @@
                           v-model="emp.department_number" disabled></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item label="部门名称:" prop="department_name">
-                <el-select @change="changeEditSelect" v-model="emp.department_name" placeholder="请输入部门名称" size="mini" prefix-icon="el-icon-edit" disabled>
-                  <el-option
-                      v-for="(item, index) in department_names"
-                      :key="index"
-                      :label="item"
-                      :value="item">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="岗位编号:" prop="post_number">
-                <el-input size="mini" style="width: 100px" prefix-icon="el-icon-s-flag"
-                          v-model="emp.post_number" disabled></el-input>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="6">-->
+<!--              <el-form-item label="部门名称:" prop="department_name">-->
+<!--                <el-select @change="changeEditSelect" v-model="emp.department_name" placeholder="请输入部门名称" size="mini" prefix-icon="el-icon-edit" disabled>-->
+<!--                  <el-option-->
+<!--                      v-for="(item, index) in department_names"-->
+<!--                      :key="index"-->
+<!--                      :label="item"-->
+<!--                      :value="item">-->
+<!--                  </el-option>-->
+<!--                </el-select>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+
           </el-row>
           <el-row>
 
@@ -517,7 +512,7 @@ export default {
       birthday: '',
       post_number: null,
       post_name: '',
-      department_names : ['开发部', '运维部', '测试部', '设计部', '策划部'],
+      department_names : ['区块链学院', '智能科技学院', '新媒体学院', '设计部', '退役军人学院'],
       // post_names : {
       //   '开发部' : ['C++开发', 'Java开发', 'C#开发', 'Python开发', 'Go开发'],
       //   '运维部' : ['云运维', '服务器运维'],
@@ -640,10 +635,7 @@ export default {
   },
   mounted() {
     this.initEmps();
-    this.initData();
     this.initDepartment();
-    this.initPost();
-
     localStorage.setItem("type", this.emp.employee_type);
   },
   computed : {
@@ -729,9 +721,7 @@ export default {
       this.popVisible = !this.popVisible
     },
 
-    initData() {
 
-    },
     sizeChange(currentSize) {
       this.pageSize = currentSize;
       this.initEmps();

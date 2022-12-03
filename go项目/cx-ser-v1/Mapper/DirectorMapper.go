@@ -7,9 +7,11 @@ import (
 //主管路由
 func DirectorMapper(re *gin.Engine)  {
 	re.POST("/DirectorDepartment", Controller.DirectorDepartment)
-	re.POST("/EmployeeBasicByDirector", Controller.EmployeeBasicByDirector)
-	re.POST("/EmployeeBasicSearchByDirector/", Controller.EmployeeBasicSearchByDirector)
-	re.POST("/GetDepartmentName", Controller.GetDepartmentName)
+	re.POST("/EmployeeBasicByDirector", Controller.EmployeeByDirector_cx)
+	//查询主管
+	//re.POST("/EmployeeBasicSearchByDirector/", Controller.EmployeeSearchByDirector_cx)
+	//获取部门名称
+	re.POST("/GetDepartmentName", Controller.GetDepartmentName_cx)
 	//部门搜索
-	re.POST("/DepartmentSearch", Controller.DepartmentSearch)
+	re.POST("/DepartmentSearch", Controller.DepartmentSearch_cx)
 }

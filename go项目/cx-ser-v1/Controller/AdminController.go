@@ -11,7 +11,7 @@ import (
 	"strconv"
 )
 //登录信息
-func Info(c_cx *gin.Context) {
+func Info_cx(c_cx *gin.Context) {
 	admin, _ := c_cx.Get("user")
 	c_cx.JSON(http.StatusOK, gin.H{
 		"code": 200,
@@ -20,7 +20,7 @@ func Info(c_cx *gin.Context) {
 		},
 	})
 }
-//进入AdminLogin  身份验证
+// 身份验证
 func VerifyLogin_cx(c_cx *gin.Context) {
 	fmt.Println("进入身份验证")
 	var requestAdmin = Model.Employee_cx{}
@@ -39,6 +39,7 @@ func VerifyLogin_cx(c_cx *gin.Context) {
 		fmt.Println("出错了!", err)
 	}
 	fmt.Println("数据库查到的信息：", admin)
+	//验证员工类型和账户密码
 	if admin.Password != requestAdmin.Password || admin.Employee_type != requestAdmin.Employee_type {
 		fmt.Println("执行了if")
 		c_cx.JSON(200, gin.H{
@@ -47,6 +48,7 @@ func VerifyLogin_cx(c_cx *gin.Context) {
 		})
 		return
 	}
+	//发放TOKEN
 	token, err := Global.ReaeaseTokec(admin)
 	if err != nil {
 		c_cx.JSON(200, gin.H{
@@ -61,6 +63,7 @@ func VerifyLogin_cx(c_cx *gin.Context) {
 //查找所有员工
 func EmployeeAll_cx(c_cx *gin.Context) {
 	var employee []Model.Employee_cx
+	//根据id查找
 	err := Global.Db.Order("id").Find(&employee).Error
 	if err != nil {
 		fmt.Println("查找所有员工出错！", err)
@@ -70,7 +73,7 @@ func EmployeeAll_cx(c_cx *gin.Context) {
 	c_cx.JSON(http.StatusOK, employee)
 }
 
-
+//员工数据修改
 func EmployeeBasicUpdate(c_cx *gin.Context)  {
 	var requestEmployee = Model.Employee_cx{}
 	json.NewDecoder(c_cx.Request.Body).Decode(&requestEmployee)
@@ -137,12 +140,13 @@ func EmployeeBasicAdd(c_cx *gin.Context) {
 }
 
 //搜索部门（搜索框）
-func DepartmentSearch(c_cx *gin.Context) {
+func DepartmentSearch_cx(c_cx *gin.Context) {
 	var requestEmployeeMent Model.Collects_cx
 	//http中获取到json数据解码
 	json.NewDecoder(c_cx.Request.Body).Decode(&requestEmployeeMent)
 	fmt.Println("获取的搜索部门：", requestEmployeeMent.Department_name)
 		var tempEmployee []Model.Collects_cx
+	//根据部门名称搜索
 	err := Global.Db.Where("Department_name = ?", requestEmployeeMent.Department_name).First(&tempEmployee).Error
 	if err != nil {
 		fmt.Println("未找到此部门")
@@ -199,7 +203,7 @@ func EditMessage_cx(ctx *gin.Context) {
 //}
 //查询工资信息
 func SearchEmpSalary(c_cx *gin.Context) {
-	var empsalary []Model.Salaytable
+	var empsalary []Model.Salaytable_cx
 	var err error
 	//返回的是工资表数组
 	err = Global.Db.Find(&empsalary).Error
@@ -250,12 +254,12 @@ func DepartmentInit(c_cx *gin.Context) {
 		return
 	}
 	var department []string
+	//类型转换 string 转int
 	strInt64 := strconv.FormatInt(count, 10)
 	tempCount, _ := strconv.Atoi(strInt64)
+	//循环数组 遍历出部门数组所有值
 	for i := 0; i < tempCount; i++ {
-		//de := temp[i].Department_name
 		department = append(department, temp[i].Department_name)
-		//department[i] = temp[i].Department_name
 	}
 	fmt.Println("找到的部门数组：", department)
 	c_cx.JSON(http.StatusOK, department)
@@ -287,7 +291,7 @@ var requestDepartment Model.Collects_cx
 func EmpSalaryInit(c_cx *gin.Context) {
 
 	var count int64
-	var t_cx []Model.Salaytable
+	var t_cx []Model.Salaytable_cx
 	var err error
 	err = Global.Db.Find(&t_cx).Count(&count).Error
 	if err != nil {
@@ -303,7 +307,7 @@ func EmpSalaryInit(c_cx *gin.Context) {
 	tempCount, _ := strconv.Atoi(strInt64)
 	for i := 0; i < tempCount; i++ {
 		//de := temp[i].Department_name
-		Empsalary = append(Empsalary, t_cx[i].Name_cx)
+		Empsalary = append(Empsalary, t_cx[i].Name)
 		//department[i] = temp[i].Department_name
 	}
 	fmt.Println("找到的部门数组：", Empsalary)
@@ -329,7 +333,6 @@ func SearchByDepartmentNumber(c_cx *gin.Context) {
 	fmt.Println("部门数量：", count)
 	var departmentNumber []t_cx
 	for i := 0; i < count; i++ {
-		//text := tempDepartment[i].Department_number
 		var t t_cx
 		t.Text = strconv.Itoa(tempDepartment[i].Department_number) + ":" + tempDepartment[i].Department_name
 		t.Value = tempDepartment[i].Department_number

@@ -14,7 +14,6 @@
                         <el-submenu :index="index+''" v-for="(item,index) in $router.options.routes" v-if="!item.hidden" :key="index">
                             <template slot="title">
                                 <i style="color: #162aef;margin-right: 5px" :class="item.iconCls"></i>
-
                                 <span class="el-menu-font">{{item.name}}</span>
                             </template>
                             <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj">
@@ -28,7 +27,7 @@
                         <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
                         <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
                     </el-breadcrumb>
-                    <div class="homeWelcome" v-if="this.$router.currentRoute.path=='/home'">
+                    <div class="homeWelcome" v-if="this.$router.currentRoute.path==='/home'">
 
                     </div>
                     <router-view class="homeRouterView"/>
