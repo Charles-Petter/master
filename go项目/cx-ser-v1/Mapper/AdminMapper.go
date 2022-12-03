@@ -10,17 +10,17 @@ func AdminMapper(re *gin.Engine) {
 	//身份信息验证
 	re.POST("/AdminLogin", Controller.VerifyLogin_cx)
 	//查询员工信息
-	re.POST("/EmployeeBasic", Controller.EmployeeAll_cx)
+	//re.POST("/EmployeeBasic", Controller.EmployeeAll_cx)
 	//修改
-	re.POST("/EmployeeBasic/Update", Controller.EmployeeBasicUpdate)
+	re.POST("/EmployeeBasic/Update_cx", Controller.EmployeeBasicUpdate_cx)
 	//添加
-	re.POST("/EmployeeBasic/Add", Controller.EmployeeBasicAdd)
+	re.POST("/EmployeeBasic/Add_cx", Controller.EmployeeBasicAdd_cx)
 	//编辑
-	re.POST("/Edit", Controller.EditMessage_cx)
-	re.POST("/Department/Basic", Controller.DepartmentBasic)
-	re.POST("/SearchEmpSalary", Controller.SearchEmpSalary)
-	re.POST("/Department/Init", Controller.DepartmentInit)
-	re.POST("/EmpSalary/Init", Controller.EmpSalaryInit)
-	re.POST("/Department/Update", Controller.DepartmentUpdate)
-	re.POST("/SearchByDepartmentNumber", Controller.SearchByDepartmentNumber)
+	//re.POST("/Edit", Controller.EditMessage_cx)
+	re.POST("/Department/Message_cx", Controller.DepartmentMessage_cx)
+	re.POST("/SearchEmpSalary_cx", Controller.SearchEmpSalary_cx)
+	re.POST("/Department/Init_cx", Controller.DepartmentInit)
+	re.POST("/EmpSalary/Init_cx", Controller.EmpSalaryInit_cx)
+	//re.POST("/Department/Update", Controller.DepartmentUpdate)
+	//re.POST("/SearchByDepartmentNumber", Controller.SearchByDepartmentNumber_cx)
 }

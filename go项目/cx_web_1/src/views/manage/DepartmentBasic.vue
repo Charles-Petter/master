@@ -137,7 +137,7 @@ export default {
   methods : {
     initEmps(type) {
       this.loading = true;
-      this.$axios.post('/Department/Basic').then(resp => {
+      this.$axios.post('/Department/Message_cx').then(resp => {
         this.loading = false;
         if (resp) {
           this.emps = resp.data;
@@ -172,7 +172,7 @@ export default {
       console.log("department_name = ", this.emp.department_name);
       var url;
       if (localStorage.getItem("role") === "主管") {
-        url = '/DepartmentSearch';
+        url = '/DepartmentSearch_cx';
         var temp = {
           'id' : localStorage.getItem("id"),
           'department_name' : this.emp.department_name,

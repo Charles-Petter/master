@@ -140,7 +140,7 @@ export default {
   methods: {
     initEmps(type) {
       this.loading = true;
-      this.$axios.post('/SearchEmpSalary').then(resp => {
+      this.$axios.post('/SearchEmpSalary_cx').then(resp => {
         this.loading = false;
         if (resp) {
           this.emps = resp.data;
@@ -157,7 +157,7 @@ export default {
       this.initEmps();
     },
     initSalaries() {
-      this.getRequest("/EmpSalary/Init/").then(resp => {
+      this.getRequest("/EmpSalary/Init_cx/").then(resp => {
         if (resp) {
           this.salaries = resp;
         }

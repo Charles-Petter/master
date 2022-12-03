@@ -61,20 +61,20 @@ func VerifyLogin_cx(c_cx *gin.Context) {
 	Response.Success(c_cx, gin.H{"token": token, "data": admin}, "登录成功")
 }
 //查找所有员工
-func EmployeeAll_cx(c_cx *gin.Context) {
-	var employee []Model.Employee_cx
-	//根据id查找
-	err := Global.Db.Order("id").Find(&employee).Error
-	if err != nil {
-		fmt.Println("查找所有员工出错！", err)
-		return
-	}
-	fmt.Println("数据库查到的所有员工：", employee)
-	c_cx.JSON(http.StatusOK, employee)
-}
+//func EmployeeAll_cx(c_cx *gin.Context) {
+//	var employee []Model.Employee_cx
+//	//根据id查找
+//	err := Global.Db.Order("id").Find(&employee).Error
+//	if err != nil {
+//		fmt.Println("查找所有员工出错！", err)
+//		return
+//	}
+//	fmt.Println("数据库查到的所有员工：", employee)
+//	c_cx.JSON(http.StatusOK, employee)
+//}
 
 //员工数据修改
-func EmployeeBasicUpdate(c_cx *gin.Context)  {
+func EmployeeBasicUpdate_cx(c_cx *gin.Context)  {
 	var requestEmployee = Model.Employee_cx{}
 	json.NewDecoder(c_cx.Request.Body).Decode(&requestEmployee)
 	fmt.Println("即将修改的用户：", requestEmployee)
@@ -93,7 +93,7 @@ func EmployeeBasicUpdate(c_cx *gin.Context)  {
 	})
 }
 //添加员工信息
-func EmployeeBasicAdd(c_cx *gin.Context) {
+func EmployeeBasicAdd_cx(c_cx *gin.Context) {
 	var requestEmployee = Model.Employee_cx{}
 	var err error
 	//var Height, Department_number, Post_number int
@@ -164,26 +164,26 @@ func DepartmentSearch_cx(c_cx *gin.Context) {
 	})
 }
 //编辑个人信息
-func EditMessage_cx(ctx *gin.Context) {
-	var request Model.Employee_cx
-	//获取参数
-	ctx.ShouldBind(&request)
-	fmt.Println(request)
-	var err error
-	err = Global.Db.Where("id = ?", request.Id).Updates(&request).Error
-	if err != nil {
-		fmt.Println("修改个人信息出错", err)
-		ctx.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "修改个人信息出错",
-		})
-		return
-	}
-	ctx.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"msg":  "修改成功",
-	})
-}
+//func EditMessage_cx(ctx *gin.Context) {
+//	var request Model.Employee_cx
+//	//获取参数
+//	ctx.ShouldBind(&request)
+//	fmt.Println(request)
+//	var err error
+//	err = Global.Db.Where("id = ?", request.Id).Updates(&request).Error
+//	if err != nil {
+//		fmt.Println("修改个人信息出错", err)
+//		ctx.JSON(http.StatusOK, gin.H{
+//			"code": 200,
+//			"msg":  "修改个人信息出错",
+//		})
+//		return
+//	}
+//	ctx.JSON(http.StatusOK, gin.H{
+//		"code": 200,
+//		"msg":  "修改成功",
+//	})
+//}
 //初始化生成部门id
 //func initEmployeeId(count int) string {
 //	var result string
@@ -202,7 +202,7 @@ func EditMessage_cx(ctx *gin.Context) {
 //	return result
 //}
 //查询工资信息
-func SearchEmpSalary(c_cx *gin.Context) {
+func SearchEmpSalary_cx(c_cx *gin.Context) {
 	var empsalary []Model.Salaytable_cx
 	var err error
 	//返回的是工资表数组
@@ -222,7 +222,7 @@ func SearchEmpSalary(c_cx *gin.Context) {
 
 
 //查询部门信息
-func DepartmentBasic(c_cx *gin.Context) {
+func DepartmentMessage_cx(c_cx *gin.Context) {
 	var department []Model.Collects_cx
 	var err error
 	//返回的是部门表数组
@@ -267,28 +267,28 @@ func DepartmentInit(c_cx *gin.Context) {
 
 
 //修改部门
-func DepartmentUpdate(c_cx *gin.Context) {
-var requestDepartment Model.Collects_cx
-	json.NewDecoder(c_cx.Request.Body).Decode(&requestDepartment)
-	fmt.Println("即将修改的部门：", requestDepartment)
-	var err error
-	err = Global.Db.Where("department_number = ?", requestDepartment.Department_number).Updates(&requestDepartment).Error
-	if err != nil {
-		fmt.Println("修改部门出错")
-		c_cx.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "修改部门出错",
-		})
-		return
-	}
-	c_cx.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"msg":  "修改成功",
-	})
-}
+//func DepartmentUpdate(c_cx *gin.Context) {
+//var requestDepartment Model.Collects_cx
+//	json.NewDecoder(c_cx.Request.Body).Decode(&requestDepartment)
+//	fmt.Println("即将修改的部门：", requestDepartment)
+//	var err error
+//	err = Global.Db.Where("department_number = ?", requestDepartment.Department_number).Updates(&requestDepartment).Error
+//	if err != nil {
+//		fmt.Println("修改部门出错")
+//		c_cx.JSON(http.StatusOK, gin.H{
+//			"code": 200,
+//			"msg":  "修改部门出错",
+//		})
+//		return
+//	}
+//	c_cx.JSON(http.StatusOK, gin.H{
+//		"code": 200,
+//		"msg":  "修改成功",
+//	})
+//}
 
 //初始化员工工资表
-func EmpSalaryInit(c_cx *gin.Context) {
+func EmpSalaryInit_cx(c_cx *gin.Context) {
 
 	var count int64
 	var t_cx []Model.Salaytable_cx
@@ -314,33 +314,33 @@ func EmpSalaryInit(c_cx *gin.Context) {
 	c_cx.JSON(http.StatusOK, Empsalary)
 }
 
-//查找部门
-func SearchByDepartmentNumber(c_cx *gin.Context) {
-	type t_cx struct {
-		Text  string `json:"text"`
-		Value int    `json:"value"`
-	}
-
-	var tempDepartment []Model.Collects_cx
-	var err error
-	var tempCount int64
-	err = Global.Db.Table("collects_cxes").Find(&tempDepartment).Count(&tempCount).Error
-	if err != nil {
-		fmt.Println("查找部门数量出错", err)
-	}
-	strInt64 := strconv.FormatInt(tempCount, 10)
-	count, _ := strconv.Atoi(strInt64)
-	fmt.Println("部门数量：", count)
-	var departmentNumber []t_cx
-	for i := 0; i < count; i++ {
-		var t t_cx
-		t.Text = strconv.Itoa(tempDepartment[i].Department_number) + ":" + tempDepartment[i].Department_name
-		t.Value = tempDepartment[i].Department_number
-		departmentNumber = append(departmentNumber, t)
-	}
-	fmt.Println("数组：", departmentNumber)
-	c_cx.JSON(http.StatusOK, departmentNumber)
-}
+//查找部门数量
+//func SearchByDepartmentNumber_cx(c_cx *gin.Context) {
+//	type t_cx struct {
+//		Text  string `json:"text"`
+//		Value int    `json:"value"`
+//	}
+//
+//	var tempDepartment []Model.Collects_cx
+//	var err error
+//	var tempCount int64
+//	err = Global.Db.Table("collects_cxes").Find(&tempDepartment).Count(&tempCount).Error
+//	if err != nil {
+//		fmt.Println("查找部门数量出错", err)
+//	}
+//	strInt64 := strconv.FormatInt(tempCount, 10)
+//	count, _ := strconv.Atoi(strInt64)
+//	fmt.Println("部门数量：", count)
+//	var departmentNumber []t_cx
+//	for i := 0; i < count; i++ {
+//		var t t_cx
+//		t.Text = strconv.Itoa(tempDepartment[i].Department_number) + ":" + tempDepartment[i].Department_name
+//		t.Value = tempDepartment[i].Department_number
+//		departmentNumber = append(departmentNumber, t)
+//	}
+//	fmt.Println("数组：", departmentNumber)
+//	c_cx.JSON(http.StatusOK, departmentNumber)
+//}
 
 
 

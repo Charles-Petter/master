@@ -374,29 +374,8 @@
                 </el-radio-group>
               </el-form-item>
             </el-col>
-
           </el-row>
           <el-row>
-
-            <el-col :span="6">
-              <el-form-item label="部门编号:" prop="department_number">
-                <el-input size="mini" style="width: 100px" prefix-icon="el-icon-s-flag"
-                          v-model="emp.department_number" disabled></el-input>
-              </el-form-item>
-            </el-col>
-<!--            <el-col :span="6">-->
-<!--              <el-form-item label="部门名称:" prop="department_name">-->
-<!--                <el-select @change="changeEditSelect" v-model="emp.department_name" placeholder="请输入部门名称" size="mini" prefix-icon="el-icon-edit" disabled>-->
-<!--                  <el-option-->
-<!--                      v-for="(item, index) in department_names"-->
-<!--                      :key="index"-->
-<!--                      :label="item"-->
-<!--                      :value="item">-->
-<!--                  </el-option>-->
-<!--                </el-select>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
-
           </el-row>
           <el-row>
 
@@ -513,14 +492,6 @@ export default {
       post_number: null,
       post_name: '',
       department_names : ['区块链学院', '智能科技学院', '新媒体学院', '设计部', '退役军人学院'],
-      // post_names : {
-      //   '开发部' : ['C++开发', 'Java开发', 'C#开发', 'Python开发', 'Go开发'],
-      //   '运维部' : ['云运维', '服务器运维'],
-      //   '测试部' : ['系统测试', 'Bug测试'],
-      //   '设计部' : ['UI设计', '动画设计'],
-      //   '策划部' : ['策划', '系统策划'],
-      // },
-      // post_type_options : [],
       blood_type:'',
       blood_types:['A型', 'B型', 'AB型', 'O型', '其他'],
       employee_type:3,
@@ -535,7 +506,7 @@ export default {
       political: "群众",
       politicals: ['群众', '共青团员', '中共预备党员', '中共党员', '无党派人士', '其他'],
       positions: [],
-      highest_educations: ['小学', '初中', '中专/高中', '专科', '本科', '硕士', '博士', '其他'],
+      highest_educations: [ '中专/高中', '专科', '本科', '硕士', '博士', '其他'],
       employee_forms:['实习生', '正式职工'],
       personnel_source:'',
       personnel_sources:['校招', '社招'],
@@ -571,13 +542,10 @@ export default {
         major_studied : "",
         graduation_date : "",
         is_quit : "",
-
-
         nationId: 1,
         politicId: 13,
         jobLevelId: 9,
         posId: 29,
-
       },
       //请求子组件
       defaultProps: {
@@ -623,8 +591,8 @@ export default {
       multipleSelection : '',
       filterDepartmentText : [],
       // filterPostText : [],
-      value1: "",
-      value2: "",
+      // value1: "",
+      // value2: "",
       pickerOptions1: {
         disabledDate: (time) => {
           return time.getTime() < this.value1 || time.getTime() > Date.now();
@@ -649,7 +617,6 @@ export default {
     }
   },
   methods: {
-
     emptyEmp() {
       this.emp = {
         id : "",
@@ -680,9 +647,6 @@ export default {
         graduation_school : "",
         major_studied : "",
         graduation_date : "",
-        is_quit : "",
-
-
         nationId: 1,
         politicId: 13,
         jobLevelId: 9,
@@ -704,7 +668,7 @@ export default {
       this.$refs['empForm'].validate(valid => {
         if (valid) {
           this.emp.height = parseInt(this.emp.height);
-          this.$axios.post('/EmployeeBasic/Update', this.emp).then(resp => {
+          this.$axios.post('/EmployeeBasic/Update_cx', this.emp).then(resp => {
             if (resp) {
               this.dialogEditVisible = false;
               this.initEmps();
@@ -715,13 +679,10 @@ export default {
           });
         }
       });
-
     },
     showDepView() {
       this.popVisible = !this.popVisible
     },
-
-
     sizeChange(currentSize) {
       this.pageSize = currentSize;
       this.initEmps();

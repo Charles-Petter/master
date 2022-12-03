@@ -153,7 +153,7 @@ export default {
       this.right = false;
     },
     initDepartment() {
-      this.$axios.post('/Department/Init').then(resp => {
+      this.$axios.post('/Department/Init_cx').then(resp => {
         this.department_names = resp.data;
         console.log("初始化部门：", this.department_names);
       })

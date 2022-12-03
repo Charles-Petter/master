@@ -3,30 +3,29 @@ package Controller
 import (
 	"cx/Global"
 	"cx/Model"
-	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 //查询主管的部门
-func DirectorDepartment(c_cx *gin.Context) {
-	var reqDirector_cx Model.Employee_cx
-	json.NewDecoder(c_cx.Request.Body).Decode(&reqDirector_cx)
-	var director_cx Model.Employee_cx
-	//根据ID或者请求到的Id查询
-	err_cx := Global.Db.Where("id = ?", reqDirector_cx.Id).First(&director_cx).Error
-	if err_cx != nil {
-		fmt.Println("查询主管的部门出错", err_cx)
-		c_cx.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "查询主管的部门出错",
-		})
-		return
-	}
-	fmt.Println("主管：", director_cx)
-	//返回数据
-	c_cx.JSON(http.StatusOK, director_cx)
-}
+//func DirectorDepartment_cx(c_cx *gin.Context) {
+//	var reqDirector_cx Model.Employee_cx
+//	json.NewDecoder(c_cx.Request.Body).Decode(&reqDirector_cx)
+//	var director_cx Model.Employee_cx
+//	//根据ID或者请求到的Id查询
+//	err_cx := Global.Db.Where("id = ?", reqDirector_cx.Id).First(&director_cx).Error
+//	if err_cx != nil {
+//		fmt.Println("查询主管的部门出错", err_cx)
+//		c_cx.JSON(http.StatusOK, gin.H{
+//			"code": 200,
+//			"msg":  "查询主管的部门出错",
+//		})
+//		return
+//	}
+//	fmt.Println("主管：", director_cx)
+//	//返回数据
+//	c_cx.JSON(http.StatusOK, director_cx)
+//}
 
 
 //查找主管部门的员工

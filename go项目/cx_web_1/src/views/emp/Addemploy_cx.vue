@@ -939,7 +939,7 @@ export default {
           this.emp.height = parseInt(this.emp.height);
           this.emp.department_number = parseInt(this.emp.department_number);
           this.emp.post_number = parseInt(this.emp.post_number);
-          this.$axios.post('/EmployeeBasic/Add', this.emp).then(resp => {
+          this.$axios.post('/EmployeeBasic/Add_cx', this.emp).then(resp => {
             if (resp) {
               this.dialogAddVisible = false;
               this.initEmps();
@@ -991,7 +991,7 @@ export default {
       this.multiDeleteVisible = true;
     },
     initDepartment() {
-      this.$axios.post('/Department/Init').then(resp => {
+      this.$axios.post('/Department/Init_cx').then(resp => {
         this.department_names = resp.data;
         console.log("初始化部门：", this.department_names);
       })
