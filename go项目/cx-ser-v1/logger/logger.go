@@ -124,4 +124,6 @@ func GinRecovery(stack bool) gin.HandlerFunc {
 		}()
 		c.Next()
 	}
+
 }
+

@@ -18,7 +18,7 @@
                   element-loading-background="rgba(0, 0, 0, 0.8)"
                   :model="loginForm"
                   class="loginContainer">
-                <h3 class="loginTitle">系统登录</h3>
+                <h3 class="loginTitle">人事管理系统</h3>
 
                 <el-form-item prop="id">
                   <el-input size="normal" type="text" v-model="loginForm.id"
@@ -35,19 +35,19 @@
                 <!--            </el-form-item>-->
 <!--                <el-checkbox size="normal" class="loginRemember" v-model="checked"></el-checkbox>-->
                 <tr>
-                  <td class="login-title" style="justify-content: center">
-                    身份
-                  </td>
+<!--                  <td class="login-title" style="justify-content: center">-->
+<!--                    身份-->
+<!--                  </td>-->
                   <td>
 <!--                    权限分离-->
-                    <el-radio v-model="type" :label="1" border>主管</el-radio>
-                    <el-radio v-model="type" :label="2" border>员工</el-radio>
+                    <el-radio v-model="type" :label="1" border >主管</el-radio>
+                    <el-radio v-model="type" :label="2" border >员工</el-radio>
                   </td>
                 </tr>
                 <Vcode :show="isShow" @success="success" @close="close"></Vcode>
                 <el-button-group style="width: 100%">
-                  <el-button size="normal" type="danger" style="width: 50%;" @click="submit" :round="true" :disabled="right">人机验证</el-button>
-                  <el-button size="normal" type="primary" style="width: 50%;" @click="submitLogin" :round="true" :disabled="!right">登录</el-button>
+<!--                  <el-button size="normal" type="danger" style="width: 50%;" @click="submit" :round="true" :disabled="right">人机验证</el-button>-->
+                  <el-button size="normal" type="primary" style="width: 100%;" @click="submitLogin" :round="true" :disabled="right">登录</el-button>
                 </el-button-group>
               </el-form>
         </div>
@@ -104,17 +104,17 @@ export default {
   },
   mounted(){
     // this.imgLoad();
-    window.addEventListener('resize',() => {
-      this.bannerHeight=this.$refs.bannerHeight[0].height;
-      this.imgLoad();
-    },false)
+    // window.addEventListener('resize',() => {
+    //   this.bannerHeight=this.$refs.bannerHeight[0].height;
+    //   this.imgLoad();
+    // },false)
     this.initDepartment();
     this.initPost();
   },
   methods: {
-    updateVerifyCode() {
-      this.vcUrl = '/verifyCode?time='+new Date();
-    },
+    // updateVerifyCode() {
+    //   this.vcUrl = '/verifyCode?time='+new Date();
+    // },
     submit () {
       this.isShow = true;
     },
@@ -163,14 +163,14 @@ export default {
         }
       });
     },
-    imgLoad(){
-      this.$nextTick(()=>{
-        this.bannerHeight=this.$refs.bannerHeight[0].height;
-        console.log(this.$refs.bannerHeight[0].height);
-        // document.getElementsByClassName拿到的是数组并非某一个对象
-        var testH=document.getElementById("test-div");//拿到对象
-      })
-    },
+    // imgLoad(){
+    //   this.$nextTick(()=>{
+    //     this.bannerHeight=this.$refs.bannerHeight[0].height;
+    //     console.log(this.$refs.bannerHeight[0].height);
+    //     // document.getElementsByClassName拿到的是数组并非某一个对象
+    //     var testH=document.getElementById("test-div");//拿到对象
+    //   })
+    // },
     success() {
       this.isShow = false;
       this.right = true;

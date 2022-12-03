@@ -8,5 +8,6 @@ import (
 func EmployeeMapper(re *gin.Engine)  {
 	re.POST("/EmployeeBasicByEmployee", Controller.EmployeeBasicByEmployee)
 	//re.POST("/SalaryBasicByEmp", Controller.SalaryBasicByEmp)
+
 	re.POST("/EmployeeBasic/SearchByEmployee", Controller.EmployeeBasicSearchByEmployee)
 }

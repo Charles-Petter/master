@@ -21,8 +21,8 @@ func Info(c_cx *gin.Context) {
 	})
 }
 //进入AdminLogin  身份验证
-func AdminLogin(c_cx *gin.Context) {
-	fmt.Println("进入AdminLogin")
+func VerifyLogin_cx(c_cx *gin.Context) {
+	fmt.Println("进入身份验证")
 	var requestAdmin = Model.Employee_cx{}
 	json.NewDecoder(c_cx.Request.Body).Decode(&requestAdmin)
 	fmt.Println("获取的数据:", requestAdmin)
@@ -59,7 +59,7 @@ func AdminLogin(c_cx *gin.Context) {
 	Response.Success(c_cx, gin.H{"token": token, "data": admin}, "登录成功")
 }
 //查找所有员工
-func EmployeeBasic(c_cx *gin.Context) {
+func EmployeeAll_cx(c_cx *gin.Context) {
 	var employee []Model.Employee_cx
 	err := Global.Db.Order("id").Find(&employee).Error
 	if err != nil {
@@ -160,7 +160,7 @@ func DepartmentSearch(c_cx *gin.Context) {
 	})
 }
 //编辑个人信息
-func Edit(ctx *gin.Context) {
+func EditMessage_cx(ctx *gin.Context) {
 	var request Model.Employee_cx
 	//获取参数
 	ctx.ShouldBind(&request)

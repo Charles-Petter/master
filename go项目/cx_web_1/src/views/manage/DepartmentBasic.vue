@@ -2,9 +2,6 @@
   <div>
     <!--    部门信息-->
     <div>
-      <span>
-        部门信息
-      </span>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         <el-col :span="16">
           <el-form :model="emp" :rules="rules" ref="emp" @submit.native.prevent>
@@ -119,13 +116,13 @@ export default {
         incorporation_date : "",
       },
       emps : [],
-      post : {
-        post_number : "",
-        post_name : "",
-        department_number : "",
-        post_type : "",
-        post_establishment : "",
-      },
+      // post : {
+      //   post_number : "",
+      //   post_name : "",
+      //   department_number : "",
+      //   post_type : "",
+      //   post_establishment : "",
+      // },
       posts : [],
       loading : false,
       currentPage: 1,
@@ -138,9 +135,9 @@ export default {
       dialogAddPostVisible : false,
       dialogEditPostVisible : false,
       open : false,
-      department_types : ['一级部门', '二级部门', '三级部门'],
-      department_names : ['开发部', '运维部', '测试部', '设计部', '策划部'],
-      post_establishments : ['有编制', '无编制'],
+      // department_types : ['一级部门', '二级部门', '三级部门'],
+      // department_names : ['开发部', '运维部', '测试部', '设计部', '策划部'],
+      // post_establishments : ['有编制', '无编制'],
     }
   },
   mounted() {
