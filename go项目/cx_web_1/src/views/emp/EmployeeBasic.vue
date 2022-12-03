@@ -223,25 +223,25 @@
         </el-table-column>
       </el-table>
 
-      <el-dialog :visible.sync="multiDeleteVisible" title="提示" width="30%">
-        <span>确定要删除吗?</span>
-        <span slot="footer">
-          <el-button type="danger" @click="multiDelete">确 定</el-button>
-          <el-button @click="dialogVisible = false; multiDeleteVisible = false">取 消</el-button>
-        </span>
-      </el-dialog>
-      <div style="display: flex;justify-content: flex-end">
-        <el-pagination
-            background
-            @current-change="currentChange"
-            @size-change="sizeChange"
-            :page-size="pageSize"
-            :page-sizes="[1,5,10,20,100]"
-            :current-page.sync="currentPage"
-            layout="sizes, prev, pager, next, jumper, ->, total, slot"
-            :total="emps.length">
-        </el-pagination>
-      </div>
+<!--      <el-dialog :visible.sync="multiDeleteVisible" title="提示" width="30%">-->
+<!--        <span>确定要删除吗?</span>-->
+<!--        <span slot="footer">-->
+<!--          <el-button type="danger" @click="multiDelete">确 定</el-button>-->
+<!--          <el-button @click="dialogVisible = false; multiDeleteVisible = false">取 消</el-button>-->
+<!--        </span>-->
+<!--      </el-dialog>-->
+<!--      <div style="display: flex;justify-content: flex-end">-->
+<!--        <el-pagination-->
+<!--            background-->
+<!--            @current-change="currentChange"-->
+<!--            @size-change="sizeChange"-->
+<!--            :page-size="pageSize"-->
+<!--            :page-sizes="[1,5,10,20,100]"-->
+<!--            :current-page.sync="currentPage"-->
+<!--            layout="sizes, prev, pager, next, jumper, ->, total, slot"-->
+<!--            :total="emps.length">-->
+<!--        </el-pagination>-->
+<!--      </div>-->
     </div>
     <!--      员工登录会出现编辑框-->
     <el-dialog

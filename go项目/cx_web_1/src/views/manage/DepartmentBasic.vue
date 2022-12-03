@@ -43,45 +43,25 @@
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
-            prop="department_type"
-            label="部门类型"
+            prop="name"
+            label="所属员工"
             align="left"
             width="85"
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
-            prop="department_head"
-            label="部门主管员工编号"
-            align="left"
-            width="150"
-            show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column
             prop="phone"
-            label="部门电话"
+            label="学院电话"
             align="left"
             width="150"
             show-overflow-tooltip>
         </el-table-column>
+
         <el-table-column
-            prop="fax"
-            width="100"
-            align="left"
-            label="传真"
-            show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column
-            prop="describe"
+            prop="description"
             width="150"
             align="left"
             label="描述"
-            show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column
-            prop="superior_department"
-            width="150"
-            align="left"
-            label="上级部门"
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
@@ -107,22 +87,19 @@ export default {
       emp: {
         department_number : "",
         department_name : "",
-        department_type : "",
-        department_head : "",
+        name : "",
         phone : "",
-        fax : "",
-        describe : "",
-        superior_department : "",
+        description : "",
         incorporation_date : "",
       },
       emps : [],
-      // post : {
-      //   post_number : "",
-      //   post_name : "",
-      //   department_number : "",
-      //   post_type : "",
-      //   post_establishment : "",
-      // },
+      post : {
+        post_number : "",
+        post_name : "",
+        department_number : "",
+        post_type : "",
+        post_establishment : "",
+      },
       posts : [],
       loading : false,
       currentPage: 1,
@@ -135,14 +112,12 @@ export default {
       dialogAddPostVisible : false,
       dialogEditPostVisible : false,
       open : false,
-      // department_types : ['一级部门', '二级部门', '三级部门'],
-      // department_names : ['开发部', '运维部', '测试部', '设计部', '策划部'],
-      // post_establishments : ['有编制', '无编制'],
     }
   },
   mounted() {
     this.initEmps();
     this.initDepartment();
+    this.searchEmp();
   },
   computed : {
     empsData() {
@@ -198,12 +173,12 @@ export default {
       this.emp = {
         department_number : "",
         department_name : "",
-        department_type : "",
-        department_head : "",
+        name : "",
+        // department_head : "",
         phone : "",
-        fax : "",
-        describe : "",
-        superior_department : "",
+        // fax : "",
+        description : "",
+        // superior_department : "",
         incorporation_date : "",
       }
     },

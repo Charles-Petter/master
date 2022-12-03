@@ -107,7 +107,7 @@ func EmployeeBasicAdd(c_cx *gin.Context) {
 		return
 	}
 	/*查找部门编号是否存在*/
-	err = Global.Db.Where("department_number = ?", requestEmployee.Department_number).First(&Model.Department{}).Error
+	err = Global.Db.Where("department_number = ?", requestEmployee.Department_number).First(&Model.Collects_cx{}).Error
 	if err != nil {
 		fmt.Println("找不到此部门编号")
 		c_cx.JSON(http.StatusOK, gin.H{
@@ -117,7 +117,7 @@ func EmployeeBasicAdd(c_cx *gin.Context) {
 		return
 	}
 	/*检查部门编号和部门名称是否对应*/
-	var tempDepartment Model.Department
+	var tempDepartment Model.Collects_cx
 	Global.Db.Where("department_name = ?", requestEmployee.Department_name).First(&tempDepartment) //根据请求来的部门名称检查是否与部门编号所对应
 	if requestEmployee.Department_number != tempDepartment.Department_number {
 		fmt.Println("部门编号与名称不对应")
@@ -138,11 +138,11 @@ func EmployeeBasicAdd(c_cx *gin.Context) {
 
 //搜索部门（搜索框）
 func DepartmentSearch(c_cx *gin.Context) {
-	var requestEmployeeMent Model.Department
+	var requestEmployeeMent Model.Collects_cx
 	//http中获取到json数据解码
 	json.NewDecoder(c_cx.Request.Body).Decode(&requestEmployeeMent)
 	fmt.Println("获取的搜索部门：", requestEmployeeMent.Department_name)
-		var tempEmployee []Model.Department
+		var tempEmployee []Model.Collects_cx
 	err := Global.Db.Where("Department_name = ?", requestEmployeeMent.Department_name).First(&tempEmployee).Error
 	if err != nil {
 		fmt.Println("未找到此部门")
@@ -219,7 +219,7 @@ func SearchEmpSalary(c_cx *gin.Context) {
 
 //查询部门信息
 func DepartmentBasic(c_cx *gin.Context) {
-	var department []Model.Department
+	var department []Model.Collects_cx
 	var err error
 	//返回的是部门表数组
 	err = Global.Db.Find(&department).Error
@@ -238,7 +238,7 @@ func DepartmentBasic(c_cx *gin.Context) {
 func DepartmentInit(c_cx *gin.Context) {
 
 	var count int64
-	var temp []Model.Department
+	var temp []Model.Collects_cx
 	var err error
 	err = Global.Db.Find(&temp).Count(&count).Error
 	if err != nil {
@@ -264,7 +264,7 @@ func DepartmentInit(c_cx *gin.Context) {
 
 //修改部门
 func DepartmentUpdate(c_cx *gin.Context) {
-	var requestDepartment Model.Department
+var requestDepartment Model.Collects_cx
 	json.NewDecoder(c_cx.Request.Body).Decode(&requestDepartment)
 	fmt.Println("即将修改的部门：", requestDepartment)
 	var err error
@@ -317,10 +317,10 @@ func SearchByDepartmentNumber(c_cx *gin.Context) {
 		Value int    `json:"value"`
 	}
 
-	var tempDepartment []Model.Department
+	var tempDepartment []Model.Collects_cx
 	var err error
 	var tempCount int64
-	err = Global.Db.Table("departments").Find(&tempDepartment).Count(&tempCount).Error
+	err = Global.Db.Table("collects_cxes").Find(&tempDepartment).Count(&tempCount).Error
 	if err != nil {
 		fmt.Println("查找部门数量出错", err)
 	}
