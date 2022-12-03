@@ -203,15 +203,7 @@
             :filter-method="filterHandler"
             show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="post_name"
-            label="岗位名称"
-            fixed
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
-        </el-table-column>
+
         <el-table-column
             prop="entry_date"
             label="入职日期"
@@ -450,18 +442,18 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="6">
-              <el-form-item label="岗位名称:" prop="post_name">
-                <el-select v-model="emp.post_name" placeholder="请输入岗位" size="mini" prefix-icon="el-icon-edit" disabled>
-                  <el-option
-                      v-for="(item, index) in post_type_options"
-                      :key="index"
-                      :label="item"
-                      :value="item">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="6">-->
+<!--              <el-form-item label="岗位名称:" prop="post_name">-->
+<!--                <el-select v-model="emp.post_name" placeholder="请输入岗位" size="mini" prefix-icon="el-icon-edit" disabled>-->
+<!--                  <el-option-->
+<!--                      v-for="(item, index) in post_type_options"-->
+<!--                      :key="index"-->
+<!--                      :label="item"-->
+<!--                      :value="item">-->
+<!--                  </el-option>-->
+<!--                </el-select>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
             <el-col :span="6">
               <el-form-item label="入职日期:" prop="entry_date">
                 <el-date-picker
@@ -810,8 +802,6 @@
           <el-row>
             <el-col :span="6">
               <el-form-item label="是否离职" prop="is_quit">
-                <!--                <el-input size="mini" style="width: 100px" prefix-icon="el-icon-edit"-->
-                <!--                          v-model="emp.is_quit" placeholder="是否离职" clearable></el-input>-->
                 <el-radio-group v-model="emp.is_quit">
                   <el-radio label="是">是</el-radio>
                   <el-radio label="否">否</el-radio>
@@ -822,9 +812,6 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-<!--          <el-tooltip :content="tipContent" effect="dark" placement="top-start">-->
-        <!--            <el-button type="danger" size="mini">?</el-button>-->
-        <!--            </el-tooltip>-->
         <template>
            <el-popover placement="bottom" title="注意事项" width="300" trigger="click" :content="tipContent">
           <el-button type="danger" size="mini" slot="reference">?</el-button>
@@ -995,8 +982,7 @@
                       :value="item">
                   </el-option>
                 </el-select>
-                <!--                            <el-input size="mini" style="width: 100px" prefix-icon="el-icon-edit"-->
-                <!--                                      v-model="emp.department_name" disabled></el-input>-->
+
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -1017,19 +1003,11 @@
                       :value="item">
                   </el-option>
                 </el-select>
-                <!--                            <el-input size="mini" style="width: 100px" prefix-icon="el-icon-edit"-->
-                <!--                                      v-model="emp.post_name" disabled></el-input>-->
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="入职日期:" prop="entry_date">
-                <el-date-picker
-                    v-model="emp.entry_date"
-                    size="mini"
-                    type="date"
-                    value-format="yyyy-MM-dd"
-                    style="width: 150px;"
-                    placeholder="入职日期" disabled>
+                <el-date-picker v-model="emp.entry_date" size="mini" type="date" value-format="yyyy-MM-dd" style="width: 150px;" placeholder="入职日期" disabled>
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -1155,23 +1133,18 @@ export default {
       blood_type:'',
       blood_types:['A型', 'B型', 'AB型', 'O型', '其他'],
       employee_type:3,
-      employee_types:['总裁', '主管', '员工'],
+      employee_types:['主管', '员工'],
       nation: "",
       nations: [
-        '蒙古族', '藏族', '苗族', '壮族', '回族', '维吾尔族', '彝族', '布依族',
-        '朝鲜族', '侗族', '白族', '哈尼族', '傣族', '傈僳族', '畲族', '拉祜族',
-        '满族', '瑶族', '土家族', '哈萨克族', '黎族', '佤族', '高山族', '水族',
-        '东乡族', '景颇族', '土族', '仫佬族', '布朗族', '毛南族', '锡伯族', '普米族',
-        '纳西族', '柯尔克孜族', '达斡尔族', '羌族', '撒拉族', '仡佬族', '阿昌族', '塔吉克族',
-        '怒族', '俄罗斯族', '德昂族', '裕固族', '塔塔尔族', '鄂伦春族', '门巴族', '基诺族',
-        '乌孜别克族', '鄂温克族', '保安族', '京族', '独龙族', '赫哲族', '珞巴族', '汉族',
+        '汉族', '朝鲜族',"回族",'维吾尔族',
+        '乌孜别克族', '鄂温克族', '保安族', '京族', '独龙族', '赫哲族', '珞巴族',
         '其他',
       ],
       joblevels: [],
       political: "群众",
       politicals: ['群众', '共青团员', '中共预备党员', '中共党员', '无党派人士', '其他'],
       positions: [],
-      highest_educations: ['小学', '初中', '中专/高中', '专科', '本科', '硕士', '博士', '其他'],
+      highest_educations: [ '中专/高中', '专科', '本科', '硕士', '博士', '其他'],
       employee_forms:['实习生', '正式职工'],
       personnel_source:'',
       personnel_sources:['校招', '社招'],
@@ -1205,9 +1178,6 @@ export default {
         graduation_school : "",
         major_studied : "",
         graduation_date : "",
-        is_quit : "",
-
-
         nationId: 1,
         politicId: 13,
         jobLevelId: 9,
@@ -1252,12 +1222,9 @@ export default {
         height : [{required : true, message : '请输入身高', trigger : 'blur'}],
         blood_type : [{required : true, message : '请输入血型', trigger : 'blur'}],
         marital_status : [{required : true, message : '请输入婚姻状况', trigger : 'blur'}],
-        birthplace : [{required : true, message : '请输入出生地', trigger : 'blur'}],
-        registered_residence : [{required : true, message: '请输入户口所在地', trigger : 'blur'}],
         department_number : [{required : true, message : '请输入部门编号', trigger : 'blur'}],
         department_name : [{required : true, message : '请输入部门名称', trigger : 'blur'}],
         post_number : [{required : true, message : '请输入岗位编号', trigger : 'blur'}],
-        post_name : [{required : true, message : '请输入岗位名称', trigger : 'blur'}],
         entry_date : [{required : true, message : '请输入入职日期', trigger : 'blur'}],
         employment_form : [{required : true, message : '请输入用工形式', trigger: 'blur'}],
         personnel_source : [{required : true, message : '请输入人员来源', trigger : 'blur'}],
@@ -1265,13 +1232,6 @@ export default {
         graduation_school : [{required : true, message : '请输入毕业院校', trigger : 'blur'}],
         major_studied : [{required : true, message : '请输入所学专业', trigger : 'blur'}],
         graduation_date : [{required : true, message : '请输入毕业日期', trigger : 'blur'}],
-        is_quit : [{required : true, message : '请输入是否离职', trigger : 'blur'}],
-
-        nationId: [{required: true, message: '请输入您组', trigger: 'blur'}],
-        jobLevelId: [{required: true, message: '请输入职称', trigger: 'blur'}],
-        posId: [{required: true, message: '请输入职位', trigger: 'blur'}],
-
-        // workAge: [{required: true, message: '请输入工龄', trigger: 'blur'}],
       },
 
       pickerOptions0: {
@@ -1296,8 +1256,6 @@ export default {
     this.initData();
     this.initDepartment();
     this.initPost();
-    this.initSearchText();
-    this.tipContent = '部门和岗位的编号与名称请一一对应！！！ 例如:部门编号-部门名称(岗位1编号-岗位1名称, 岗位2编号-岗位2名称) 1000-开发部(10-C++开发, 11-Java开发, 12-C#开发, 13-Python开发, 14-Go开发), 1001-运维部(20-云运维, 21-服务器运维), 1002-测试部(30-Bug测试, 31-系统测试), 1003-设计部(40-UI设计, 41-动画设计), 1004-策划部(50-策划, 51-系统策划)';
 
     localStorage.setItem("type", this.emp.employee_type);
   },
@@ -1682,7 +1640,7 @@ tmripple.init()
   opacity: 0;
 }
 body {
-  background: #FFFFF0;
+  background: #36353c;
 }
 
 .container {

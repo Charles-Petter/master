@@ -3,7 +3,7 @@
     <!--    部门信息-->
     <div>
       <span>
-        部门信息
+        工资信息
       </span>
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         <el-col :span="16">
@@ -54,22 +54,22 @@
               show-overflow-tooltip>
           </el-table-column>
         <el-table-column  width="75"  prop="initsalay_cx" label="初始工资">
-<!--          <template slot-scope="scope">-->
-<!--            <span class="input-group-addon" >税前工资</span>-->
-<!--            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"-->
-<!--                   v-model="TaxBefore"-->
-<!--                   @keyup.enter="search" @input="search($event)"-->
-<!--            >-->
-<!--            <span class="input-group-addon" >元</span>-->
-<!--            <el-input v-model.initsalay_cx="scope.row.initsalay_cx"  />-->
-<!--          </template>-->
+          <template slot-scope="scope">
+            <span class="input-group-addon" >税前工资</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+                   v-model="TaxBefore"
+                   @keyup.enter="search" @input="search($event)"
+            >
+            <span class="input-group-addon" >元</span>
+            <el-input v-model.initsalay_cx="scope.row.initsalay_cx"  />
+          </template>
         </el-table-column>
         <el-table-column  width="150" :show-overflow-tooltip="true" prop="salayCount_cx" label="税后工资">
-<!--          <template slot-scope="scope">-->
-<!--            <el-input v-model.salayCount_cx="scope.row.salayCount_cx"  />-->
-<!--&lt;!&ndash;            v-show不支持在template中使用&ndash;&gt;-->
-<!--            <p class="TaxInfo">实发工资：<span v-show="FuckMoney > 0">{{TaxAfter}} 元</span></p>-->
-<!--          </template>-->
+          <template slot-scope="scope">
+            <el-input v-model.salayCount_cx="scope.row.salayCount_cx"  />
+<!--            v-show不支持在template中使用-->
+            <p class="TaxInfo">实发工资：<span v-show="FuckMoney > 0">{{TaxAfter}} 元</span></p>
+          </template>
         </el-table-column>
 
         </el-table>
@@ -158,7 +158,6 @@ export default {
       this.$refs[data].resetFields();
       this.initEmps();
     },
-
     initSalaries() {
       this.getRequest("/EmpSalary/Init/").then(resp => {
         if (resp) {

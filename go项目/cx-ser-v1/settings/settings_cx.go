@@ -13,9 +13,9 @@ func InitConfig() (v_cx *viper.Viper){
 	v_cx.SetConfigName("application")
 	v_cx.SetConfigType("yml")
 	v_cx.AddConfigPath(workDir_cx + "/Config")
-	err := v_cx.ReadInConfig()
-	if err != nil {
-		fmt.Printf("读取配置文件出错：%s\n", err)
+	err_cx := v_cx.ReadInConfig()
+	if err_cx != nil {
+		fmt.Printf("读取配置文件出错：%s\n", err_cx)
 	}
 	//监控配置文件变化
 		v_cx.WatchConfig()

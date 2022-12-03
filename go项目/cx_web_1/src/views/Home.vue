@@ -1,7 +1,6 @@
 <template>
     <div>
         <el-container>
-
             <el-container>
                 <el-aside width="200px" hight="100%">
                     <el-menu
@@ -25,6 +24,13 @@
                     </el-menu>
                 </el-aside>
                 <el-main>
+                    <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path!='/home'">
+                        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
+                    </el-breadcrumb>
+                    <div class="homeWelcome" v-if="this.$router.currentRoute.path=='/home'">
+
+                    </div>
                     <router-view class="homeRouterView"/>
                 </el-main>
             </el-container>
@@ -38,7 +44,10 @@
         name: "Home",
         data() {
             return {
-
+                // user: JSON.parse(window.sessionStorage.getItem("user"))
+              img_cx:{
+                Image: "url(" + require("../assets/loginBackgroundImg.webp") + ")",//背景圖片
+              },
             }
 
         },
@@ -67,6 +76,11 @@
               return localStorage.getItem("role");
             }
         },
+        methods: {
+            goChat() {
+                this.$router.push("/chat");
+            },
+        }
     }
 </script>
 

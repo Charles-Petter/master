@@ -8,8 +8,8 @@ import (
 	//"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
-
-func InitDB(v_cx *viper.Viper) (db *gorm.DB, erre error) {
+//连接数据库
+func InitDB(v_cx *viper.Viper) (db *gorm.DB, erre_cx error) {
 	var err_cx error
 	args_cx := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True",
 		v_cx.GetString("mysql.user"),
@@ -18,18 +18,17 @@ func InitDB(v_cx *viper.Viper) (db *gorm.DB, erre error) {
 		v_cx.GetInt("mysql.port"),
 		v_cx.GetString("mysql.dbname"),
 	)
-	//db, err = gorm.Open(postgres.Open(args), &gorm.Config{})
 	db, err_cx = gorm.Open(mysql.Open(args_cx), &gorm.Config{})
 	if err_cx != nil {
 		panic("连接数据库失败" + err_cx.Error())
-		return db, erre
+		return db, erre_cx
 	}
 	fmt.Println("数据库连接成功！")
 	err_cx = db.AutoMigrate(&Model.Employee_cx{})
 	if err_cx != nil {
 		return nil, err_cx
 	}
-	return db, erre
+	return db, erre_cx
 }
 
 

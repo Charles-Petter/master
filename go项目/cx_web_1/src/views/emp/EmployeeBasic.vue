@@ -40,7 +40,7 @@
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
-            prop="password_cx"
+            prop="password"
             label="密码"
             align="left"
             width="85"
@@ -155,7 +155,6 @@
             sortable
             show-overflow-tooltip>
         </el-table-column>
-
         <el-table-column
             prop="entry_date"
             label="入职日期"
@@ -215,9 +214,10 @@
         <el-table-column
             fixed="right"
             width="200"
-            label="操作">
+            label="修改">
           <template slot-scope="scope">
-            <el-button @click="showEditEmpView(scope.row)" v-if="is_director" style="padding: 3px" size="mini" type="warning">编辑</el-button>
+<!--            如果不是主管就可以修改自己的信息-->
+            <el-button @click="showEditEmpView(scope.row)" v-if="!is_director" style="padding: 3px" size="mini" type="warning">编辑</el-button>
 
           </template>
         </el-table-column>
@@ -240,11 +240,10 @@
             :current-page.sync="currentPage"
             layout="sizes, prev, pager, next, jumper, ->, total, slot"
             :total="emps.length">
-          <!--                        :total="total">-->
         </el-pagination>
       </div>
     </div>
-    <!--      编辑框-->
+    <!--      员工登录会出现编辑框-->
     <el-dialog
         :title="title"
         @close="resetForm('emp')"
@@ -375,6 +374,10 @@
                 </el-radio-group>
               </el-form-item>
             </el-col>
+
+          </el-row>
+          <el-row>
+
             <el-col :span="6">
               <el-form-item label="部门编号:" prop="department_number">
                 <el-input size="mini" style="width: 100px" prefix-icon="el-icon-s-flag"
@@ -391,13 +394,17 @@
                       :value="item">
                   </el-option>
                 </el-select>
-                <!--                            <el-input size="mini" style="width: 100px" prefix-icon="el-icon-edit"-->
-                <!--                                      v-model="emp.department_name" disabled></el-input>-->
               </el-form-item>
             </el-col>
-
+            <el-col :span="6">
+              <el-form-item label="岗位编号:" prop="post_number">
+                <el-input size="mini" style="width: 100px" prefix-icon="el-icon-s-flag"
+                          v-model="emp.post_number" disabled></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-row>
+
             <el-col :span="6">
               <el-form-item label="入职日期:" prop="entry_date">
                 <el-date-picker
@@ -461,11 +468,8 @@
                     style="width: 150px;"
                     placeholder="毕业日期">
                 </el-date-picker>
-
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
           </el-row>
         </el-form>
       </div>
@@ -490,25 +494,13 @@ export default {
   name: "EmpBasic",
   data() {
     return {
-
       tipContent : "提示",
       currentPage: 1,
       pageSize: 10,
       searchValue: {
-        political: null,
-        nation: null,
-        department_name : null,
-        post_name : null,
-        employment_form: null,
-        graduation_school: null,
-        major_studied: null
       },
       isAdd : false,
       title: '',
-
-      importDataBtnIcon: 'el-icon-upload2',
-      importDataDisabled: false,
-      showAdvanceSearchView: false,
       allDeps: [],
       emps: [],
       loading: false,
@@ -526,33 +518,34 @@ export default {
       post_number: null,
       post_name: '',
       department_names : ['开发部', '运维部', '测试部', '设计部', '策划部'],
-      post_names : {
-        '开发部' : ['C++开发', 'Java开发', 'C#开发', 'Python开发', 'Go开发'],
-        '运维部' : ['云运维', '服务器运维'],
-        '测试部' : ['系统测试', 'Bug测试'],
-        '设计部' : ['UI设计', '动画设计'],
-        '策划部' : ['策划', '系统策划'],
-      },
-      post_type_options : [],
+      // post_names : {
+      //   '开发部' : ['C++开发', 'Java开发', 'C#开发', 'Python开发', 'Go开发'],
+      //   '运维部' : ['云运维', '服务器运维'],
+      //   '测试部' : ['系统测试', 'Bug测试'],
+      //   '设计部' : ['UI设计', '动画设计'],
+      //   '策划部' : ['策划', '系统策划'],
+      // },
+      // post_type_options : [],
       blood_type:'',
       blood_types:['A型', 'B型', 'AB型', 'O型', '其他'],
       employee_type:3,
       employee_types:[ '主管', '员工'],
       nation: "",
       nations: [
-        '怒族', '俄罗斯族', '德昂族', '裕固族', '塔塔尔族', '鄂伦春族', '门巴族', '基诺族',
-        '乌孜别克族', '珞巴族', '汉族',
+        '汉族', '朝鲜族',"回族",'维吾尔族',
+        '乌孜别克族', '鄂温克族', '保安族', '京族', '独龙族', '赫哲族', '珞巴族',
         '其他',
       ],
       joblevels: [],
       political: "群众",
-      politicals: ['群众', '共青团员', '中共预备党员', '中共党员'],
+      politicals: ['群众', '共青团员', '中共预备党员', '中共党员', '无党派人士', '其他'],
       positions: [],
-      highest_educations: [ '专科', '本科', '硕士', '博士', '其他'],
+      highest_educations: ['小学', '初中', '中专/高中', '专科', '本科', '硕士', '博士', '其他'],
       employee_forms:['实习生', '正式职工'],
       personnel_source:'',
       personnel_sources:['校招', '社招'],
       inputDepName: '所属部门',
+      //员工数组
       emp: {
         id : "",
         password : "",
@@ -591,10 +584,12 @@ export default {
         posId: 29,
 
       },
+      //请求子组件
       defaultProps: {
         children: 'children',
         label: 'name'
       },
+      //判断输入内容是否规范
       rules: {
         id : [{required : true, message : '请输入编号', trigger : 'blur'}],
         password : [{required : true, message : '请输入密码', trigger : 'blur'}],
@@ -627,45 +622,14 @@ export default {
           message : '邮箱格式不正确',
           trigger : 'blur'
         }],
-        height : [{required : true, message : '请输入身高', trigger : 'blur'}],
-        blood_type : [{required : true, message : '请输入血型', trigger : 'blur'}],
-        marital_status : [{required : true, message : '请输入婚姻状况', trigger : 'blur'}],
-        department_name : [{required : true, message : '请输入部门名称', trigger : 'blur'}],
-        // post_name : [{required : true, message : '请输入岗位名称', trigger : 'blur'}],
-        entry_date : [{required : true, message : '请输入入职日期', trigger : 'blur'}],
-        employment_form : [{required : true, message : '请输入用工形式', trigger: 'blur'}],
-        personnel_source : [{required : true, message : '请输入人员来源', trigger : 'blur'}],
-        highest_education : [{required : true, message : '请输入最高学历', trigger : 'blur'}],
-        graduation_school : [{required : true, message : '请输入毕业院校', trigger : 'blur'}],
-        major_studied : [{required : true, message : '请输入所学专业', trigger : 'blur'}],
-        graduation_date : [{required : true, message : '请输入毕业日期', trigger : 'blur'}],
-        // is_quit : [{required : true, message : '请输入是否离职', trigger : 'blur'}],
-        nationId: [{required: true, message: '请输入您组', trigger: 'blur'}],
-        jobLevelId: [{required: true, message: '请输入职称', trigger: 'blur'}],
-        posId: [{required: true, message: '请输入职位', trigger: 'blur'}],
-
       },
       multipleSelectionFlag : false,
       multiDeleteVisible : false,
       multipleSelection : '',
       filterDepartmentText : [],
-      filterPostText : [],
+      // filterPostText : [],
       value1: "",
       value2: "",
-      dateRules : {
-        value : [{required : true, message : '请输入开始和结束日期', trigger : 'blur'}],
-        value1 : [{required : true, message : '请输入开始日期', trigger : 'blur'}],
-        value2 : [{required : true, message : '请输入结束日期', trigger : 'blur'}],
-      },
-      pickerOptions0: {
-        disabledDate: (time) => {
-          if (this.value2 !== "") {
-            return time.getTime() > Date.now() || time.getTime() > this.value2;
-          } else {
-            return time.getTime() > Date.now();
-          }
-        }
-      },
       pickerOptions1: {
         disabledDate: (time) => {
           return time.getTime() < this.value1 || time.getTime() > Date.now();
@@ -679,8 +643,6 @@ export default {
     this.initData();
     this.initDepartment();
     this.initPost();
-    this.initSearchText();
-    this.tipContent = '部门和岗位的编号与名称请一一对应！！！ 例如:部门编号-部门名称(岗位1编号-岗位1名称, 岗位2编号-岗位2名称) 1000-开发部(10-C++开发, 11-Java开发, 12-C#开发, 13-Python开发, 14-Go开发), 1001-运维部(20-云运维, 21-服务器运维), 1002-测试部(30-Bug测试, 31-系统测试), 1003-设计部(40-UI设计, 41-动画设计), 1004-策划部(50-策划, 51-系统策划)';
 
     localStorage.setItem("type", this.emp.employee_type);
   },
@@ -695,11 +657,7 @@ export default {
     }
   },
   methods: {
-    searvhViewHandleNodeClick(data) {
-      this.inputDepName = data.name;
-      this.searchValue.department_number = data.id;
-      this.popVisible2 = !this.popVisible2
-    },
+
     emptyEmp() {
       this.emp = {
         id : "",
@@ -742,11 +700,6 @@ export default {
       this.inputDepName = '';
 
     },
-    showAllData(data) {
-      this.title = '查看员工信息';
-      this.emp = data;
-      this.dialogShowVisible = true;
-    },
     showEditEmpView(data) {
       // this.initPositions();
       this.title = '编辑员工信息';
@@ -754,33 +707,6 @@ export default {
       this.inputDepName = data.department_name;
       this.dialogEditVisible = true;
     },
-    changeSelect() {
-      // 清空部门内容
-      this.searchValue.post_name = ''
-
-      // 遍历部门的下拉选项数组
-      for (const k in this.department_names) {
-        // 岗位名称 是否等于 部门名称的下拉选择数组中的某一项
-        if (this.searchValue.department_name === this.department_names[k]) {
-          this.post_type_options = this.post_names[this.searchValue.department_name]
-        }
-      }
-      console.log("post_type_options = "+this.post_type_options);
-    },
-    changeEditSelect() {
-      // 清空部门内容
-      this.emp.post_name = ''
-
-      // 遍历部门的下拉选项数组
-      for (const k in this.department_names) {
-        // 岗位名称 是否等于 部门名称的下拉选择数组中的某一项
-        if (this.emp.department_name === this.department_names[k]) {
-          this.post_type_options = this.post_names[this.emp.department_name]
-        }
-      }
-      console.log("post_type_options = "+this.post_type_options);
-    },
-
     doEditEmp() {
       //编辑
       this.$refs['empForm'].validate(valid => {
@@ -797,32 +723,8 @@ export default {
           });
         }
       });
-    },
-    doAddEmp() {
-      this.$refs['empForm'].validate(valid => {
-        if (valid) {
-          console.log(this.emp);
-          this.emp.height = parseInt(this.emp.height);
-          this.emp.department_number = parseInt(this.emp.department_number);
-          this.emp.post_number = parseInt(this.emp.post_number);
-          this.$axios.post('/EmployeeBasic/Add', this.emp).then(resp => {
-            if (resp) {
-              this.dialogAddVisible = false;
-              this.initEmps();
-              if (resp.data.msg === "添加成功") {
-                Message.success({message : '添加成功'});
-              } else {
-                Message.error({message : resp.data.msg})
-              }
 
-            } else {
-              Message.error({message : resp.data.msg});
-            }
-          })
-        }
-      });
     },
-
     showDepView() {
       this.popVisible = !this.popVisible
     },
@@ -843,6 +745,45 @@ export default {
       this.title = '添加员工信息';
       //this.getMaxWordID();
       this.dialogAddVisible = true;
+    },
+    async searchEmp(data) {
+      console.log("name = ", this.emp.name);
+      var url;
+      if (localStorage.getItem("role") === "主管") {
+        url = '/EmployeeBasic/SearchByDirector';
+        var temp = {
+          'id' : localStorage.getItem("id"),
+          'name' : this.emp.name,
+        };
+        this.$refs[data].validate((valid) => {
+          if (valid) {
+            this.$axios.post(url, temp).then((resp) => {
+              if (resp.data.msg == "查询成功") {
+                this.emps = resp.data.data;
+              } else {
+                Message.error({message : resp.data.msg});
+              }
+            });
+          }
+        })
+      } else {
+        url = '/EmployeeBasic/SearchByEmployee';
+        var temp = {
+          'id' : localStorage.getItem("id"),
+          'name' : this.emp.name,
+        };
+        this.$refs[data].validate((valid) => {
+          if (valid) {
+            this.$axios.post(url, temp).then((resp) => {
+              if (resp.data.msg == "查询成功") {
+                this.emps = resp.data.data;
+              } else {
+                Message.error({message : resp.data.msg});
+              }
+            });
+          }
+        })
+      }
     },
     resetForm(data) {
       console.log("data = ", data, "emp = ", this.emp)
@@ -882,24 +823,6 @@ export default {
       }
 
     },
-
-    initDepartment() {
-      this.$axios.post('/Department/Init').then(resp => {
-        this.department_names = resp.data;
-        console.log("初始化部门：", this.department_names);
-      })
-    },
-    initPost() {
-      var temp = {
-        "department_name" : this.department_name
-      }
-      this.$axios.post('/Post/Init', temp).then(resp => {
-        this.post_names = resp.data;
-        console.log("初始化岗位：", this.post_names);
-      })
-    },
-
-
     resetDate() {
       this.value1 = ""
       this.value2 = ""

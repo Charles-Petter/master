@@ -36,5 +36,5 @@ type Employee_cx struct {
 	Graduation_school    string `json:"graduation_school"`    //毕业院校
 	Major_studied        string `json:"major_studied"`        //所学专业
 	Graduation_date      pgtype.Date `json:"graduation_date"`      //毕业日期
-	Is_quit              string `json:"is_quit"`              //是否离职
+	//Is_quit              string `json:"is_quit"`              //是否离职
 }

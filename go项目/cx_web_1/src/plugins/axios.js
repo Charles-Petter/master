@@ -4,7 +4,7 @@ import Vue from 'vue';
 import axios from "axios";
 
 let config = {
-  baseURL: "http://localhost:8090/",
+  baseURL: "http://localhost:8080/",
   timeout: 60 * 1000, // Timeout
 };
 

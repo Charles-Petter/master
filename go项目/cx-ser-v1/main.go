@@ -36,7 +36,8 @@ func main() {
 
 	//4.注册路由
 	//re := routers.Setup()
-	re = Router.CreateRoute(re)
+	re = Router.CreateRoute(re)// 创建路由
+	// 监听并在 :8080 上启动服务
 	panic(re.Run(":" + v.GetString("server.port")))//若报端口被占用 重启电脑
 
 

@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 //跨域资源共享中间件
-func CORSMiddleware() gin.HandlerFunc {
+func CORS_cx() gin.HandlerFunc {
 	return func(c_cx *gin.Context) {
 		//请求方法赋值给变量
 		method_cx := c_cx.Request.Method
