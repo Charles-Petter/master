@@ -2035,7 +2035,7 @@ SELECT|sys.sys_config
     </key>
     <column id="563" parent="328" name="id">
       <Position>1</Position>
-      <Comment>岗位编号</Comment>
+      <Comment>账号</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>

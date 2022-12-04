@@ -6,7 +6,7 @@ import EmployeeBasic from "@/views/emp/EmployeeBasic";
 import DepartmentBasic from "@/views/manage/DepartmentBasic";
 import SalSob from "@/views/sal/SalSob";
 import Addemploy_cx from "@/views/emp/Addemploy_cx";
-
+import SalEmp from "@/views/sal/SalEmp";
 
 
 Vue.use(VueRouter)
@@ -19,14 +19,11 @@ export const startLogin = [
         hidden : true,
     },
 ]
-
 export const directorLogin = [
     {
         path : '/home',
         name : '员工资料',
         component : Home,
-        // hidden : true,
-        // meta : ['admin', 'user'],
         redirect : '/employee/basic',
         children : [
             {
@@ -53,18 +50,12 @@ export const directorLogin = [
                 name : '查询部门信息',
                 component : DepartmentBasic
             },
-
             //员工工资路由
             {
                 path : '/sal/SalSob',
                 name : '员工工资',
                 component : SalSob,
             },
-            // {
-            //     path : '/sal/SalSobCfg',
-            //     name : '员工工资',
-            //     component : SalSobCfg,
-            // },
         ]
     },
 
@@ -92,11 +83,11 @@ export const employeeLogin = [
         component : Home,
         redirect : '/manage/post',
         children : [
-            {
-                path : '/department/basic',
-                name : '查询部门信息',
-                component : DepartmentBasic
-            },
+             {
+                path : '/sal/SalEmp',
+                 name : '员工工资',
+               component : SalEmp,
+             },
 
 
         ]

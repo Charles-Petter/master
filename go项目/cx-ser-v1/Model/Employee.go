@@ -23,12 +23,8 @@ type Employee_cx struct {
 	Height               int    `json:"height"`               //身高
 	Blood_type           string `json:"blood_type"`           //血型
 	Marital_status       string `json:"marital_status"`       //婚姻状况
-	//Birthplace           string `json:"birthplace"`           //出生地
-	//Registered_residence string `json:"registered_residence"` //户口所在地
 	Department_number    int    `json:"department_number"`    //部门编号
 	Department_name      string `json:"department_name"`      //部门名称
-	//Post_number          int    `json:"post_number"`          //岗位编号
-	//Post_name            string `json:"post_name"`            //岗位名称
 	Entry_date           pgtype.Date `json:"entry_date"`           //入职日期
 	Employment_form      string `json:"employment_form"`      //用工形式
 	Personnel_source     string `json:"personnel_source"`     //人员来源

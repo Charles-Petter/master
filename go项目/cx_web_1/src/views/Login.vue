@@ -19,7 +19,6 @@
                   :model="loginForm"
                   class="loginContainer">
                 <h3 class="loginTitle">人事管理系统</h3>
-
                 <el-form-item prop="id">
                   <el-input size="normal" type="text" v-model="loginForm.id"
                             placeholder="请输入用户名"></el-input>

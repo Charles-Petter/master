@@ -22,7 +22,7 @@
                 element-loading-spinner="el-icon-loading"
                 element-loading-background="rgba(0, 0, 0, 0.8)"
                 style="width: 100%"
-                :model="emp" :rules="rules" ref="empForm"
+                :model="emp"  ref="empForm"
                 @row-click="handleEdit">
           <el-table-column
               prop="id"
@@ -137,7 +137,6 @@ export default {
         initsalay:"",
         taxafter:"",
         classtime_cx:0,
-
       },
       posts : [],
       loading : false,
@@ -186,21 +185,33 @@ export default {
     this.initSalaries();
   },
   methods: {
-
+//计算工资
     handleEdit (row) {
-// console.log(ccc);
       console.log(row.initsalay);
       console.log(row.salayCount_cx);
-    //   switch () {
-    //     case parseInt(row.initsalay)-5000<0 :
-    //       this.actsalary-=0   //工资-5000小于0 不用交税
-    //     case  row.initsalay-5000>=0 && row.initsalay-5000<=3000  :
-    //       this.actsalary=(row.initsalay-5000)*(1-0.03)+5000
-    //     case row.initsalay-5000>5000 && row.initsalay-5000<=8000   :
-    //       this.actsalary=(row.initsalay-5000)*(1-0.1)+5000
-    // }
-      this.actsalary=parseInt(row.initsalay)+ (row.classtime_cx*100)
-      row.taxafter=this.actsalary
+      let a=row.initsalay-5000<0
+      let b=row.initsalay>=0 && row.initsalay-5000<=3000
+      let c = row.initsalay-5000>5000 && row.initsalay-5000<=8000
+      console.log("a:",a)
+      console.log("b:",b)
+      // this.actsalary=(parseInt(row.initsalay)-5000)*(1-0.03)+5000
+      console.log( this.actsalary)
+      switch(true){
+        case a:
+          //这里是值对应的处理
+          this.actsalary-=0   //工资-5000小于0 不用交税
+          break
+        case b:
+          this.actsalary=(parseInt(row.initsalay)-5000)*(1-0.03)+5000+ (parseInt(row.classtime_cx)*100)
+          break
+        case c:
+          this.actsalary=(parseInt(row.initsalay)-5000)*(1-0.1)+5000+ (parseInt(row.classtime_cx)*100)
+          break
+        default:
+          console.log("未执行")
+          break
+      }
+      // row.taxafter=this.actsalary
       console.log("ccc")
       console.log(row.taxafter);
     },
