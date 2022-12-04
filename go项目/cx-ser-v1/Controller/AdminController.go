@@ -72,7 +72,25 @@ func VerifyLogin_cx(c_cx *gin.Context) {
 //	fmt.Println("数据库查到的所有员工：", employee)
 //	c_cx.JSON(http.StatusOK, employee)
 //}
-
+//员工工资计算
+func EmployeeSalary_cx(c_cx *gin.Context)  {
+	var requestEmployee = Model.Salaytable_cx{}
+	json.NewDecoder(c_cx.Request.Body).Decode(&requestEmployee)
+	fmt.Println("即将修改的工资条：", requestEmployee)
+	err := Global.Db.Where("id = ?", requestEmployee.Id).Updates(&requestEmployee).Error
+	if err != nil {
+		fmt.Println("修改出错！")
+		c_cx.JSON(http.StatusOK, gin.H{
+			"code" : 200,
+			"msg" : "修改出错",
+		})
+		return
+	}
+	c_cx.JSON(http.StatusOK, gin.H{
+		"code" : 200,
+		"msg" : "修改成功",
+	})
+}
 //员工数据修改
 func EmployeeBasicUpdate_cx(c_cx *gin.Context)  {
 	var requestEmployee = Model.Employee_cx{}

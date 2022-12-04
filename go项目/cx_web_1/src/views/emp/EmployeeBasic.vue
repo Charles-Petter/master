@@ -214,34 +214,14 @@
         <el-table-column
             fixed="right"
             width="200"
-            label="修改">
+            label="修改"
+            v-if="!is_director">
           <template slot-scope="scope">
-<!--            如果不是主管就可以修改自己的信息-->
+<!--            员工可以修改自己的信息-->
             <el-button @click="showEditEmpView(scope.row)" v-if="!is_director" style="padding: 3px" size="mini" type="warning">编辑</el-button>
-
           </template>
         </el-table-column>
       </el-table>
-
-<!--      <el-dialog :visible.sync="multiDeleteVisible" title="提示" width="30%">-->
-<!--        <span>确定要删除吗?</span>-->
-<!--        <span slot="footer">-->
-<!--          <el-button type="danger" @click="multiDelete">确 定</el-button>-->
-<!--          <el-button @click="dialogVisible = false; multiDeleteVisible = false">取 消</el-button>-->
-<!--        </span>-->
-<!--      </el-dialog>-->
-<!--      <div style="display: flex;justify-content: flex-end">-->
-<!--        <el-pagination-->
-<!--            background-->
-<!--            @current-change="currentChange"-->
-<!--            @size-change="sizeChange"-->
-<!--            :page-size="pageSize"-->
-<!--            :page-sizes="[1,5,10,20,100]"-->
-<!--            :current-page.sync="currentPage"-->
-<!--            layout="sizes, prev, pager, next, jumper, ->, total, slot"-->
-<!--            :total="emps.length">-->
-<!--        </el-pagination>-->
-<!--      </div>-->
     </div>
     <!--      员工登录会出现编辑框-->
     <el-dialog
@@ -541,7 +521,6 @@ export default {
         graduation_school : "",
         major_studied : "",
         graduation_date : "",
-        is_quit : "",
         nationId: 1,
         politicId: 13,
         jobLevelId: 9,
@@ -586,10 +565,10 @@ export default {
           trigger : 'blur'
         }],
       },
-      multipleSelectionFlag : false,
-      multiDeleteVisible : false,
-      multipleSelection : '',
-      filterDepartmentText : [],
+      // multipleSelectionFlag : false,
+      // multiDeleteVisible : false,
+      // multipleSelection : '',
+      // filterDepartmentText : [],
       // filterPostText : [],
       // value1: "",
       // value2: "",

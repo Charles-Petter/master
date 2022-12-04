@@ -9,5 +9,6 @@ type Salaytable_cx struct {
 	Name                 string `json:"name"`                 //姓名
 	Sex                 string `json:"sex"`                  //性别
 	Initsalay            string `json:"initsalay"`             //税前工资
+	Classtime_cx    string     `json:"classtime_cx"`
 	Taxafter          string `json:"taxafter"`              //实际工资
 }

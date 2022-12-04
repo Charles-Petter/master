@@ -12,7 +12,8 @@ func CORS_cx() gin.HandlerFunc {
 		c_cx.Writer.Header().Set("Access-Control-Max-Age", "86400")
 		c_cx.Writer.Header().Set("Access-Control-Allow-Methods", "*")
 		c_cx.Writer.Header().Set("Access-Control-Allow-Headers", "*")
-		c_cx.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c_cx.Writer.Header().Set("Access-Control-Allow-Credentials", "true")//设置为true，允许ajax异步请求带cookie信息
+		//放行所有OPTIONS方法
 		if method_cx == "OPTIONS" {
 			c_cx.AbortWithStatus(200)
 		} else {
