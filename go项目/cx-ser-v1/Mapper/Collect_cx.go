@@ -5,9 +5,9 @@ import (
 	"cx/Controller"
 )
 //主管路由
-func DirectorMapper_cx(re *gin.Engine)  {
+func DirectorMapper_cx(re_cx *gin.Engine)  {
 	//查找部门员工
-	re.POST("/EmployeeBasicByDirector", Controller.EmpByDirector_cx)
+	re_cx.POST("/EmployeeBasicByDirector", Controller.EmpByDirector_cx)
 	//部门搜索
-	re.POST("/DepartmentSearch_cx", Controller.DepartmentSearch_cx)
+	re_cx.POST("/DepartmentSearch_cx", Controller.DepartmentSearch_cx)
 }

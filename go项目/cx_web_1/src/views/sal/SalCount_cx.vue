@@ -26,12 +26,10 @@
         </el-table-column>
         <el-table-column  width="150" :show-overflow-tooltip="true" prop="classtime_cx" label="课时量" >
           <template slot-scope="scope">
-<!--            scope.row.salayCount_cx-->
 <!--            1.获取输入框的值-->
             <el-input v-model.salayCount_cx="scope.row.classtime_cx" @change="onchange" ref="taxafter" :formatter="state" />
           </template>
         </el-table-column>
-
         <el-table-column label="计算过程" align="left" width="150" sortable show-overflow-tooltip>
           <p class="TaxInfo">实发工资：<span>{{actsalary}} 元</span></p>
         </el-table-column>
@@ -128,9 +126,6 @@ export default {
     }
   },
   computed : {
-      isShow() {
-        return this.emp.taxafter
-      },
     empsData() {
       console.log("emps.length = ", this.emps.length);
       if (this.emps.length > 0) {
@@ -146,15 +141,7 @@ export default {
       return this.posts;
     }
   },
-  watch: {
-    isShow(newV,oldV) {
-      // do something
-      console.log(newV,oldV)
-    },
-    times:function (newValue,oldValue){
-      console.log(newValue)
-      },
-  },
+  //模板渲染成html后调用
   mounted() {
     this.initEmps();
     this.initSalaries();
@@ -211,9 +198,6 @@ export default {
       this.inputDepName = data.department_name;
       this.dialogEditVisible = true;
     },
-    changeVal(val,params){
-      console.log(val,params);
-  },
     initEmps(type) {
       this.loading = true;
       this.$axios.post('/SearchEmpSalary_cx').then(resp => {
@@ -225,10 +209,10 @@ export default {
         }
       })
     },
-    search(event){
-      event.currentTarget.value
-      console.log(event.currentTarget.value)
-    },
+    // search(event){
+    //   event.currentTarget.value
+    //   console.log(event.currentTarget.value)
+    // },
     //刷新表单
     resetForm(data) {
       console.log("data = ", data, "emp = ", this.emp)

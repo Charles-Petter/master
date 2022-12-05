@@ -64,11 +64,12 @@ export default {
       open : false,
     }
   },
+  //计算属性
   computed : {
     isShow() {
       return this.emp.taxafter
     },
-    //分页实现
+    //返回数据
     empsData() {
       console.log("emps.length = ", this.emps.length);
       if (this.emps.length > 0) {
@@ -77,22 +78,8 @@ export default {
       console.log("emps = ", this.emps);
       return this.emps;
     },
-    postsData() {
-      if (this.posts.length > 0) {
-        return this.posts.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize) || [];
-      }
-      return this.posts;
-    }
   },
-  watch: {
-    isShow(newV,oldV) {
-      // do something
-      console.log(newV,oldV)
-    },
-    times:function (newValue,oldValue){
-      console.log(newValue)
-    },
-  },
+  //渲染页面后调用方法
   mounted() {
     this.initEmps();
     this.initSalaries();

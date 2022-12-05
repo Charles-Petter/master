@@ -10,7 +10,7 @@ import SalCount_cx from "./views/sal/SalCount_cx";
 
 
 Vue.use(VueRouter)
-
+//静态路由
 export const startLogin = [
     {
         path : '/',

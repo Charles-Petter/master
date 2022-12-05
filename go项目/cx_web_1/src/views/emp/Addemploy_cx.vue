@@ -61,9 +61,9 @@
         <el-table-column prop="marital_status" label="婚姻状况" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
 
-        <el-table-column prop="department_number" label="部门编号" align="left" width="125" sortable :filters="filterDepartmentText" :filter-method="filterHandler" show-overflow-tooltip>
+        <el-table-column prop="department_number" label="学院编号" align="left" width="125" sortable :filters="filterDepartmentText" :filter-method="filterHandler" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="department_name" fixed width="100" align="left" label="部门名称" sortable show-overflow-tooltip>
+        <el-table-column prop="department_name" fixed width="100" align="left" label="学院名称" sortable show-overflow-tooltip>
         </el-table-column>
         <el-table-column prop="entry_date" label="入职日期" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
@@ -213,14 +213,14 @@
             </el-col>
 
             <el-col :span="6">
-              <el-form-item label="部门编号:" prop="department_number">
+              <el-form-item label="学院编号:" prop="department_number">
                 <el-input size="mini" style="width: 100px" prefix-icon="el-icon-s-flag"
                           v-model="emp.department_number" type="number" clearable></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="部门名称:" prop="department_name">
-                <el-select @change="changeEditSelect" v-model="emp.department_name" placeholder="请输入部门名称" size="mini" prefix-icon="el-icon-edit">
+              <el-form-item label="学院名称:" prop="department_name">
+                <el-select @change="changeEditSelect" v-model="emp.department_name" placeholder="请选择学院名称" size="mini" prefix-icon="el-icon-edit">
                   <el-option
                       v-for="(item, index) in department_names"
                       :key="index"
@@ -230,7 +230,6 @@
                 </el-select>
               </el-form-item>
             </el-col>
-
             <el-col :span="6">
 
             </el-col>
@@ -446,14 +445,14 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="部门编号:" prop="department_number">
+              <el-form-item label="学院编号:" prop="department_number">
                 <el-input size="mini" style="width: 100px" prefix-icon="el-icon-edit"
                           v-model="emp.department_number" disabled></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="部门名称:" prop="department_name">
-                <el-select @change="changeEditSelect" v-model="emp.department_name" placeholder="请输入部门名称" size="mini" prefix-icon="el-icon-edit" disabled>
+              <el-form-item label="学院名称:" prop="department_name">
+                <el-select @change="changeEditSelect" v-model="emp.department_name" placeholder="请输入学院名称" size="mini" prefix-icon="el-icon-edit" disabled>
                   <el-option
                       v-for="(item, index) in department_names"
                       :key="index"
@@ -607,7 +606,7 @@ export default {
       employee_forms:['实习生', '正式职工'],
       personnel_source:'',
       personnel_sources:['校招', '社招'],
-      inputDepName: '所属部门',
+      inputDepName: '所属学院',
       //初始化元素
       emp: {
         id : "",
@@ -683,8 +682,8 @@ export default {
         height : [{required : true, message : '请输入身高', trigger : 'blur'}],
         blood_type : [{required : true, message : '请输入血型', trigger : 'blur'}],
         marital_status : [{required : true, message : '请输入婚姻状况', trigger : 'blur'}],
-        department_number : [{required : true, message : '请输入部门编号', trigger : 'blur'}],
-        department_name : [{required : true, message : '请输入部门名称', trigger : 'blur'}],
+        department_number : [{required : true, message : '请输入学院编号', trigger : 'blur'}],
+        department_name : [{required : true, message : '请输入学院名称', trigger : 'blur'}],
         entry_date : [{required : true, message : '请输入入职日期', trigger : 'blur'}],
         employment_form : [{required : true, message : '请输入用工形式', trigger: 'blur'}],
         personnel_source : [{required : true, message : '请输入人员来源', trigger : 'blur'}],
