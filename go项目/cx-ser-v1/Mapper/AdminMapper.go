@@ -14,15 +14,14 @@ func AdminMapper(re *gin.Engine) {
 	//修改
 	re.POST("/EmployeeBasic/Update_cx", Controller.EmployeeBasicUpdate_cx)
 	//添加
-
 	re.POST("/EmployeeBasic/Add_cx", Controller.EmployeeBasicAdd_cx)
 	//编辑
 	//re.POST("/Edit", Controller.EditMessage_cx)
 	re.POST("/Department/Message_cx", Controller.DepartmentMessage_cx)
 	re.POST("/SearchEmpSalary_cx", Controller.SearchEmpSalary_cx)
-	re.POST("/Department/Init_cx", Controller.DepartmentInit)
+	re.POST("/Department/Init_cx", Controller.DepartmentInit_cx)
 	re.POST("/EmpSalary/Init_cx", Controller.EmpSalaryInit_cx)
-//员工工资
+    //员工工资
 	re.POST("/Employee/Salary_cx", Controller.EmployeeSalary_cx)
 	//re.POST("/Department/Update", Controller.DepartmentUpdate)
 	//re.POST("/SearchByDepartmentNumber", Controller.SearchByDepartmentNumber_cx)

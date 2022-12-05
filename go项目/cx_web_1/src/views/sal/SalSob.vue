@@ -81,27 +81,84 @@
 <!--            <p class="TaxInfo">实发工资：<span>{{actsalary}} 元</span></p>-->
           </template>
         </el-table-column>
+
         <el-table-column
             prop="taxafter"
-            label="实际工资"
+            label="交税后"
+            align="left"
+            width="150"
+            sortable
+            show-overflow-tooltip>
+        </el-table-column>
+        <el-table-column
+            label="计算过程"
             align="left"
             width="150"
             sortable
             show-overflow-tooltip>
           <p class="TaxInfo">实发工资：<span>{{actsalary}} 元</span></p>
         </el-table-column>
-        <el-table-column
-            fixed="right"
-            width="200"
-            label="修改"
-          >
-          <template slot-scope="scope">
-            <el-button @click="doEditSalary(scope.row)"  style="padding: 3px" size="mini" type="warning">计算工资</el-button>
-          </template>
+<!--        <el-table-column-->
+<!--            fixed="right"-->
+<!--            width="200"-->
+<!--            label="修改"-->
+<!--          >-->
+<!--          <template slot-scope="scope">-->
+<!--            <el-button @click="doEditSalary(scope.row)"  style="padding: 3px" size="mini" type="warning">计算工资</el-button>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
+        <el-table-column fixed="right" width="200" label="修改" v-if="!is_director">
+        <template slot-scope="scope">
+          <!--            主管计算工资-->
+          <el-button @click="showEditEmpView(scope.row)" v-if="!is_director" style="padding: 3px" size="mini" type="warning">计算工资</el-button>
+        </template>
         </el-table-column>
         </el-table>
-      </div>
     </div>
+    <!--      上传工资实际工资编辑框-->
+    <el-dialog
+        :title="title"
+        @close="resetForm('emp')"
+        :visible.sync="dialogEditVisible"
+        width="80%">
+      <div>
+        <el-form :model="emp" :rules="rules" ref="empForm">
+          <el-row>
+            <el-col :span="6">
+              <el-form-item label="编号:" prop="id">
+                <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user-solid"
+                          v-model="emp.id" placeholder="编号" disabled></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="姓名:" prop="name">
+                <el-input size="mini" style="width: 150px" prefix-icon="el-icon-user" v-model="emp.name"
+                          placeholder="请输入员工姓名"  clearable></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+          </el-row>
+          <el-row>
+            <el-col :span="6">
+              <el-form-item label="实际工资:" prop="taxafter">
+                <el-input size="mini" style="width: 150px" prefix-icon="el-icon-school" v-model="emp.taxafter" placeholder="毕业院校名称" clearable></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <template>
+           <el-popover placement="bottom" title="注意事项" width="300" trigger="click" :content="tipContent">
+          <el-button type="danger" size="mini" slot="reference">?</el-button>
+        </el-popover>
+        </template>
+              <el-button @click="dialogEditVisible = false">取 消</el-button>
+              <el-button type="primary" @click="doEditSalary">确 定</el-button>
+      </span>
+    </el-dialog>
+      </div>
 
 </template>
 
@@ -220,7 +277,7 @@ export default {
       this.$refs['empForm'].validate(valid => {
         if (valid) {
           // this.emp.height = parseInt(this.emp.height);
-          row.taxafter=this.actsalary
+          // row.taxafter=this.actsalary
           console.log(this.emp)
           this.$axios.post('/Employee/Salary_cx', this.emp).then(resp => {
             if (resp) {
@@ -233,6 +290,13 @@ export default {
           });
         }
       });
+    },
+    showEditEmpView(data) {
+      // this.initPositions();
+      this.title = '编辑员工信息';
+      this.emp = data;
+      this.inputDepName = data.department_name;
+      this.dialogEditVisible = true;
     },
 //传值给后端
 //     async save(){

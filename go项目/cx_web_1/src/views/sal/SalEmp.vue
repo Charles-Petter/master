@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column prop="sex" label="性别" align="left" width="75" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="actsalay" label="实发工资" align="left" width="150" sortable show-overflow-tooltip>
+        <el-table-column prop="taxafter" label="实发工资" align="left" width="150" sortable show-overflow-tooltip>
         </el-table-column>
       </el-table>
     </div>
