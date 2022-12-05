@@ -2,11 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from './views/Login.vue'
 import Home from './views/Home.vue'
-import EmployeeBasic from "@/views/emp/EmployeeBasic";
-import DepartmentBasic from "@/views/manage/DepartmentBasic";
-import SalSob from "@/views/sal/SalSob";
+import EmployeeBasic_cx from "@/views/emp/EmployeeBasic_cx";
+import CollectBasic_cx from "@/views/Dep/CollectBasic_cx";
 import Addemploy_cx from "@/views/emp/Addemploy_cx";
-import SalEmp from "@/views/sal/SalEmp";
+import SalEmp_cx from "@/views/sal/SalEmp_cx";
+import SalCount_cx from "./views/sal/SalCount_cx";
 
 
 Vue.use(VueRouter)
@@ -24,12 +24,12 @@ export const directorLogin = [
         path : '/home',
         name : '员工资料',
         component : Home,
-        redirect : '/employee/basic',
+        redirect : '/employee/basic_cx',
         children : [
             {
-                path : '/employee/basic',
+                path : '/employee/basic_cx',
                 name : '基本资料',
-                component : EmployeeBasic,
+                component : EmployeeBasic_cx,
             },
             //增加员工信息
             {
@@ -46,15 +46,15 @@ export const directorLogin = [
         redirect : '/manage/post',
         children : [
             {
-                path : '/department/basic',
+                path : '/Dep/CollectBasic_cx',
                 name : '查询部门信息',
-                component : DepartmentBasic
+                component : CollectBasic_cx
             },
             //员工工资路由
             {
-                path : '/sal/SalSob',
+                path : '/sal/SalCount_cx',
                 name : '员工工资',
-                component : SalSob,
+                component : SalCount_cx,
             },
         ]
     },
@@ -68,12 +68,12 @@ export const employeeLogin = [
         path : '/home',
         name : '员工资料',
         component : Home,
-        redirect : '/employee/basic',
+        redirect : '/employee/basic_cx',
         children : [
             {
-                path : '/employee/basic',
+                path : '/employee/basic_cx',
                 name : '基本资料',
-                component : EmployeeBasic,
+                component : EmployeeBasic_cx,
             },
         ]
     },
@@ -84,9 +84,9 @@ export const employeeLogin = [
         redirect : '/manage/post',
         children : [
              {
-                path : '/sal/SalEmp',
+                path : '/sal/SalEmp_cx',
                  name : '员工工资',
-               component : SalEmp,
+               component : SalEmp_cx,
              },
 
 

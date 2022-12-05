@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+mysql:
+  host_cx: "127.0.0.1"
+  port_cx:  3306
+  user_cx : "root"
+  password_cx: "123456"
+  dbname_cx: "gin_user"
+

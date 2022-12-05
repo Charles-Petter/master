@@ -12,7 +12,3 @@ func Response(c_cx *gin.Context, httpStatus int, code int, data gin.H, msg strin
 func Success(c_cx *gin.Context, data gin.H, msg string) {
 	Response(c_cx, http.StatusOK, 200, data, msg)
 }
-
-//func Fail(context *gin.Context, msg string, data gin.H) {
-//	Response(context, http.StatusOK, 400, data,msg)
-//}

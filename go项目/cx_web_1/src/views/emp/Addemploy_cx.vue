@@ -584,6 +584,7 @@ export default {
       page: 1,
       keyword: '',
       size: 10,
+      //编辑框中的数据
       birthday: '',
       post_number: null,
       post_name: '',
@@ -599,7 +600,6 @@ export default {
         '乌孜别克族', '鄂温克族', '保安族', '京族', '独龙族', '赫哲族', '珞巴族',
         '其他',
       ],
-      joblevels: [],
       political: "群众",
       politicals: ['群众', '共青团员', '中共预备党员', '中共党员', '无党派人士', '其他'],
       positions: [],
@@ -608,6 +608,7 @@ export default {
       personnel_source:'',
       personnel_sources:['校招', '社招'],
       inputDepName: '所属部门',
+      //初始化元素
       emp: {
         id : "",
         password : "",
@@ -646,6 +647,7 @@ export default {
         children: 'children',
         label: 'name'
       },
+      //数据验证
       rules: {
         id : [{required : true, message : '请输入编号', trigger : 'blur'}],
         password : [{required : true, message : '请输入密码', trigger : 'blur'}],
@@ -807,10 +809,11 @@ export default {
       this.title = '添加员工信息';
       this.dialogAddVisible = true;
     },
+    //初始化信息
     initEmps(type) {
       this.loading = true;
       var tempRole = localStorage.getItem("role");
-    if (tempRole === "主管") {
+     if (tempRole === "主管") {
         let temp = {
           id : "",
         }
@@ -825,13 +828,11 @@ export default {
         })
       }
     },
-    popDelete() {
-      this.multiDeleteVisible = true;
-    },
+    //初始化学院信息
     initDepartment() {
       this.$axios.post('/Department/Init_cx').then(resp => {
         this.department_names = resp.data;
-        console.log("初始化部门：", this.department_names);
+        console.log("初始化学院：", this.department_names);
       })
     },
 

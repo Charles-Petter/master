@@ -6,7 +6,7 @@ import (
 	"cx/Middleware"
 	"github.com/gin-gonic/gin"
 )
-//框架入口
+//创建路由
 func CreateRoute(r_cx *gin.Engine) *gin.Engine {
 	//定义服务路由信息
 	r_cx.Use(Middleware.CORS_cx())
