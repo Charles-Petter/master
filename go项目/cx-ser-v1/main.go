@@ -4,13 +4,16 @@ import (
 	"cx/Global"
 	"cx/Mapper"
 	"cx/Router"
-	"cx/logger"
+	"cx/logge"
 	"cx/settings"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
-)
 
+	"go.uber.org/zap"
+	"net/http"
+)
+var loggers *zap.Logger
+//var sugarLogger *zap.SugaredLogger
 func main() {
 	//1.加载配置
 	v_cx := settings.InitConfig()
@@ -22,6 +25,12 @@ func main() {
 	}
 	defer zap.L().Sync()
 	zap.L().Debug("logger  init success... ")
+	r := gin.New()
+	r.Use(logger.GinLogger(loggers), logger.GinRecovery(loggers, true))
+	r.GET("/hello", func(c *gin.Context) {
+		c.String(http.StatusOK, "hello caoxin")
+	})
+	//r.Run()
 
 	//3.初始化Mysql 连接
 	fmt.Println("主函数")

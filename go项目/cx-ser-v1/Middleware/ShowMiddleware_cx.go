@@ -34,7 +34,7 @@ func ShowMiddleware_cx() gin.HandlerFunc {
 			return
 		}
 		// 验证通过后获取claim的userid
-		userID_cx := claims.UserId
+		userID_cx := claims.UserId_cx
 		var loginUser_cx Model.Employee_cx
 		Global.Db.First(&loginUser_cx, userID_cx) //First查询一条记录，根据主键ID排序(正序)
 		// 用户不存在

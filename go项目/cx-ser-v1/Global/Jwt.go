@@ -14,38 +14,38 @@ import (
 var jwtKey_cx = []byte("s_secret_crect")
 
 type Claims_cx struct {
-	UserId string
+	UserId_cx string
 	jwt.StandardClaims
 }
 
 //使用默认声明创建jwt
-func ReaeaseTokec(user Model.Employee_cx) (string, error) {
-	expirationTime := time.Now().Add(7 * 24 * time.Hour) //过期时间
+func ReaeaseTokec(user_cx Model.Employee_cx) (string, error) {
+	expirationTime_cx := time.Now().Add(7 * 24 * time.Hour) //过期时间
 	//创建Claims
-	claims := &Claims_cx{
-		UserId: user.Id,
+	claims_cx := &Claims_cx{
+		UserId_cx: user_cx.Id,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expirationTime.Unix(),
+			ExpiresAt: expirationTime_cx.Unix(),
 			IssuedAt:  time.Now().Unix(),
 			Issuer:    "cx",//签发人
 			Subject:   "user token",
 		},
 	}
 	// 生成token对象
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token_cx := jwt.NewWithClaims(jwt.SigningMethodHS256, claims_cx)
 	// 生成签名字符串
-	tokenString, err := token.SignedString(jwtKey_cx)
-	if err != nil { //解析token失败
-		return "", err
+	tokenString_cx, err_cx := token_cx.SignedString(jwtKey_cx)
+	if err_cx != nil { //解析token失败
+		return "", err_cx
 	}
-	return tokenString, err
+	return tokenString_cx, err_cx
 }
 
 // ParseToken 解析JWT
-func ParseToken(tokenString string) (*jwt.Token, *Claims_cx, error) {
-	claims := &Claims_cx{}
-	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (i interface{}, err error) {
+func ParseToken(tokenString_cx string) (*jwt.Token, *Claims_cx, error) {
+	claims_cx := &Claims_cx{}
+	token, err_cx := jwt.ParseWithClaims(tokenString_cx, claims_cx, func(token *jwt.Token) (i interface{}, err_cx error) {
 		return jwtKey_cx, nil
 	})
-	return token, claims, err
+	return token, claims_cx, err_cx
 }
