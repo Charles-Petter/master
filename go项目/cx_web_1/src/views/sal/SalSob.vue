@@ -178,7 +178,6 @@ export default {
       console.log( this.actsalary)
       switch(true){
         case a:
-          //这里是值对应的处理
           this.actsalary-=0   //工资-5000小于0 不用交税
           break
         case b:
@@ -191,7 +190,6 @@ export default {
           console.log("未执行")
           break
       }
-      // row.taxafter=this.actsalary
       console.log("ccc")
       console.log(row.taxafter);
     },
@@ -213,7 +211,7 @@ export default {
       });
     },
     showEditEmpView(data) {
-      this.title = '编辑员工信息';
+      this.title = '编辑信息';
       this.emp = data;
       this.inputDepName = data.department_name;
       this.dialogEditVisible = true;

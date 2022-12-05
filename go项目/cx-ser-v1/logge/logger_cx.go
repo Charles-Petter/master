@@ -45,7 +45,6 @@ func Init() (err error) {
 	core := zapcore.NewCore(encoder, writeSyncer, zapcore.DebugLevel)
 	loggers = zap.New(core, zap.AddCaller())
 	sugarLogger = loggers.Sugar()
-
 		var l = new(zapcore.Level)
 		err = l.UnmarshalText([]byte(viper.GetString("log.level")))
 		if err != nil {
@@ -71,13 +70,8 @@ func getEncoder() zapcore.Encoder {
 	}
 
 	return zapcore.NewConsoleEncoder(encoderConfig)
-	//return zapcore.NewJSONEncoder(zap.NewProductionEncoderConfig())
 }
 
-//func getLogWriter() zapcore.WriteSyncer {
-//	file, _ := os.Create("./test.log")//Create 每一次都会打开追加一个新的
-//	return zapcore.AddSync(file)
-//}
 func getLogWriter() zapcore.WriteSyncer {
 	lumberJackLogger := &lumberjack.Logger{
 		Filename:   "./test.log", //文件名
@@ -116,8 +110,6 @@ func GinRecovery(logger *zap.Logger, stack bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
-				// Check for a broken connection, as it is not really a
-				// condition that warrants a panic stack trace.
 				var brokenPipe bool
 				if ne, ok := err.(*net.OpError); ok {
 					if se, ok := ne.Err.(*os.SyscallError); ok {
@@ -138,7 +130,6 @@ func GinRecovery(logger *zap.Logger, stack bool) gin.HandlerFunc {
 					c.Abort()
 					return
 				}
-
 				if stack {
 					logger.Error("[Recovery from panic]",
 						zap.Any("error", err),

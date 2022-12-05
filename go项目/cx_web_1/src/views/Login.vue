@@ -100,6 +100,7 @@ export default {
       this.isShow = true;
     },
     submitLogin() {
+      //获取登录信息
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
@@ -110,12 +111,13 @@ export default {
             str = '员工';
           }
           localStorage.setItem("type", str);//设置登录人员的身份
-          localStorage.setItem("id", this.loginForm.id);
+          localStorage.setItem("id", this.loginForm.id);//id
           if ( str === '主管' || str === '员工') {
             localStorage.setItem("role", str);//设置登陆角色
             this.loginForm.employee_type = str;
             console.log("loginForm.type = ", this.loginForm.employee_type);
             console.log("即将提交的信息：", this.loginForm);
+            //请求接口 身份信息验证
             this.$axios.post('/VerifyLogin_cx', this.loginForm).then((resp) => {
               this.loading = false;
               const _this = this;
@@ -128,6 +130,7 @@ export default {
                   window.sessionStorage.setItem("user", JSON.stringify(resp.data.data));
                   console.log("存储的数据："+JSON.stringify(resp.data.data));
                   let path = this.$route.query.redirect;
+                  //跳转页面
                   this.$router.replace((path === '/' || path === undefined) ? '/home' : path);
                   _this.$router.push({path : '/home', query : _this.loginForm})
                 } else {
@@ -142,20 +145,6 @@ export default {
           return false;
         }
       });
-    },
-    success() {
-      this.isShow = false;
-      this.right = true;
-    },
-    close() {
-      this.isShow = false;
-      this.right = false;
-    },
-    initDepartment() {
-      this.$axios.post('/Department/Init_cx').then(resp => {
-        this.department_names = resp.data;
-        console.log("初始化部门：", this.department_names);
-      })
     },
   }
 }

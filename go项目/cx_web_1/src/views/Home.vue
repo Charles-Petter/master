@@ -28,7 +28,6 @@
                         <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
                     </el-breadcrumb>
                     <div class="homeWelcome" v-if="this.$router.currentRoute.path==='/home'">
-
                     </div>
                     <router-view class="homeRouterView"/>
                 </el-main>
@@ -65,7 +64,7 @@
             },
             userRole() {
               var result = '';
-              console.log("登陆的员工角色：", role);
+              console.log("登陆的员工：", role);
               if (role === '主管') {
                 result = "主管";
               } else {
@@ -74,11 +73,7 @@
               return localStorage.getItem("role");
             }
         },
-        methods: {
-            goChat() {
-                this.$router.push("/chat");
-            },
-        }
+
     }
 </script>
 
