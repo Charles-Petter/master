@@ -12,7 +12,6 @@
           element-loading-spinner="el-icon-loading"
           element-loading-background="rgba(0, 0, 0, 0.8)"
           style="width: 100%">
-
         <el-table-column prop="name" fixed sortable align="left" label="姓名" width="75" show-overflow-tooltip>
         </el-table-column>
         <el-table-column prop="employee_type" fixed  sortable align="left" label="角色" width="75"show-overflow-tooltip>
@@ -76,6 +75,7 @@
         :visible.sync="dialogEditVisible"
         width="80%">
       <div>
+<!--        绑定额emp-->
         <el-form :model="emp" :rules="rules" ref="empForm">
           <el-row>
             <el-col :span="6">
@@ -473,11 +473,13 @@ export default {
       this.inputDepName = data.department_name;
       this.dialogEditVisible = true;
     },
+    //编辑
     doEditEmp() {
-      //编辑
+      //组件完成后渲染数据
       this.$refs['empForm'].validate(valid => {
         if (valid) {
           this.emp.height = parseInt(this.emp.height);
+          //发送post请求
           this.$axios.post('/EmployeeBasic/Update_cx', this.emp).then(resp => {
             if (resp) {
               this.dialogEditVisible = false;
@@ -504,9 +506,9 @@ export default {
     showAddEmpView() {
       this.emptyEmp();
       this.title = '添加员工信息';
-      //this.getMaxWordID();
       this.dialogAddVisible = true;
     },
+    //异步 判断登录人的职位类型 请求不同的接口 渲染主管或员工
     async searchEmp(data) {
       console.log("name = ", this.emp.name);
       var url;
@@ -528,7 +530,7 @@ export default {
           }
         })
       } else {
-        url = '/EmployeeBasic/SearchByEmployee';
+        url = '/Employee/SearchEmp_cx';
         var temp = {
           'id' : localStorage.getItem("id"),
           'name' : this.emp.name,
@@ -546,11 +548,13 @@ export default {
         })
       }
     },
+    //刷新表单
     resetForm(data) {
       console.log("data = ", data, "emp = ", this.emp)
       this.$refs[data].resetFields();
       this.initEmps();
     },
+    //初始化信息
     initEmps(type) {
       this.loading = true;
       var tempRole = localStorage.getItem("role");
@@ -573,7 +577,7 @@ export default {
           id : "",
         }
         temp.id = localStorage.getItem("id");
-        this.$axios.post('/EmployeeBasicByEmployee', temp).then(resp => {
+        this.$axios.post('/EmployeeBasic_cx', temp).then(resp => {
           this.loading = false;
           if (resp) {
             this.emps = resp.data;

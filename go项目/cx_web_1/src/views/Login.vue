@@ -34,7 +34,6 @@
                     <el-radio v-model="type" :label="2" border >员工</el-radio>
                   </td>
                 </tr>
-                <Vcode :show="isShow" @success="success" @close="close"></Vcode>
                 <el-button-group style="width: 100%">
                   <el-button size="normal" type="primary" style="width: 100%;" @click="submitLogin" :round="true" :disabled="right">登录</el-button>
                 </el-button-group>
@@ -68,7 +67,9 @@ export default {
         position: "fixed",
         marginTop: "5px",
       },
+      //登录状态
       loading: false,
+      //登录类型
       type: 1,
       vcUrl: '/verifyCode?time='+new Date(),
       loginForm: {//登录表单
@@ -77,6 +78,7 @@ export default {
         employee_type: localStorage.getItem("role"),
       },
       checked: true,
+      //验证
       rules: {
         id: [{required: true, message: '请输入用户名', trigger: 'blur'}],
         password: [{required: true, message: '请输入密码', trigger: 'blur'}],
@@ -92,7 +94,6 @@ export default {
   },
   mounted(){
     this.initDepartment();
-    this.initPost();
   },
   methods: {
     submit () {
@@ -102,9 +103,8 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
-          // type:1是主管 2是员工
           let str = '';
-          if (this.type == 1) {
+          if (this.type === 1) {
             str = '主管';
           } else  {
             str = '员工';
@@ -116,15 +116,15 @@ export default {
             this.loginForm.employee_type = str;
             console.log("loginForm.type = ", this.loginForm.employee_type);
             console.log("即将提交的信息：", this.loginForm);
-            this.$axios.post('/AdminLogin', this.loginForm).then((resp) => {
+            this.$axios.post('/VerifyLogin_cx', this.loginForm).then((resp) => {
               this.loading = false;
               const _this = this;
               console.log("resp = ", resp.data)
               if (resp) {
                 if (resp.data.msg === "登录成功") {
-                  console.log("222")
+                  console.log("aaaa")
                   this.$store.commit("INIT_CURRENTHR", resp.data.data);
-                  console.log("333")
+                  console.log("ccc")
                   window.sessionStorage.setItem("user", JSON.stringify(resp.data.data));
                   console.log("存储的数据："+JSON.stringify(resp.data.data));
                   let path = this.$route.query.redirect;
@@ -157,15 +157,6 @@ export default {
         console.log("初始化部门：", this.department_names);
       })
     },
-    // initPost() {
-    //   var temp = {
-    //     "department_name" : this.department_name
-    //   }
-    //   this.$axios.post('/Post/Init', temp).then(resp => {
-    //     this.post_names = resp.data;
-    //     console.log("初始化岗位：", this.post_names);
-    //   })
-    // }
   }
 }
 </script>

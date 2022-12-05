@@ -43,7 +43,6 @@
         name: "Home",
         data() {
             return {
-                // user: JSON.parse(window.sessionStorage.getItem("user"))
               img_cx:{
                 Image: "url(" + require("../assets/loginBackgroundImg.webp") + ")",//背景圖片
               },

@@ -11,36 +11,34 @@ import (
 	"go.uber.org/zap"
 )
 
-//GO Web 开发通用的脚手架模板
 func main() {
 	//1.加载配置
-	v := settings.InitConfig()
-	fmt.Println("配置文件读取结果：", v.Get("server.port"))
+	v_cx := settings.InitConfig()
+	fmt.Println("配置文件读取结果：", v_cx.Get("server.port"))
 	//2.初始化日志
-	if err := logger.Init(); err != nil {
-		fmt.Printf("init logger failed,err:%v\n", err)
+	if err_cx := logger.Init(); err_cx != nil {
+		fmt.Printf("init logger failed,err:%v\n", err_cx)
 		return
 	}
 	defer zap.L().Sync()
 	zap.L().Debug("logger  init success... ")
+
 	//3.初始化Mysql 连接
 	fmt.Println("主函数")
-	var err error
-	Global.Db, err = Mapper.InitDB(v)
-
-	re := gin.Default()
-	if err != nil {
+	var err_cx error
+	Global.Db, err_cx = Mapper.InitDB_cx(v_cx)
+    // 启动引擎
+	re_cx := gin.Default()
+	if err_cx != nil {
 		fmt.Println("数据库连接失败！")
 		return
 	}
 
 	//4.注册路由
 	//re := routers.Setup()
-	re = Router.CreateRoute(re)// 创建路由
+	re_cx = Router.CreateRoute(re_cx)// 创建路由
 	// 监听并在 :8080 上启动服务
-	panic(re.Run(":" + v.GetString("server.port")))//若报端口被占用 重启电脑
-
-
+	panic(re_cx.Run(":" + v_cx.GetString("server.port")))//若报端口被占用 重启电脑
 	//5.启动服务（优雅关机）
 	//re.GET("/", func(c *gin.Context) {
 	//	time.Sleep(5 * time.Second)

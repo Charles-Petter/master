@@ -30,215 +30,54 @@
           element-loading-spinner="el-icon-loading"
           element-loading-background="rgba(0, 0, 0, 0.8)"
           style="width: 100%">
-        <el-table-column
-            prop="name"
-            fixed
-            sortable
-            align="left"
-            label="姓名"
-            width="75"
-            show-overflow-tooltip>
+        <el-table-column prop="name" fixed sortable align="left" label="姓名" width="75" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="employee_type"
-            fixed
-            sortable
-            align="left"
-            label="角色"
-            width="75"
-            show-overflow-tooltip>
+        <el-table-column prop="employee_type" fixed sortable align="left" label="角色" width="75" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="id"
-            label="编号"
-            align="left"
-            width="85"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="id" label="编号" align="left" width="85" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="password"
-            label="密码"
-            align="left"
-            width="85"
-            v-if="is_director"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="password" label="密码" align="left" width="85" v-if="is_director" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="sex"
-            label="性别"
-            align="left"
-            width="75"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="sex" label="性别" align="left" width="75" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="birthday"
-            width="100"
-            align="left"
-            label="出生日期"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="birthday" width="100" align="left" label="出生日期" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="id_card"
-            width="150"
-            align="left"
-            label="身份证号码"
-            v-if="is_director"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="id_card" width="150" align="left" label="身份证号码" v-if="is_director" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="political"
-            width="100"
-            label="政治面貌"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="political" width="100" label="政治面貌" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="nation"
-            label="民族"
-            align="left"
-            width="85"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="nation" label="民族" align="left" width="85" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="native_place"
-            label="籍贯"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="native_place" label="籍贯" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="phone"
-            label="电话"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="phone" label="电话" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="email"
-            label="电子邮箱"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="email" label="电子邮箱" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="height"
-            label="身高"
-            align="left"
-            width="75"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="height" label="身高" align="left" width="75" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="blood_type"
-            label="血型"
-            align="left"
-            width="75"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="blood_type" label="血型" align="left" width="75" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="marital_status"
-            label="婚姻状况"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="marital_status" label="婚姻状况" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
 
-        <el-table-column
-            prop="department_number"
-            label="部门编号"
-            align="left"
-            width="125"
-            sortable
-            :filters="filterDepartmentText"
-            :filter-method="filterHandler"
-            show-overflow-tooltip>
+        <el-table-column prop="department_number" label="部门编号" align="left" width="125" sortable :filters="filterDepartmentText" :filter-method="filterHandler" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="department_name"
-            fixed
-            width="100"
-            align="left"
-            label="部门名称"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="department_name" fixed width="100" align="left" label="部门名称" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="post_number"
-            label="岗位编号"
-            align="left"
-            width="125"
-            sortable
-            :filters="filterPostText"
-            :filter-method="filterHandler"
-            show-overflow-tooltip>
+        <el-table-column prop="entry_date" label="入职日期" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
-
-        <el-table-column
-            prop="entry_date"
-            label="入职日期"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="employment_form" label="用工形式" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="employment_form"
-            label="用工形式"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="personnel_source" label="人员来源" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="personnel_source"
-            label="人员来源"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="highest_education" label="最高学历" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="highest_education"
-            label="最高学历"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="graduation_school" label="毕业院校" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="graduation_school"
-            label="毕业院校"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="major_studied" label="所学专业" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="major_studied"
-            label="所学专业"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column
-            prop="graduation_date"
-            label="毕业日期"
-            align="left"
-            width="100"
-            sortable
-            show-overflow-tooltip>
+        <el-table-column prop="graduation_date" label="毕业日期" align="left" width="100" sortable show-overflow-tooltip>
         </el-table-column>
       </el-table>
     <!--      输入框-->
@@ -874,8 +713,6 @@ export default {
     this.initEmps();
     this.initData();
     this.initDepartment();
-    this.initPost();
-
     localStorage.setItem("type", this.emp.employee_type);
   },
   computed : {
@@ -955,10 +792,12 @@ export default {
         }
       });
     },
+    //分页
     sizeChange(currentSize) {
       this.pageSize = currentSize;
       this.initEmps();
     },
+    //当前页面
     currentChange(currentPage) {
       this.currentPage = currentPage;
       this.initEmps('advanced');

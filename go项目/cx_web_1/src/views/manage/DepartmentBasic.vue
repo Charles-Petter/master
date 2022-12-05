@@ -19,56 +19,18 @@
           </el-form>
           </el-col>
       </el-col>
-          <el-table :data="empsData"
-                stripe border
-                v-loading="loading"
-                element-loading-text="正在加载..."
-                element-loading-spinner="el-icon-loading"
-                element-loading-background="rgba(0, 0, 0, 0.8)"
-                style="width: 100%">
-        <el-table-column
-            prop="department_number"
-            fixed
-            align="left"
-            label="部门编号"
-            width="75"
-            show-overflow-tooltip>
+          <el-table :data="empsData" stripe border v-loading="loading" element-loading-text="正在加载..." element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" style="width: 100%">
+        <el-table-column prop="department_number" fixed align="left" label="部门编号" width="75" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="department_name"
-            fixed
-            align="left"
-            label="部门名称"
-            width="75"
-            show-overflow-tooltip>
+        <el-table-column prop="department_name" fixed align="left" label="部门名称" width="75" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="name"
-            label="所属员工"
-            align="left"
-            width="85"
-            show-overflow-tooltip>
+        <el-table-column prop="name" label="所属员工" align="left" width="85" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="phone"
-            label="学院电话"
-            align="left"
-            width="150"
-            show-overflow-tooltip>
+        <el-table-column prop="phone" label="学院电话" align="left" width="150" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="description"
-            width="150"
-            align="left"
-            label="描述"
-            show-overflow-tooltip>
+        <el-table-column prop="description" width="150" align="left" label="描述" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column
-            prop="incorporation_date"
-            label="成立日期"
-            align="left"
-            width="150"
-            show-overflow-tooltip>
+        <el-table-column prop="incorporation_date" label="成立日期" align="left" width="150" show-overflow-tooltip>
         </el-table-column>
       </el-table>
     </div>
@@ -105,7 +67,6 @@ export default {
       pageSize: 10,
       title : "岗位信息",
       size : '',
-      is_boss : true,
       dialogEditVisible : false,
       dialogAddVisible : false,
       dialogAddPostVisible : false,

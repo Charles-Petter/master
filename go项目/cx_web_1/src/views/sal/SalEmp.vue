@@ -26,10 +26,8 @@
 <script>
 import {Message} from "element-ui";
 export default {
-
   name: "SalEpm",
   data() {
-    //税前工资
     return {
       emp: {
         id : "",
@@ -103,7 +101,6 @@ export default {
     this.initSalaries();
   },
   methods: {
-
     changeVal(val,params){
       console.log(val,params);
     },
@@ -117,15 +114,6 @@ export default {
           this.emps = resp.data;
         }
       })
-    },
-    state(row, column) {
-      return row.scale * 100
-    },
-    onchange(e){
-      // this.$refs.taxafter.value=e.ta
-      let val= e.target
-      console.log("aaaa")
-      console.log(val)
     },
     search(event){
       event.currentTarget.value

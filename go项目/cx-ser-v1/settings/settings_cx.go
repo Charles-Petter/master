@@ -10,6 +10,7 @@ import (
 func InitConfig() (v_cx *viper.Viper){
 	workDir_cx, _ := os.Getwd()
 	v_cx = viper.New()
+	//文件路径
 	v_cx.SetConfigName("application")
 	v_cx.SetConfigType("yml")
 	v_cx.AddConfigPath(workDir_cx + "/Config")
